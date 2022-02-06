@@ -1,7 +1,11 @@
+import json
+from posixpath import sep
 from django.shortcuts import render,get_object_or_404
 from django.core import serializers
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.db.models import Q
+from django.http import JsonResponse
+from django.core import serializers
 from .models import *
 # Create your views here.
 
@@ -37,6 +41,7 @@ def homeView(request):
 #@xframe_options_exempt
 #!DetailView
 def detailView(request,slug):
+    global x
     movie = get_object_or_404(Movie,slug_movie=slug)
     movies = Movie.objects.all()
     
@@ -62,14 +67,10 @@ def detailView(request,slug):
                     pass
                 else:
                     filmler.append(mc)
-        return filmler
-    moviecategory()
-    
+                    
+        jsonlanandata = serializers.serialize('json',filmler)
+        return JsonResponse({'jsonlanandata':jsonlanandata},safe=False)
         
-
+    moviecategory()
 
     return render(request,'movie/detailfilm.html',{'movie':movie,'filmler':filmler})
-
-
-
-

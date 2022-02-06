@@ -46,8 +46,11 @@
 							<div><a href="{{movie.video_movie.url}}" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
 						</div>
 						<div class="btn-transform transform-vertical">
-							<div><a href="#" class="item item-1 yellowbtn"> <i class="ion-card"></i> Buy ticket</a></div>
-							<div><a href="#" class="item item-2 yellowbtn"><i class="ion-card"></i></a></div>
+							<!-- <div><a href="#" class="item item-1 yellowbtn" id="biletaliram"> <i class="ion-card"></i> Buy ticket</a></div>
+							<div><a href="#" class="item item-2 yellowbtn"><i class="ion-card"></i></a></div> -->
+
+							<div><button class="yellowbtn" id="biletaliram"> <i class="ion-card"></i> Buy ticket</button></div>
+
 						</div>
 					</div>
 				</div>
@@ -235,8 +238,6 @@
 											<p>Found <span>56 reviews</span> in total</p>
 											<label>Filter by:</label>
 											<select>
-												<option value="popularity">Popularity Descending</option>
-												<option value="popularity">Popularity Ascending</option>
 												<option value="rating">Rating Descending</option>
 												<option value="rating">Rating Ascending</option>
 												<option value="date">Release date Descending</option>
@@ -484,7 +485,7 @@
 													<h6><a href="{% url 'movie:detailfilm' film.slug_movie %}">{{film.title_movie}} &nbsp; <span id="moviedate">{{film.date_created_movie}}</span></a></h6><!-- Burda bu deyer olmalidirki js terefine gedib split olunsun yeniden innerHtml ile span tagi yeni inline olan span taginin icine gomulsun -->
 													<p class="rate"><i class="ion-android-star"></i><span>{{film.avarage_ibdm}}</span> /10</p>
 													<p class="describe">{{film.description_movie|truncatechars:160}}</p>
-													<p class="run-time"> Run Time:{{film.video_time}} .<span>MMPA: {{film.mmpa_rating_movie}} </span> .<span>Release: {{film.date_created_movie}}</span></p>
+													<p class="run-time"> Run Time: {{film.video_time}} .<span>MMPA: {{film.mmpa_rating_movie}} </span> .<span>Release: {{film.date_created_movie}}</span></p>
 
 													<p>
 														Director:
