@@ -1,0 +1,27 @@
+1 => actyorun deillinde FILMOGRAPHY hisseinde JS ile ajax yazmlinsa listeleme ucun populyarlig uzre aktyorun oynadigi kinonun --> ya ajax jquery yadaki axios dan istifade ele
+2 => bir-iki  dene kino elave ele eslinde olan 10 dene dadasdadsadas
+3 => home.html de ---- SEE ALL CELEBRITIES duzeltmelisen yeni html seyfesi getirmelisen ora yeni butun aktyorlarin listelendiyi seyfe
+4 => filmin detalinde add to favoirite tiklayanda favoritlere elave etsin amma onun ucun profile lazimdir
+5 => verilen reqeme gore ulduz sayini yazdir
+6 => mail gonderme ele
+7 => facebbok ve google ile login ele
+
+kinolar 
+
+1)Southpaw+
+2)Harry Potter+
+3)Jurrasic Park+
+4)The Godfather+
+5)The Forest => mv-it5 olan sekili istifade et ve ya ikisinide yoxlayarsan ele+
+6)Inception+
+7)La La Land+
+8)Stranger Things+
+9)Spectre+
+10)Blue Velvet+
+11)Qalaktika kosmosa zada aid bir kino taparsan meselen => Marsli olar => mv-item7.jpg olan sekili istifade et + => marsli elave oldu ele
+
+12)Guardians of the Galaxy => mv-it11.jpg olan sekili istifade et +
+13)It => mv-it7.jpg olan skeili istifade et+
+14)Insterelarr => mv-item1 elave et sekil olarag
+
+sonra filmleri ontv ve thearge gore bol amma hamisni bir yere yig sonra ayilr ele bol sliderdaki filmleri cixart +

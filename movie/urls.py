@@ -4,5 +4,6 @@ from .views import *
 app_name = 'movie'
 
 urlpatterns = [
-    path('',homeView,name='home')
+    path('',homeView,name='home'),
+    path('<slug:slug>',detailView,name='detailfilm'),
 ]

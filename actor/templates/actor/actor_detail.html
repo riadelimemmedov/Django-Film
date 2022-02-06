@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!--!Header hissesi buraya ayri bir header.html seyfesi duzeldib ora qoy sonra include edersen base.html ya qoyarsan burani -->
+
+<!--end of header-->
+{% block title %}Actor{% endblock title %}
+
+<!-- ?CSS -->
+
+<!--!Login ve ya basqa isler-->
+<body>
+	<!--?Preloader Page-->
+
+	<!--!login form popup buranida navbar hissesine elave edersen-->
+	
+	<!--end of login form popup-->
+
+	<!-- !signup form popup buranida navbar hissesine elave edersen -->
+
+	<!--end of signup form popup-->
+
+	<!--! BEGIN | Header -->
+
+	<!-- END | Header -->
+    <!--Google Font-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+		integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+{% block content %}
+	<div class="hero hero3">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<!-- <h1> movie listing - list</h1>
+					<ul class="breadcumb">
+						<li class="active"><a href="#">Home</a></li>
+						<li> <span class="ion-ios-arrow-right"></span> movie listing</li>
+					</ul> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- celebrity single section-->
+
+	<div class="page-single movie-single cebleb-single">
+		<div class="container">
+			<div class="row ipad-width">
+				<div class="col-md-4 col-sm-12 col-xs-12">
+					<div class="mv-ceb">
+						{% if actor.image_actor %}
+							<img src="{{actor.image_actor.url}}" alt="">
+						{% else %}
+							<img src="{% static 'images/sekilyox.png' %}" alt="">
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-md-8 col-sm-12 col-xs-12">
+					<div class="movie-single-ct">
+						<h1 class="bd-hd">{{actor.first_name_actor|title}} {{actor.last_name_actor|title}}</h1>
+						<p class="ceb-single" style="margin-top:-15px !important;color:#ecf0f1 !important;">{{actor.duty_type_actor|title}}</p>
+						<div class="cebsingle-socail">
+							<a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook fa-lg"></i></a>
+							<a href="https://twitter.com/?lang=en" target="_blank" style="padding-left: 7px !important;" id="twittericonu"><i class="fa fa-twitter fa-lg"></i></a>
+							<a href="https://www.google.com/" target="_blank" style="padding-left:7px !important" id="googleplusiconu"><i class="fa fa-google-plus fa-lg"></i></a>
+							<a href="https://www.linkedin.com/" target="_blank" style="padding-left:7px !important" id="linkediniconu"><i class="fa fa-linkedin fa-lg"></i></a>
+						</div>
+						<div class="movie-tabs">
+							<div class="tabs">
+								<ul class="tab-links tabs-mv">
+									<li class="active" id="activeolanpage"><a href="#overviewceb">Overview</a></li>
+									<li id="activeolanbiography"><a href="#biography"> biography</a></li>
+									<li><a href="#filmography">filmography</a></li>                        
+								</ul>
+								<div class="tab-content">
+									
+									
+									<div id="overviewceb" class="tab active" style="margin-top: 40px !important">	
+										<div class="row">
+											<div class="col-md-8 col-sm-12 col-xs-12">
+												<p class="text-capitalize">{{actor.biography_actor|truncatewords:50}}</p>
+												<p class="time"><a href="" id="seefullbio">See full bio <i class="ion-ios-arrow-right"></i></a></p>
+												<div class="title-hd-sm">
+													<h4>filmography</h4>
+
+												</div>
+												<!-- movie cast -->
+												<div class="mvcast-item">	
+													{% for mra in movies_role_actor %}									
+														<div class="cast-it">
+															<div class="cast-left cebleb-film">
+																<a href="{% url 'movie:detailfilm' mra.slug_movie %}" style="cursor:pointer !important;">
+																	<img src="{{mra.image_movie.url}}" width="55px !important" height="77px !important" alt="">
+																</a>
+																<div>
+																	<a href="{% url 'movie:detailfilm' mra.slug_movie %}">{{mra.title_movie}}</a>
+																	<p class="time">{{mra.mmpa_rating_movie}}</p>
+																</div>
+																
+															</div>
+															<p>...  {{mra.date_created_movie}}</p>
+														</div>
+													{% endfor %}
+												</div>
+											</div>
+											<div class="col-md-4 col-xs-12 col-sm-12">
+												<div class="sb-it">
+													<h6>Fullname:  </h6>
+													<p><a href="{{request.path}}">{{actor.first_name_actor|title}} &nbsp;{{actor.last_name_actor|title}}</a></p>
+												</div>
+												<div class="sb-it">
+													<h6>Date of Birth: </h6>
+													<p>{{actor.date_of_birth_actor}}</p>
+												</div>
+												<div class="sb-it">
+													<h6>Country:  </h6>
+													<p>{{actor.country_actor}}</p>
+												</div>
+												<div class="sb-it">
+													<h6>Height:</h6>
+													<p>{{actor.height_actor}} m
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<div id="biography" class="tab">
+									<div class="row">
+											<div class="rv-hd">
+												<div>
+													<h3 style="margin-top: 7px !important;">Biography of</h3>
+													<h2>{{actor.first_name_actor|title}} &nbsp; {{actor.last_name_actor|title}}</h2>
+												</div>							            						
+											</div>
+											<p>
+												{{actor.biography_actor}}
+											</p>
+										</div>
+									</div>
+
+
+									<div id="filmography" class="tab">
+										<div class="row">
+											<div class="rv-hd">
+												<div>
+													<h3 style="margin-top: 7px !important;">Biography of</h3>
+													<h2>{{actor.first_name_actor|title}}&nbsp;{{actor.last_name_actor|title}}</h2>
+												</div>
+											
+											</div>
+											<div class="topbar-filter">
+												<p>Found <span>{{movies_role_actor|length}} movies</span> in total</p>
+												<label>Filter by:</label>
+												<select>
+													<option value="popularity">Popularity Descending</option>
+													<option value="popularity">Popularity Ascending</option>
+													<option value="rating">Rating Descending</option>
+													<option value="rating">Rating Ascending</option>
+													<option value="date">Release date Descending</option>
+													<option value="date">Release date Ascending</option>
+												</select>
+											</div>
+											<!-- movie cast -->
+											<div class="mvcast-item">	
+											{% for mra in movies_role_actor %}										
+												<div class="cast-it">
+													<div class="cast-left cebleb-film">
+														<a href="{% url 'movie:detailfilm' mra.slug_movie %}" style="cursor:pointer !important;">
+															<img src="{{mra.image_movie.url}}" width="55px !important" height="77px !important" alt="">
+														</a>
+														<div>
+															<a href="{% url 'movie:detailfilm' mra.slug_movie %}">{{mra.title_movie}}</a>
+															<p class="time">{{mra.mmpa_rating_movie}}</p>
+														</div>
+														
+													</div>
+													<p>...  {{mra.date_created_movie}}</p>
+												</div>
+											{% endfor %}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+<!-- celebrity single section-->
+</body>
+{% endblock content %}
+
+{% block scripts %}
+	<script type="text/javascript" src="{% static 'actor/actordetail.js' %}" defer></script>
+{% endblock scripts %}
+
+<!-- celebritysingle12:18-->
+</html>
