@@ -4,7 +4,7 @@ from django.shortcuts import render,get_object_or_404
 from django.core import serializers
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from .models import *
 # Create your views here.
@@ -40,8 +40,8 @@ def homeView(request):
 
 #@xframe_options_exempt
 #!DetailView
+returnajaxvalue = None
 def detailView(request,slug):
-    global x
     movie = get_object_or_404(Movie,slug_movie=slug)
     movies = Movie.objects.all()
     
@@ -68,9 +68,19 @@ def detailView(request,slug):
                 else:
                     filmler.append(mc)
                     
-        jsonlanandata = serializers.serialize('json',filmler)
-        return JsonResponse({'jsonlanandata':jsonlanandata},safe=False)
-        
+    #!Post request Ajax
+    if request.method == 'POST':
+        targetvalueselect = request.POST.get('targetvalueselect')
+        order_film_imbd = []
+        if targetvalueselect == 'ratingdesc':#desc yeni coxdan => aza dogru
+            ratingdesc = list(relatedmovie.exclude(slug_movie=slug).order_by('-avarage_ibdm').values())
+            returnajaxvalue = ratingdesc
+            print('Coxdan Aza siralandi', ratingdesc)#!Coxdan Aza siralandi <QuerySet [<Movie: La La Land>, <Movie: Guardians of the Galaxy>]>
+            return JsonResponse({'ratingdesc':ratingdesc},safe=False)
+        elif targetvalueselect == 'ratingasc':#eger ratingasc dirse yeni azdan => coxadir
+            ratingasc = list(relatedmovie.exclude(slug_movie=slug).order_by('avarage_ibdm').values())
+            returnajaxvalue = ratingasc
+            print('Azdan Coxa Siralandi',returnajaxvalue)
+            return JsonResponse({'ratingasc':ratingasc},safe=False)
     moviecategory()
-
     return render(request,'movie/detailfilm.html',{'movie':movie,'filmler':filmler})

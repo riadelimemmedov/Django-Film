@@ -475,15 +475,29 @@
 					       	 		<div class="row">
 					       	 			<h3>Related Movies To</h3>
 					       	 			<h2>{{movie.title_movie}}</h2>
-					       	 			<div class="topbar-filter">
+					       	 			<div class="topbar-filter"><!-- Topbar Burda -->
 											<p>Found <span>{{filmler|length}} movies</span> in total</p>
+											
+											<form action="" id="relatedfilmajax">
+												<label>	Sort by:</label>
+												<select id="sortlaformagore">
+													<option value="">Options</option>
+													<hr>
+													<option value="ratingdesc">Rating Descending</option>
+													<option value="ratingasc">Rating Ascending</option>
+													<option value="date">Release date Descending</option>
+													<option value="date">Release date Ascending</option>
+												</select>
+											</form>
+
 										</div>
+
 										{% for film in filmler %}
-											<div class="movie-item-style-2">
+											<div class="movie-item-style-2" id="films-related-area">
 												<img src="{{film.image_movie.url}}" style="width: 170px;height: 261px;" alt="">
 												<div class="mv-item-infor">
 													<h6><a href="{% url 'movie:detailfilm' film.slug_movie %}">{{film.title_movie}} &nbsp; <span id="moviedate">{{film.date_created_movie}}</span></a></h6><!-- Burda bu deyer olmalidirki js terefine gedib split olunsun yeniden innerHtml ile span tagi yeni inline olan span taginin icine gomulsun -->
-													<p class="rate"><i class="ion-android-star"></i><span>{{film.avarage_ibdm}}</span> /10</p>
+													<p class="rate"><i class="ion-android-star"></i><span class="filmajaxrayting">{{film.avarage_ibdm}}</span> /10</p>
 													<p class="describe">{{film.description_movie|truncatechars:160}}</p>
 													<p class="run-time"> Run Time: {{film.video_time}} .<span>MMPA: {{film.mmpa_rating_movie}} </span> .<span>Release: {{film.date_created_movie}}</span></p>
 
@@ -519,7 +533,7 @@
 </div>
 
 	{% block scripts %}
-		<script type="text/javascript" src="{% static 'movie/detailfilm.js' %}" defer></script>
+		<script type="text/javascript" src="{% static 'movie/detailfilm.js' %}" defer></script>	
 	{% endblock scripts %}
 </html>
 </body>

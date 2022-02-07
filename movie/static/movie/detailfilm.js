@@ -15,24 +15,57 @@ document.getElementById('moviedate').innerHTML = moviedatetext
 
 const currenturl = window.location.href
 
+const relatedfilmajax = document.getElementById('relatedfilmajax')
+const sortlaformagore = document.getElementById('sortlaformagore')
 const biletaliram = document.getElementById('biletaliram')
-// console.log(biletaliram);
-// biletaliram.addEventListener('click',(e)=>{
-//     e.preventDefault()
-//     console.log('noldu amk')
-// })
+const filmsRelatedArea = document.getElementById('films-related-area')
+console.log(filmsRelatedArea)
 
-biletaliram.addEventListener('click',(e)=>{
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
+
+//!Burdan davam eleyerse InsaAllah
+sortlaformagore.addEventListener('change',(e)=>{
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url:currenturl,
+        data:{
+            'csrfmiddlewaretoken':csrftoken,
+            'targetvalueselect':e.target.value,
+        },
         success:function(response){
-            console.log('Detail AJAX indan gelirem ve isleyirem')
-            //console.log(response.jsonlanandata)
-            console.log(response.jsonlanandata)
+            console.log('Isledi')
+            const ratingdesc = response.ratingdesc
+            const ratingasc = response.ratingasc
+
+            if(ratingdesc){
+                console.log('Yalniz DESC Isledi')
+                console.log(ratingdesc)
+            }
+            else if(ratingasc){
+                console.log('Yalniz ASC isledi')
+                console.log(ratingasc)
+            }
+
         },
         error:function(err){
-            console.log('HATA')
+            console.log(err)
         }
     })
 })
