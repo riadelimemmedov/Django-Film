@@ -73,14 +73,17 @@ def detailView(request,slug):
         targetvalueselect = request.POST.get('targetvalueselect')
         order_film_imbd = []
         if targetvalueselect == 'ratingdesc':#desc yeni coxdan => aza dogru
-            ratingdesc = list(relatedmovie.exclude(slug_movie=slug).order_by('-avarage_ibdm').values())
+            #ratingdesc = list(relatedmovie.exclude(slug_movie=slug).order_by('-avarage_ibdm').values())
+            ratingdesc = serializers.serialize('json',set(relatedcategorymovie))
+            print(len(relatedcategorymovie))
+            print('################################################################')
             returnajaxvalue = ratingdesc
-            print('Coxdan Aza siralandi', ratingdesc)#!Coxdan Aza siralandi <QuerySet [<Movie: La La Land>, <Movie: Guardians of the Galaxy>]>
+            #print('Coxdan Aza siralandi', ratingdesc)#!Coxdan Aza siralandi <QuerySet [<Movie: La La Land>, <Movie: Guardians of the Galaxy>]>
             return JsonResponse({'ratingdesc':ratingdesc},safe=False)
         elif targetvalueselect == 'ratingasc':#eger ratingasc dirse yeni azdan => coxadir
             ratingasc = list(relatedmovie.exclude(slug_movie=slug).order_by('avarage_ibdm').values())
             returnajaxvalue = ratingasc
-            print('Azdan Coxa Siralandi',returnajaxvalue)
+            print('Azdan Coxa Siralandi',ratingasc)
             return JsonResponse({'ratingasc':ratingasc},safe=False)
     moviecategory()
     return render(request,'movie/detailfilm.html',{'movie':movie,'filmler':filmler})

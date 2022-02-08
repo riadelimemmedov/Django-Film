@@ -19,7 +19,12 @@ const relatedfilmajax = document.getElementById('relatedfilmajax')
 const sortlaformagore = document.getElementById('sortlaformagore')
 const biletaliram = document.getElementById('biletaliram')
 const filmsRelatedArea = document.getElementById('films-related-area')
-console.log(filmsRelatedArea)
+const loadingrelatedfilmloader = document.getElementById('loadingrelatedfilmloader').firstElementChild
+const allrelatedfilmlistdiv = document.getElementById('allrelatedfilmlistdiv')
+//console.log(loadingrelatedfilmloader.classList);
+const homeurl = window.location.href.substring(0,window.location.href.lastIndexOf('/'))//yeni en sonuncu / buna qederkini getir
+const imageurl = `${homeurl}/media`
+console.log(imageurl);
 
 
 function getCookie(name) {
@@ -50,19 +55,88 @@ sortlaformagore.addEventListener('change',(e)=>{
             'targetvalueselect':e.target.value,
         },
         success:function(response){
-            console.log('Isledi')
-            const ratingdesc = response.ratingdesc
+            const ratingdesc = response.ratingdesc //Burda sortlamag lazimdir gelen imdb deyerlerini azdan coxa dogru
             const ratingasc = response.ratingasc
 
+            console.log('Siralanmamamis Json')
+            console.log(JSON.parse(ratingdesc))// => burda 14 kino var
+
+            console.log('##########################################')
+            let sorteddatata = JSON.parse(ratingdesc)
+            //let netice =  sorteddatata.slice().sort((a,b)=>b.)
+            console.log('Siralanmis Json')
+
+
+
+            var isActive = true
             if(ratingdesc){
                 console.log('Yalniz DESC Isledi')
-                console.log(ratingdesc)
+                loadingrelatedfilmloader.classList.add('active')
+                if(isActive == true){
+                    setTimeout(()=>{
+                        loadingrelatedfilmloader.classList.remove('active')
+                        isActive = false
+                        if(isActive==false){
+                            //console.log('False olan hisse')
+                            //console.log('Bura settime un 2 hissei deyesen')
+                            //console.log('////////////////////////////////////////////////////////////////////////////////////////////////')
+                            //console.log('Allrelated film dolu olanda',allrelatedfilmlistdiv)
+                            //allrelatedfilmlistdiv.innerHTML = ''
+                            //console.log('Allrelated bosaldi',allrelatedfilmlistdiv.innerHTML)
+                            for(let i=0;i<ratingdesc.length;i++){
+                                const description_movie = ratingdesc[i]['description_movie']
+                                //console.log(description_movie.length)
+        
+                                
+                                
+                                // console.log(ratingdesc[i]['image_movie']);
+                                // console.log(`${homeurl}/media/${ratingdesc[i]['image_movie']}`)
+                                //console.log('Doludu Heleki')
+                                allrelatedfilmlistdiv.innerHTML += `
+                                
+                                <div class="movie-item-style-2" id="films-related-area">
+                                    <img src="${homeurl}/media/${ratingdesc[i]['image_movie']}" style="width: 170px;height: 261px;" alt="">
+                                    <div class="mv-item-infor">
+                                        <h6><a href="${homeurl}/${ratingdesc[i].slug_movie}">${ratingdesc[i].title_movie} &nbsp; <span id="moviedate">${ratingdesc[i].date_created_movie}</span></a></h6><!-- Burda bu deyer olmalidirki js terefine gedib split olunsun yeniden innerHtml ile span tagi yeni inline olan span taginin icine gomulsun -->
+                                        <p class="rate"><i class="ion-android-star"></i><span class="filmajaxrayting">${ratingdesc[i].avarage_ibdm}</span> /10</p>
+                                        <p class="describe">${ratingdesc[i].description_movie.substring(0,300)}</p>
+                                        <p class="run-time"> Run Time: {{film.video_time}} .<span>MMPA: {{film.mmpa_rating_movie}} </span> .<span>Release: {{film.date_created_movie}}</span></p>
+
+                                        <p>
+                                            Director:
+                                            {% for actor in film.actor_movie.all %}
+                                                {% if actor.duty_type_actor == 'Director' %}	
+                                                    <a href="{% url 'actor:actorDetailView' actor.slug_actor  %}">{{actor.first_name_actor|title}}&nbsp; {{actor.last_name_actor|title}}</a>,
+                                                {% endif %}
+                                            {% endfor %}
+                                        </p>
+
+                                        <p style="display: inline;">
+                                            Stars: 
+                                            {% for actor in film.actor_movie.all %}
+                                                    {% if actor.duty_type_actor == 'Actorisa' %}
+                                                        <a href="{% url 'actor:actorDetailView' actor.slug_actor  %}">{{actor.first_name_actor|title}}&nbsp; {{actor.last_name_actor|title}}</a>,
+                                                    {% endif %}
+                                            {% endfor %}
+                                        </p>
+                                    </div>
+                                </div>
+                            `
+                            }
+                            //e.target.value = ''//cunki optionsun value deyeri ele '' bos stringe beraberdir
+                        }
+                    },3000)}
+                    
+
             }
+
+                    
+                    //allrelatedfilmlistdiv.classList.add('d-none')
+
             else if(ratingasc){
                 console.log('Yalniz ASC isledi')
                 console.log(ratingasc)
             }
-
         },
         error:function(err){
             console.log(err)

@@ -1,6 +1,8 @@
 1 => actyorun deillinde FILMOGRAPHY hisseinde JS ile ajax yazmlinsa listeleme ucun populyarlig uzre aktyorun oynadigi kinonun --> ya ajax jquery yadaki axios dan istifade ele
 neye gore siralamag lazimdir ? => filmin imdb deyeri ve cixma tarixine gore cixma tarixinsde ile bax digerlerine baxmaga ehtiyac yoxdur
 
+ve film siralanandan sonra default qaytar selectin deyerini
+
 //////////
 Mulholland Drive => in categoriyasini sonra duzelt yadda qalsin yeni
 /////////

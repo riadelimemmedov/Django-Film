@@ -4,10 +4,17 @@
 
 {% block title %} {{movie.title_movie}} {% endblock title %}
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
 <body>
 {% block content %}
 
 <style>
+
+	.d-none{
+		display: none;
+	}
 
 	#writereview{
 		color:#fff !important;
@@ -492,6 +499,7 @@
 
 										</div>
 
+										<div id="allrelatedfilmlistdiv">
 										{% for film in filmler %}
 											<div class="movie-item-style-2" id="films-related-area">
 												<img src="{{film.image_movie.url}}" style="width: 170px;height: 261px;" alt="">
@@ -521,6 +529,18 @@
 												</div>
 											</div>
 										{% endfor %}
+
+										<div class="ui" style="margin-top: 450px !important;" id="loadingrelatedfilmloader">
+											<div class="ui dimmer" style="color:#fff !important"><!--active classini cixardarsan burdan-->
+											  <div class="ui medium text loader">Loading</div>
+											</div>
+											<p></p>
+											<p></p>
+											<p></p>
+										</div>
+
+										</div>
+
 					       	 		</div>
 					       	 	</div>
 						    </div>

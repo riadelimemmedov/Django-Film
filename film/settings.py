@@ -127,6 +127,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')
 ]
 
+#ctrl+j => ile terminali acib baglaya bilirsen vs codda => ctrl+j ile yadda saxla
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
