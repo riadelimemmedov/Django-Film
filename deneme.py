@@ -31,11 +31,50 @@
 # netice = [i for i in range(20)] => Bu cur yazilis GENERATOR ola bilmez
 #?eger list comprehension ile decorator yazmag isteyirnsense list yox tuple yeni demetlerden istifade ele =? () yeni bu es6 syxtax sal yadiva => yadda saxla tuple
 #?eger generatordaki deyeri ekrana yazdirmag isteyirsense => next() den istifade et iteratorlardaki kimi
-netice = (i for i in range(1,10))
-print(next(netice))
-print(next(netice))
-print(next(netice))
-print(next(netice))
-print(next(netice))
+# netice = (i for i in range(1,10))
+# print(next(netice))
+# print(next(netice))
+# print(next(netice))
+# print(next(netice))
+# print(next(netice))
 
 
+#!Nested function Pythonda yeni encapsulation deyilir buna nested functionlata yeni
+# def function1():
+#     print('Hello OUTER function')
+#     def function2():
+#         print('hello INNER function')
+#     function2()
+# function1()
+
+# def col_funksiya(sayi1):
+#     print('Col funkciyasi isleyir',sayi1)
+#     def iceri_funksiya(sayi2):
+#         print('Iceri funksiya isleyir',sayi2)
+#     iceri_funksiya(10)
+# col_funksiya(15)
+
+# def faktorial(sayifaktoreial):
+#     def icfaktorial(sayi):
+#         if(sayi<=1):
+#             return 1
+#         return sayi * icfaktorial(sayi-1)
+#     return icfaktorial(sayifaktoreial)#5
+    
+# print(faktorial(5))
+
+def faktorial(number):
+    if not isinstance(number,int):
+        raise TypeError('Girdiginiz veri tamsayi olmlaididir')
+    if not number>=0:#yeni eger gonderilen deyer 0 dan boyuk deyilse not number>=0 yeni
+        raise ValueError('Girdihiniz sayi sifirdan buyuk olmalidir')#js de xeta atmag ucun throw dan istifade olunur
+    def icerifaktorial(disfuncgelendeyer):
+        if disfuncgelendeyer <=1:
+            return 1
+        return disfuncgelendeyer * icerifaktorial(disfuncgelendeyer-1)
+    return icerifaktorial(number)
+
+try:
+    print(faktorial(-5))
+except Exception as e:
+    print('Gelen xeta {}'.format(e))

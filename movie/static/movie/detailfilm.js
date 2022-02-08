@@ -59,7 +59,18 @@ sortlaformagore.addEventListener('change',(e)=>{
             const ratingasc = response.ratingasc
 
             console.log('Siralanmamamis Json')
-            console.log(JSON.parse(ratingdesc))// => burda 14 kino var
+            const a = JSON.parse(ratingdesc)// => burda 14 kino var
+            a.forEach(function(item){
+                let x = (item['fields']['avarage_ibdm']);
+                console.log(parseFloat(x))
+            })
+
+            console.log('Siralanmis Json')
+            let z = a.slice().sort((a,b)=>b['fields']['avarage_ibdm']-a['fields']['avarage_ibdm'])
+            z.forEach(function(item1){
+                // console.log(item1['fields']['avarage_ibdm']);
+                console.log(item1['fields']['avarage_ibdm'].length)
+            })
 
             console.log('##########################################')
             let sorteddatata = JSON.parse(ratingdesc)
