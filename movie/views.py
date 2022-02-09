@@ -6,6 +6,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
+from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 from .models import *
 # Create your views here.
 
@@ -60,6 +61,7 @@ def detailView(request,slug):
             relatedmovie = Movie.objects.filter(Q(category_movie=category)).distinct()
             relatedcategorymovie += relatedmovie
     filmler = []
+    paged_film = None
     def moviecategory():
         for mc in list(dict.fromkeys(relatedcategorymovie)):
             if str(movie.title_movie) != str(mc):
@@ -67,7 +69,16 @@ def detailView(request,slug):
                     pass
                 else:
                     filmler.append(mc)
-                    
+        return filmler
+    allfilmlist = moviecategory()
+    paginator = Paginator(allfilmlist,3)
+    page = request.GET.get('page')
+    paged_film = paginator.get_page(page)
+    print(paginator.num_pages)
+    #print(filmler)
+    print(paged_film)
+        
+
     #!Post request Ajax
     if request.method == 'POST':
         targetvalueselect = request.POST.get('targetvalueselect')
@@ -75,15 +86,16 @@ def detailView(request,slug):
         if targetvalueselect == 'ratingdesc':#desc yeni coxdan => aza dogru
             #ratingdesc = list(relatedmovie.exclude(slug_movie=slug).order_by('-avarage_ibdm').values())
             ratingdesc = serializers.serialize('json',set(relatedcategorymovie))
-            print(len(relatedcategorymovie))
-            print('################################################################')
+            #print(len(relatedcategorymovie))
+            #print('################################################################')
             returnajaxvalue = ratingdesc
             #print('Coxdan Aza siralandi', ratingdesc)#!Coxdan Aza siralandi <QuerySet [<Movie: La La Land>, <Movie: Guardians of the Galaxy>]>
             return JsonResponse({'ratingdesc':ratingdesc},safe=False)
         elif targetvalueselect == 'ratingasc':#eger ratingasc dirse yeni azdan => coxadir
-            ratingasc = list(relatedmovie.exclude(slug_movie=slug).order_by('avarage_ibdm').values())
+            #ratingasc = list(relatedmovie.exclude(slug_movie=slug).order_by('avarage_ibdm').values())
+            ratingasc = serializers.serialize('json',set(relatedcategorymovie))
             returnajaxvalue = ratingasc
-            print('Azdan Coxa Siralandi',ratingasc)
+            #print('Azdan Coxa Siralandi',ratingasc)
             return JsonResponse({'ratingasc':ratingasc},safe=False)
-    moviecategory()
-    return render(request,'movie/detailfilm.html',{'movie':movie,'filmler':filmler})
+    #moviecategory()
+    return render(request,'movie/detailfilm.html',{'movie':movie,'filmler':paged_film,'paged_film_last':paginator.num_pages})

@@ -5,6 +5,8 @@
 {% block title %} {{movie.title_movie}} {% endblock title %}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+		integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 
 
 <body>
@@ -91,10 +93,10 @@
 					<div class="movie-tabs">
 						<div class="tabs">
 							<ul class="tab-links tabs-mv">
-								<li class="active"><a href="#overview">Overview</a></li>
+								<li class="active" id="activeolanpage"><a href="#overview">Overview</a></li>
 								<li><a href="#reviews"> Reviews</a></li>
 								<li><a href="#cast">  Cast & Crew </a></li>
-								<li><a href="#moviesrelated"> Related Movies</a></li>                        
+								<li id="activeolanrelatedmovie"><a href="#moviesrelated"> Related Movies</a></li>                        
 							</ul>
 						    <div class="tab-content">
 						        <div id="overview" class="tab active">
@@ -529,6 +531,26 @@
 												</div>
 											</div>
 										{% endfor %}
+													
+										<div class="topbar-filter">
+											<label>Movies Pagination:</label>
+												<div class="pagination2">
+													<span>Page {{paged_film|cut:""}}</span>
+													{% for i in filmler.paginator.page_range %}
+														{% if filmler.number == i %}
+															{% if paged_film_last %}
+																<a class="active seyfeleme" id="halhazirseyfe" href="" style="margin-right: 15px;">{{i}}</a>
+															{% else %}
+																<a class="active seyfeleme" href="" style="margin-left: 15px;">{{i}}</a>
+															{% endif %}
+
+														{% else %}
+															<a class="seyfeleme" href="?page={{i}}">{{i}}<a/>
+														{% endif %}
+													{% endfor %}
+												</div>
+											
+										</div>
 
 										<div class="ui" style="margin-top: 450px !important;" id="loadingrelatedfilmloader">
 											<div class="ui dimmer" style="color:#fff !important"><!--active classini cixardarsan burdan-->
@@ -540,6 +562,8 @@
 										</div>
 
 										</div>
+
+
 
 					       	 		</div>
 					       	 	</div>
@@ -553,7 +577,7 @@
 </div>
 
 	{% block scripts %}
-		<script type="text/javascript" src="{% static 'movie/detailfilm.js' %}" defer></script>	
+		<script type="text/javascript" src="{% static 'movie/detailfilm.js' %}" defer></script>
 	{% endblock scripts %}
 </html>
 </body>
