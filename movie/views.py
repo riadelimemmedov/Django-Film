@@ -1,4 +1,5 @@
 import json
+from math import radians
 from posixpath import sep
 from django.shortcuts import render,get_object_or_404
 from django.core import serializers
@@ -74,9 +75,9 @@ def detailView(request,slug):
     paginator = Paginator(allfilmlist,3)
     page = request.GET.get('page')
     paged_film = paginator.get_page(page)
-    print(paginator.num_pages)
-    #print(filmler)
-    print(paged_film)
+    # print(paginator.num_pages)
+    # #print(filmler)
+    # print(paged_film)
         
 
     #!Post request Ajax
@@ -90,12 +91,22 @@ def detailView(request,slug):
             #print('################################################################')
             returnajaxvalue = ratingdesc
             #print('Coxdan Aza siralandi', ratingdesc)#!Coxdan Aza siralandi <QuerySet [<Movie: La La Land>, <Movie: Guardians of the Galaxy>]>
-            return JsonResponse({'ratingdesc':ratingdesc},safe=False)
+            dolumurating_desc = False
+            if(ratingdesc):
+                dolumurating_desc = True
+            else:
+                dolumurating_desc = False
+            return JsonResponse({'ratingdesc':ratingdesc,'dolumurating_desc':dolumurating_desc},safe=False)
         elif targetvalueselect == 'ratingasc':#eger ratingasc dirse yeni azdan => coxadir
             #ratingasc = list(relatedmovie.exclude(slug_movie=slug).order_by('avarage_ibdm').values())
             ratingasc = serializers.serialize('json',set(relatedcategorymovie))
             returnajaxvalue = ratingasc
             #print('Azdan Coxa Siralandi',ratingasc)
-            return JsonResponse({'ratingasc':ratingasc},safe=False)
+            dolumurating_asc=False
+            if(ratingasc):
+                dolumurating_asc = True
+            elif(ratingasc==''):
+                dolumurating_asc = False
+            return JsonResponse({'ratingasc':ratingasc,'dolumurating_asc':dolumurating_asc},safe=False)
     #moviecategory()
     return render(request,'movie/detailfilm.html',{'movie':movie,'filmler':paged_film,'paged_film_last':paginator.num_pages})

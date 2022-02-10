@@ -55,8 +55,13 @@ const relatedfilmajax = document.getElementById('relatedfilmajax')
 const sortlaformagore = document.getElementById('sortlaformagore')
 const biletaliram = document.getElementById('biletaliram')
 const filmsRelatedArea = document.getElementById('films-related-area')
-const loadingrelatedfilmloader = document.getElementById('loadingrelatedfilmloader').firstElementChild
+//const loadingrelatedfilmloader = document.getElementById('loadingrelatedfilmloader').firstElementChild
+
+const loadingrelatedfilmloader = document.getElementById('loadingrelatedfilmloader')
+console.log(loadingrelatedfilmloader);
+
 const allrelatedfilmlistdiv = document.getElementById('allrelatedfilmlistdiv')
+const loadingrelatedfilmloader2 = document.getElementById('loadingrelatedfilmloader2')
 //console.log(loadingrelatedfilmloader.classList);
 const homeurl = window.location.href.substring(0,window.location.href.lastIndexOf('/'))//yeni en sonuncu / buna qederkini getir
 const imageurl = `${homeurl}/media`
@@ -82,7 +87,8 @@ const csrftoken = getCookie('csrftoken');
 
 
 //!Burdan davam eleyerse InsaAllah
-sortlaformagore.addEventListener('change',(e)=>{
+var countajax = 0
+const handleGetData = () => sortlaformagore.addEventListener('change',(e)=>{
     $.ajax({
         type: 'POST',
         url:currenturl,
@@ -93,14 +99,32 @@ sortlaformagore.addEventListener('change',(e)=>{
         success:function(response){
             const jsondataratingdesc = response.ratingdesc //Burda sortlamag lazimdir gelen imdb deyerlerini azdan coxa dogru
             const jsondataratingasc = response.ratingasc
+
+            const dolumuratingdesc = response.dolumurating_desc
+            const dolumuratingasc = response.dolumurating_asc
+
             
+            function handleBackData(dolumuRatingDesc,dolumuRatingAsc){
+                if(dolumuratingdesc && dolumuratingasc==undefined){
+                    var ratingdescmovielist = JSON.parse(jsondataratingdesc)
+                    var ratingdesc  = ratingdescmovielist.slice().sort((a,b)=>b['fields']['avarage_ibdm']-a['fields']['avarage_ibdm'])
+                    console.log('Dolumurating DESC blogu calisti');
+                    return ratingdesc
+                }
+                else if(dolumuratingasc && dolumuratingdesc==undefined){
+                    var ratingascmovielist = JSON.parse(jsondataratingasc)
+                    var ratingasc = ratingascmovielist.slice().sort((a,b)=>a['fields']['avarage_ibdm']-b['fields']['avarage_ibdm'])
+                    console.log('Dolumuneyseneyse ASC blogu calisti');
+                    return ratingasc
+                }
+            }
+            const returnDataHandleBackData =  handleBackData(dolumuratingdesc,dolumuratingasc)
+            console.log('Data Geriye Dodnu Funksiyadan',returnDataHandleBackData)
+            
+        
 
-            const ratingdescmovielist = JSON.parse(jsondataratingdesc)
-            const ratingascmovielist = JSON.parse(jsondataratingasc)
-            console.log(ratingascmovielist);
 
-
-            let ratingdesc  = ratingdescmovielist.slice().sort((a,b)=>b['fields']['avarage_ibdm']-a['fields']['avarage_ibdm'])
+            // let ratingdesc  = ratingdescmovielist.slice().sort((a,b)=>b['fields']['avarage_ibdm']-a['fields']['avarage_ibdm'])
             //console.log(ratingdesc);
 
 
@@ -113,15 +137,23 @@ sortlaformagore.addEventListener('change',(e)=>{
             //     console.log(item1['fields']['avarage_ibdm'])
             // })
 
-
-            const listArray = []
             var isActive = true
-            if(ratingdesc){
-                console.log('Yalniz DESC Isledi')
+            if(returnDataHandleBackData){
+                //console.log('Spinner Evvel',loadingrelatedfilmloader);
+                //loadingrelatedfilmloader.classList.add('active')
                 loadingrelatedfilmloader.classList.add('active')
+                console.log(loadingrelatedfilmloader);
+                //console.log('Spinnner Sonra',loadingrelatedfilmloader);
                 if(isActive == true){
+                    console.log('TimeOut EVVEL IsActive',isActive);
                     setTimeout(()=>{
+                        //console.log('Spinnner SetTimeOut Evveli',loadingrelatedfilmloader);
+                        //loadingrelatedfilmloader.classList.remove('active')
+
+                        //loadingrelatedfilmloader.classList.remove('active')
+                        //console.log('Spinnner SetTimeOut Sonrasi',loadingrelatedfilmloader);
                         loadingrelatedfilmloader.classList.remove('active')
+                        console.log(loadingrelatedfilmloader);
                         isActive = false
                         if(isActive==false){
                             //console.log('False olan hisse')
@@ -130,20 +162,19 @@ sortlaformagore.addEventListener('change',(e)=>{
                             //console.log('Allrelated film dolu olanda',allrelatedfilmlistdiv)
                             allrelatedfilmlistdiv.innerHTML = ''
                             //console.log('Allrelated bosaldi',allrelatedfilmlistdiv.innerHTML)
-                            for(let i=0;i<ratingdesc.length;i++){
-                                const description_movie = ratingdesc[i]['description_movie']
-                                const a = ratingdesc[i]['fields']['avarage_ibdm']
+                            for(let i=0;i<returnDataHandleBackData.length;i++){
+                                const description_movie = returnDataHandleBackData[i]['description_movie']
+                                const a = returnDataHandleBackData[i]['fields']['avarage_ibdm']
                                 
-                                let imagemovie = `${homeurl}/media/${ratingdesc[i]['fields']['image_movie']}`
-                                let ratingurl = `${homeurl}/${ratingdesc[i]['fields']['slug_movie']}`
-                                let titlemovie = ratingdesc[i]['fields']['title_movie']
-                                let createddatemovie = ratingdesc[i]['fields']['date_created_movie']
-                                let avarageimdb = ratingdesc[i]['fields']['avarage_ibdm']
-                                let descriptionmovie = ratingdesc[i]['fields']['description_movie']
-                                let filmvideotime = ratingdesc[i]['fields']['video_time']
-                                let mmparatingmovie = ratingdesc[i]['fields']['mmpa_rating_movie'] 
+                                let imagemovie = `${homeurl}/media/${returnDataHandleBackData[i]['fields']['image_movie']}`
+                                let ratingurl = `${homeurl}/${returnDataHandleBackData[i]['fields']['slug_movie']}`
+                                let titlemovie = returnDataHandleBackData[i]['fields']['title_movie']
+                                let createddatemovie = returnDataHandleBackData[i]['fields']['date_created_movie']
+                                let avarageimdb = returnDataHandleBackData[i]['fields']['avarage_ibdm']
+                                let descriptionmovie = returnDataHandleBackData[i]['fields']['description_movie']
+                                let filmvideotime = returnDataHandleBackData[i]['fields']['video_time']
+                                let mmparatingmovie = returnDataHandleBackData[i]['fields']['mmpa_rating_movie'] 
 
-                                console.log(ratingdesc[i]['fields']['actor_movie']['duty_type_actor'])
                                 
                                 //console.log(description_movie.length)
         
@@ -165,25 +196,32 @@ sortlaformagore.addEventListener('change',(e)=>{
                                 </div>
                             `
                             }
-                            e.target.value = '' //cunki optionsun value deyeri ele '' bos stringe beraberdir
+                            //e.target.value = '' //cunki optionsun value deyeri ele '' bos stringe beraberdir
+                            // ve ya selectedIndex den istifade ede bilersen
+                            sortlaformagore.selectedIndex = 0
+                            isActive = true
                             
                         }
+                        
                     },3000)}
-                    
-
             }
+            
 
-                    
-                    //allrelatedfilmlistdiv.classList.add('d-none')
+                //allrelatedfilmlistdiv.classList.add('d-none')
 
-            else if(ratingasc){
-                console.log('Yalniz ASC isledi')
-                console.log(ratingasc)
-            }
+            // else if(ratingasc){
+            //     console.log('Yalniz ASC isledi')
+            //     console.log('Men niye isleyirem amk')
+            // }
         },
         error:function(err){
             console.log(err)
         }
+
     })
 })
+
+handleGetData()
+
+
 

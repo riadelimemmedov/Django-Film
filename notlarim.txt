@@ -2,6 +2,7 @@
 neye gore siralamag lazimdir ? => filmin imdb deyeri ve cixma tarixine gore cixma tarixinsde ile bax digerlerine baxmaga ehtiyac yoxdur
 
 ve film siralanandan sonra default qaytar selectin deyerini
+found movie total yerinide duzelt
 
 //////////
 Mulholland Drive => in categoriyasini sonra duzelt yadda qalsin yeni
