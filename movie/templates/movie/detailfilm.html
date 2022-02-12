@@ -55,11 +55,8 @@
 							<div><a href="{{movie.video_movie.url}}" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
 						</div>
 						<div class="btn-transform transform-vertical">
-							<!-- <div><a href="#" class="item item-1 yellowbtn" id="biletaliram"> <i class="ion-card"></i> Buy ticket</a></div>
-							<div><a href="#" class="item item-2 yellowbtn"><i class="ion-card"></i></a></div> -->
-
-							<div><button class="yellowbtn" id="biletaliram"> <i class="ion-card"></i> Buy ticket</button></div>
-
+							<div><a href="#" class="item item-1 yellowbtn" id="biletaliram"> <i class="ion-card"></i> Buy ticket</a></div>
+							<div><a href="#" class="item item-2 yellowbtn"><i class="ion-card"></i></a></div>
 						</div>
 					</div>
 				</div>
@@ -487,18 +484,30 @@
 					       	 			<div class="topbar-filter"><!-- Topbar Burda -->
 											<p>Found <span>{{filmler|length}} movies</span> in total</p>
 											
+
+											<label>Sort by:</label>
 											<form action="" id="relatedfilmajax">
-												<label>	Sort by:</label>
 												<select id="sortlaformagore">
 													<option value="">Options</option>
 													<hr>
 													<option value="ratingdesc">Rating Descending</option>
 													<option value="ratingasc">Rating Ascending</option>
-													<option value="date">Release date Descending</option>
-													<option value="date">Release date Ascending</option>
+													<option value="datedsc" id="data-desc">Release Date Descending</option>
+													<option value="dateasc" id="data-esc">Release Date Ascending</option>
 												</select>
 											</form>
 
+										</div>
+
+
+										<div id="loadingrelatedfilmloader">
+											<div id="preloader" style="display: none;">
+												<img class="logo" src="{% static 'images/logo1.png' %}" alt="" width="119" height="58">
+												<div id="status">
+													<span></span>
+													<span></span>
+												</div>
+											</div>
 										</div>
 
 										<div id="allrelatedfilmlistdiv">
@@ -506,7 +515,7 @@
 											<div class="movie-item-style-2" id="films-related-area">
 												<img src="{{film.image_movie.url}}" style="width: 170px;height: 261px;" alt="">
 												<div class="mv-item-infor">
-													<h6><a href="{% url 'movie:detailfilm' film.slug_movie %}">{{film.title_movie}} &nbsp; <span id="moviedate">{{film.date_created_movie}}</span></a></h6><!-- Burda bu deyer olmalidirki js terefine gedib split olunsun yeniden innerHtml ile span tagi yeni inline olan span taginin icine gomulsun -->
+													<h6><a href="{% url 'movie:detailfilm' film.slug_movie %}">{{film.title_movie}} &nbsp; <span class="moviedate">{{film.date_created_movie}}</span></a></h6><!-- Burda bu deyer olmalidirki js terefine gedib split olunsun yeniden innerHtml ile span tagi yeni inline olan span taginin icine gomulsun -->
 													<p class="rate"><i class="ion-android-star"></i><span class="filmajaxrayting">{{film.avarage_ibdm}}</span> /10</p>
 													<p class="describe">{{film.description_movie|truncatechars:160}}</p>
 													<p class="run-time"> Run Time: {{film.video_time}} .<span>MMPA: {{film.mmpa_rating_movie}} </span> .<span>Release: {{film.date_created_movie}}</span></p>
@@ -532,35 +541,9 @@
 											</div>
 										{% endfor %}
 													
-										<div class="topbar-filter">
-											<label>Movies Pagination:</label>
-												<div class="pagination2">
-													<span>Page {{paged_film|cut:""}}</span>
-													{% for i in filmler.paginator.page_range %}
-														{% if filmler.number == i %}
-															{% if paged_film_last %}
-																<a class="active seyfeleme" id="halhazirseyfe" href="" style="margin-right: 15px;">{{i}}</a>
-															{% else %}
-																<a class="active seyfeleme" href="" style="margin-left: 15px;">{{i}}</a>
-															{% endif %}
-
-														{% else %}
-															<a class="seyfeleme" href="?page={{i}}">{{i}}<a/>
-														{% endif %}
-													{% endfor %}
-												</div>
-											
-										</div>
 										
 										<!-- !Axirinci yol bunu html icinde yaz olmadi aler ile yaz fso ne olar olar--->
-										<div class="ui" style="margin-top: 450px !important">
-											<div class="ui dimmer" style="color:#fff !important" id="loadingrelatedfilmloader"><!--active classini cixardarsan burdan-->
-											  <div class="ui medium text loader">Loading</div>
-											</div>
-											<p></p>
-											<p></p>
-											<p></p>
-										</div>
+										
 										
 
 

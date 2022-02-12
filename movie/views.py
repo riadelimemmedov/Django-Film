@@ -62,22 +62,14 @@ def detailView(request,slug):
             relatedmovie = Movie.objects.filter(Q(category_movie=category)).distinct()
             relatedcategorymovie += relatedmovie
     filmler = []
-    paged_film = None
     def moviecategory():
         for mc in list(dict.fromkeys(relatedcategorymovie)):
             if str(movie.title_movie) != str(mc):
                 if(str(mc) == None):
                     pass
                 else:
+                    mc.date_created_movie = mc.date_created_movie.strip().split(',')[1]
                     filmler.append(mc)
-        return filmler
-    allfilmlist = moviecategory()
-    paginator = Paginator(allfilmlist,3)
-    page = request.GET.get('page')
-    paged_film = paginator.get_page(page)
-    # print(paginator.num_pages)
-    # #print(filmler)
-    # print(paged_film)
         
 
     #!Post request Ajax
@@ -108,5 +100,14 @@ def detailView(request,slug):
             elif(ratingasc==''):
                 dolumurating_asc = False
             return JsonResponse({'ratingasc':ratingasc,'dolumurating_asc':dolumurating_asc},safe=False)
-    #moviecategory()
-    return render(request,'movie/detailfilm.html',{'movie':movie,'filmler':paged_film,'paged_film_last':paginator.num_pages})
+        elif targetvalueselect == 'datedsc' or targetvalueselect == 'dateasc':
+            datedesc = serializers.serialize('json',set(relatedcategorymovie))
+            dolumudate_desc = False
+            if(datedesc):
+                dolumudate_desc = True
+            elif(datedesc == ''):
+                dolumudate_desc = False
+            return JsonResponse({'datedesc':datedesc,'dolumudate_desc':dolumudate_desc,'targetvalueselect':targetvalueselect},safe=False)
+        
+    moviecategory()
+    return render(request,'movie/detailfilm.html',{'movie':movie,'filmler':filmler})

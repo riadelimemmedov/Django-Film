@@ -100,30 +100,56 @@
 # x = adiniSoyle('riad')
 # print(x('tural'))
 
-def islem(islem_adi):
+# def islem(islem_adi):
     
-    def topla(*args):
-        cem = 0
-        for i in args:
-            cem+=i
-        return cem
+#     def topla(*args):
+#         cem = 0
+#         for i in args:
+#             cem+=i
+#         return cem
 
-    def vurma(*args):
-        hasil = 1
-        for j in args:
-            hasil*=j
-        return hasil
+#     def vurma(*args):
+#         hasil = 1
+#         for j in args:
+#             hasil*=j
+#         return hasil
     
-    if islem_adi == 'toplama':
-        return topla
-    elif islem_adi == 'vurma':
-        return vurma
-    else:
-        raise ValueError('Hata Olustu')
+#     if islem_adi == 'toplama':
+#         return topla
+#     elif islem_adi == 'vurma':
+#         return vurma
+#     else:
+#         raise ValueError('Hata Olustu')
     
-#eger funksiyani parametre hissesine *args ve **kwargs vermisense for seklinde rahat yaza bilersen cunki => *args bir tupledir, **kwargs ise bir dictionarydir yeni key ve value seklinde istifade olunur
-netice = islem('toplama')
-print(netice(1,2,3,4,5))
+# #eger funksiyani parametre hissesine *args ve **kwargs vermisense for seklinde rahat yaza bilersen cunki => *args bir tupledir, **kwargs ise bir dictionarydir yeni key ve value seklinde istifade olunur
+# netice = islem('toplama')
+# print(netice(1,2,3,4,5))
 
-netice2 = islem('vurma')
-print(netice2(1,2,3,4,5))
+# netice2 = islem('vurma')
+# print(netice2(1,2,3,4,5))
+
+#!Pythondaki en sonuncu indexi alma deyerin
+
+# # Python 3 code to demonstrate 
+# # accessing last element of list
+# # using naive method 
+  
+# # initializing list 
+# test_list = [1, 4, 5, 6, 3, 5]
+  
+# # printing original list 
+# print ("The original list is : " + str(test_list))
+  
+# # First naive method
+# # using loop method to print last element 
+# for i in range(0, len(test_list)):
+  
+#     if i == (len(test_list)-1):
+#         print ("The last element of list using loop : "
+#                                   +  str(test_list[i]))
+  
+# # Second naive method        
+# # using reverse method to print last element
+# test_list.reverse()
+# print("The last element of list using reverse : "
+#                             +  str(test_list[0]))
