@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Actor List{% endblock title %}
+
+
+<body>
+    {% block content %}
+            <!-- !Celebirity Panel -->
+            <div class="hero common-hero">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="hero-ct">
+                                <h1>celebrity listing - list</h1>
+                                <ul class="breadcumb">
+                                    <li class="active"><a href="{% url 'movie:home' %}">Home</a></li>
+                                    <li> <span class="ion-ios-arrow-right"></span> celebrity listing</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- celebrity list section-->
+
+            <div class="page-single">
+                <div class="container">
+                    <div class="row ipad-width2">
+                        <div class="col-md-9 col-sm-12 col-xs-12">
+                            <div class="topbar-filter">
+                                <p class="pad-change">Found <span>{{actors|length}} celebrities</span> in total</p>
+                            </div>
+                            <div class="row">
+                                {% for actor in pages_actors %}<!-- !Burani nezerinde saxla -->
+                                    <div class="col-md-12">
+                                        <div class="ceb-item-style-2">
+                                            <img src="{{actor.image_actor.url}}" style="width: 67px !important; height: 98px !important;" alt="">
+                                            <div class="ceb-infor">
+                                                <h2><a href="{% url 'actor:actorDetailView' actor.slug_actor %}">{{actor.first_name_actor}} &nbsp;{{actor.last_name_actor}}</a></h2>
+                                                
+                                                <span> 
+                                                    {% if actor.duty_type_actor == 'Director' %}
+                                                        <span style="color: #ffffff !important;">{{actor.duty_type_actor}},&nbsp; {{actor.country_actor}}</span>
+                                                        <p>{{actor.biography_actor|truncatechars:100}}</p>
+                                                    {% elif actor.duty_type_actor == 'Writer' %}
+                                                        <span style="color: #ffffff !important;">{{actor.duty_type_actor}},&nbsp; {{actor.country_actor}}</span>
+                                                        <p>{{actor.biography_actor|truncatechars:100}}</p>
+                                                    {% elif actor.duty_type_actor == 'Actorisa' and actor.gender_actor == 'M' %}
+                                                        <span style="color: #ffffff !important;">Actor,&nbsp; {{actor.country_actor}}</span>
+                                                        <p>{{actor.biography_actor|truncatechars:100}}</p>
+                                                    {% elif actor.duty_type_actor == 'Actorisa' and actor.gender_actor == 'F' %}
+                                                        <span style="color: #ffffff !important;">Actress, &nbsp; {{actor.country_actor}}</span>
+                                                        <p>{{actor.biography_actor|truncatechars:100}}</p>
+                                                    {% elif actor.duty_type_actor == 'Producter' %}
+                                                        <span style="color: #ffffff !important;">{{actor.duty_type_actor}},&nbsp; {{actor.country_actor}}</span>
+                                                        <p>{{actor.biography_actor|truncatechars:100}}</p>
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="topbar-filter">
+                                <label>Reviews per page:</label>
+                                <div class="pagination2">
+                                    <span>Page 1 of 6:</span>
+                                    {% if pages_actors.has_other_pages %}
+                                        {% if pages_actors.has_previous %}
+                                            <a href="?page={{   }}"><i class="ion-arrow-left-b"></i></a> seyfelemede islederseb burani
+                                        
+                                        
+                                        
+                                        
+                                            <a class="active" href="#">1</a>
+                                        <a href="#">2</a>
+                                        <a href="#">3</a>
+                                        <a href="#">4</a>
+                                        <a href="#">5</a>
+                                        <a href="#">6</a>
+                                        <a href="#"><i class="ion-arrow-right-b"></i></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-12 col-sm-12">
+                            <div class="sidebar">
+                                <div class="searh-form">
+                                    <h4 class="sb-title">Search celebrity</h4>
+                                    <form class="form-style-1 celebrity-form" action="#">
+                                        <div class="row">
+                                            <div class="col-md-12 form-it">
+                                                <label>Celebrity name</label>
+                                                <input type="text" placeholder="Enter keywords">
+                                            </div>
+                                            <div class="col-md-12 form-it">
+                                                <label>Celebrity Letter</label>
+                                                <select>
+                                                    <option value="range">A</option>
+                                                    <option value="saab">B</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-12 form-it">
+                                                <label>Category</label>
+                                                <select>
+                                                    <option value="range">Actress</option>
+                                                    <option value="saab">Others</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-12 form-it">
+                                                <label>Year of birth</label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <select>
+                                                            <option value="range">1970</option>
+                                                            <option value="number">Other</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <select>
+                                                            <option value="range">1990</option>
+                                                            <option value="number">others</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 ">
+                                                <input class="submit" type="submit" value="submit">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                                <div class="celebrities">
+                                    <h4 class="sb-title">Last Five Celebrity</h4>
+                                    {% for atfrt in actors_top_five_related_time %}
+                                        <div class="celeb-item">
+                                            <a href="#"><img src="{{atfrt.image_actor.url}}" style="width: 70px !important;height: 70px !important;" alt=""></a>
+                                            <div class="celeb-author">
+                                                <h6><a href="{% url 'actor:actorDetailView' atfrt.slug_actor %}">{{atfrt.first_name_actor}} &nbsp;{{atfrt.last_name_actor}}</a></h6>
+                                                <span>{{atfrt.duty_type_actor}}</span>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of celebrity list section-->
+
+    {% endblock content %}
+</body>
+
+</html>

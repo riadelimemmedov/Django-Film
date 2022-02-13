@@ -1,15 +1,23 @@
 1 => actyorun deillinde FILMOGRAPHY hisseinde JS ile ajax yazmlinsa listeleme ucun populyarlig uzre aktyorun oynadigi kinonun --> ya ajax jquery yadaki axios dan istifade ele
 neye gore siralamag lazimdir ? => filmin imdb deyeri ve cixma tarixine gore cixma tarixinsde ile bax digerlerine baxmaga ehtiyac yoxdur +
-
+/////////
 ve film siralanandan sonra default qaytar selectin deyerini+
 found movie total yerinide duzelt+
-
 //////////
 Mulholland Drive => in categoriyasini sonra duzelt yadda qalsin yeni+
 /////////
 
 2 => bir-iki  dene kino elave ele eslinde olan 10 dene dadasdadsadas+
-3 => home.html de ---- SEE ALL CELEBRITIES duzeltmelisen yeni html seyfesi getirmelisen ora yeni butun aktyorlarin listelendiyi seyfe bunu ederik insaAllah
+/////////
+
+
+3 => home.html de ---- SEE ALL CELEBRITIES duzeltmelisen yeni html seyfesi getirmelisen ora yeni butun aktyorlarin listelendiyi seyfe bunu ederik insaAllah 
+ajax filan yazmalisan 
+
+
+seyfelemede qaldin -+-+
+
+
 4 => filmin detalinde add to favoirite tiklayanda favoritlere elave etsin amma onun ucun profile lazimdir
 5 => verilen reqeme gore ulduz sayini yazdir
 6 => mail gonderme ele

@@ -4,5 +4,6 @@ from .views import *
 app_name = 'actor'
 
 urlpatterns = [
-    path('<slug>',actorDetailView,name='actorDetailView')
+    path('actorlist',actorListView,name='actorListView'),
+    path('<slug>',actorDetailView,name='actorDetailView'),
 ]
