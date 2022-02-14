@@ -65,21 +65,29 @@
                             <div class="topbar-filter">
                                 <label>Reviews per page:</label>
                                 <div class="pagination2">
-                                    <span>Page 1 of 6:</span>
+                                    <span>Page {{page}} of {{paginator.num_pages}}:</span>
                                     {% if pages_actors.has_other_pages %}
+                                        
                                         {% if pages_actors.has_previous %}
-                                            <a href="?page={{   }}"><i class="ion-arrow-left-b"></i></a> seyfelemede islederseb burani
+                                            <a href="?page={{pages_actors.previous_page_number}}">
+                                                <i class="ion-arrow-left-b"></i>
+                                            </a>                                           
+                                        {% endif %}
                                         
+                                        {% for i in paginator.page_range %}
+                                            {% if pages_actors.number == i %}<!-- Burdaki number deyeri request.GET.get('page') den gelen deyerdir -->
+                                                <a class="active" href="#">{{i}}</a>
+                                            {% else %}
+                                                <a href="?page={{i}}">{{i}}</a>
+                                            {% endif %}
+                                        {% endfor %}
                                         
-                                        
-                                        
-                                            <a class="active" href="#">1</a>
-                                        <a href="#">2</a>
-                                        <a href="#">3</a>
-                                        <a href="#">4</a>
-                                        <a href="#">5</a>
-                                        <a href="#">6</a>
-                                        <a href="#"><i class="ion-arrow-right-b"></i></a>
+                                        {% if pages_actors.has_next %}
+                                            <a href="?page={{pages_actors.next_page_number}}">
+                                                <i class="ion-arrow-right-b"></i>
+                                            </a>
+                                        {% endif %}
+
                                     {% endif %}
                                 </div>
                             </div>
@@ -88,46 +96,53 @@
                             <div class="sidebar">
                                 <div class="searh-form">
                                     <h4 class="sb-title">Search celebrity</h4>
-                                    <form class="form-style-1 celebrity-form" action="#">
+                                    <!-- !Search Actor With Ajax => this is search form -->
+                                    <form class="form-style-1 celebrity-form" id="searchSubmitForm"><!-- ?burda ne action na nedeki formun methood deyerine ehtiyac var cunki biz bunlari insaAllah jquery ajax ile yazaciyig -->
                                         <div class="row">
+
+                                            <!-- Bura actyorun adi hissedir -->
                                             <div class="col-md-12 form-it">
-                                                <label>Celebrity name</label>
-                                                <input type="text" placeholder="Enter keywords">
+                                                <label>Celebrity Name</label>
+                                                <input type="text" id="first_name_actor" name="first_name_actor" placeholder="Enter Name">
                                             </div>
+
+                                            <!-- Bura actyorun soyad hissedir -->
                                             <div class="col-md-12 form-it">
-                                                <label>Celebrity Letter</label>
-                                                <select>
-                                                    <option value="range">A</option>
-                                                    <option value="saab">B</option>
+                                                <label>Celebrity Surname</label>
+                                                <input type="text" id="last_name_actor" name="last_name_actor" placeholder="Enter Surname">
+                                            </div>
+
+                                            <!-- Bura actyorun gender secme hissesidir select olacag burda -->
+                                            <div class="col-md-12 form-it"><!-- genderactor bura -->
+                                                <label>Celebrity Gender</label>
+                                                <select id="select_gender">
+                                                    <option value="M">Men</option>
+                                                    <option value="F">Woman</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-12 form-it">
-                                                <label>Category</label>
-                                                <select>
-                                                    <option value="range">Actress</option>
-                                                    <option value="saab">Others</option>
+
+                                            <!-- Bura actyorun pese secme hissesidir -->
+                                            <div class="col-md-12 form-it"><!-- duty_type_actor bura -->
+                                                <label>Duty Type Actor</label>
+                                                <select id="select_duty">
+                                                    <option value="director">Director</option>
+                                                    <option value="writer">Writer</option>
+                                                    <option value="actor">Actor</option>
+                                                    <option value="actress">Actress</option>
                                                 </select>
                                             </div>
+                                            
+                                            <!-- Bura actyorun olke hissesidir -->
                                             <div class="col-md-12 form-it">
-                                                <label>Year of birth</label>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <select>
-                                                            <option value="range">1970</option>
-                                                            <option value="number">Other</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <select>
-                                                            <option value="range">1990</option>
-                                                            <option value="number">others</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                                <label>Celebrity Country</label>
+                                                <input type="text" id="country_actor" name="country_actor" placeholder="Enter Country">
                                             </div>
+                                            
+
                                             <div class="col-md-12 ">
-                                                <input class="submit" type="submit" value="submit">
+                                                <input class="submit" type="submit" value="submit"><!-- eger form icinde buton varsa ve hemin buton backende ve ya basqa bir yere sorgu atirsa ve ya data gonderirse bu zaman mutleq sekilde butonun type deyeri submit olmalidir mutleq ve mutleq sekilde butonun type deyeri submit olmalidir hemcinin inputdada beledir -->
                                             </div>
+
                                         </div>
                                     </form>
                                 </div>
@@ -155,4 +170,9 @@
     {% endblock content %}
 </body>
 
+    {% block scripts %}
+        <script type="text/javascript" src="{% static 'actor/actorlist.js' %}"></script>
+    {% endblock scripts %}
+
 </html>
+
