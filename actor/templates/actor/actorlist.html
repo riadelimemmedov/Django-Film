@@ -2,10 +2,21 @@
 {% load static %}
 
 {% block title %}Actor List{% endblock title %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 <body>
     {% block content %}
+        
+    <div id="loadingrelatedfilmloader">
+        <div id="preloader" style="display: none;">
+            <img class="logo" src="{% static 'images/logo1.png' %}" alt="" width="119" height="58">
+            <div id="status">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
             <!-- !Celebirity Panel -->
             <div class="hero common-hero">
                 <div class="container">
@@ -29,40 +40,42 @@
                     <div class="row ipad-width2">
                         <div class="col-md-9 col-sm-12 col-xs-12">
                             <div class="topbar-filter">
-                                <p class="pad-change">Found <span>{{actors|length}} celebrities</span> in total</p>
+                                <p class="pad-change" id="found-actor-count" style="padding: 5px !important;">Found <span>{{actors|length}} celebrities</span> in total</p>
                             </div>
                             <div class="row">
-                                {% for actor in pages_actors %}<!-- !Burani nezerinde saxla -->
-                                    <div class="col-md-12">
-                                        <div class="ceb-item-style-2">
-                                            <img src="{{actor.image_actor.url}}" style="width: 67px !important; height: 98px !important;" alt="">
-                                            <div class="ceb-infor">
-                                                <h2><a href="{% url 'actor:actorDetailView' actor.slug_actor %}">{{actor.first_name_actor}} &nbsp;{{actor.last_name_actor}}</a></h2>
-                                                
-                                                <span> 
-                                                    {% if actor.duty_type_actor == 'Director' %}
-                                                        <span style="color: #ffffff !important;">{{actor.duty_type_actor}},&nbsp; {{actor.country_actor}}</span>
-                                                        <p>{{actor.biography_actor|truncatechars:100}}</p>
-                                                    {% elif actor.duty_type_actor == 'Writer' %}
-                                                        <span style="color: #ffffff !important;">{{actor.duty_type_actor}},&nbsp; {{actor.country_actor}}</span>
-                                                        <p>{{actor.biography_actor|truncatechars:100}}</p>
-                                                    {% elif actor.duty_type_actor == 'Actorisa' and actor.gender_actor == 'M' %}
-                                                        <span style="color: #ffffff !important;">Actor,&nbsp; {{actor.country_actor}}</span>
-                                                        <p>{{actor.biography_actor|truncatechars:100}}</p>
-                                                    {% elif actor.duty_type_actor == 'Actorisa' and actor.gender_actor == 'F' %}
-                                                        <span style="color: #ffffff !important;">Actress, &nbsp; {{actor.country_actor}}</span>
-                                                        <p>{{actor.biography_actor|truncatechars:100}}</p>
-                                                    {% elif actor.duty_type_actor == 'Producter' %}
-                                                        <span style="color: #ffffff !important;">{{actor.duty_type_actor}},&nbsp; {{actor.country_actor}}</span>
-                                                        <p>{{actor.biography_actor|truncatechars:100}}</p>
-                                                    {% endif %}
-                                                </span>
+                                <div id="search_result_data_hide">
+                                    {% for actor in pages_actors %}<!-- !Burani nezerinde saxla -->
+                                        <div class="col-md-12">
+                                            <div class="ceb-item-style-2">
+                                                <img src="{{actor.image_actor.url}}" style="width: 67px !important; height: 98px !important;" alt="">
+                                                <div class="ceb-infor">
+                                                    <h2><a href="{% url 'actor:actorDetailView' actor.slug_actor %}">{{actor.first_name_actor}} &nbsp;{{actor.last_name_actor}}</a></h2>
+                                                    
+                                                    <span> 
+                                                        {% if actor.duty_type_actor == 'Director' %}
+                                                            <span style="color: #ffffff !important;">{{actor.duty_type_actor}},&nbsp; {{actor.country_actor}}</span>
+                                                            <p>{{actor.biography_actor|truncatechars:100}}</p>
+                                                        {% elif actor.duty_type_actor == 'Writer' %}
+                                                            <span style="color: #ffffff !important;">{{actor.duty_type_actor}},&nbsp; {{actor.country_actor}}</span>
+                                                            <p>{{actor.biography_actor|truncatechars:100}}</p>
+                                                        {% elif actor.duty_type_actor == 'Actorisa' and actor.gender_actor == 'M' %}
+                                                            <span style="color: #ffffff !important;">Actor,&nbsp; {{actor.country_actor}}</span>
+                                                            <p>{{actor.biography_actor|truncatechars:100}}</p>
+                                                        {% elif actor.duty_type_actor == 'Actorisa' and actor.gender_actor == 'F' %}
+                                                            <span style="color: #ffffff !important;">Actress, &nbsp; {{actor.country_actor}}</span>
+                                                            <p>{{actor.biography_actor|truncatechars:100}}</p>
+                                                        {% elif actor.duty_type_actor == 'Producter' %}
+                                                            <span style="color: #ffffff !important;">{{actor.duty_type_actor}},&nbsp; {{actor.country_actor}}</span>
+                                                            <p>{{actor.biography_actor|truncatechars:100}}</p>
+                                                        {% endif %}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                {% endfor %}
+                                    {% endfor %}
+                                </div>
                             </div>
-                            <div class="topbar-filter">
+                            <div class="topbar-filter" id="paginationpart">
                                 <label>Reviews per page:</label>
                                 <div class="pagination2">
                                     <span>Page {{page}} of {{paginator.num_pages}}:</span>
@@ -92,17 +105,20 @@
                                 </div>
                             </div>
                         </div>
+
+                        
                         <div class="col-md-3 col-xs-12 col-sm-12">
                             <div class="sidebar">
                                 <div class="searh-form">
                                     <h4 class="sb-title">Search celebrity</h4>
+                                    <small style="color:#d63031 !important;font-size: 14.5px !important;display:none" id="emptyvalueoferr">Enter the places that are empty</small>
                                     <!-- !Search Actor With Ajax => this is search form -->
                                     <form class="form-style-1 celebrity-form" id="searchSubmitForm"><!-- ?burda ne action na nedeki formun methood deyerine ehtiyac var cunki biz bunlari insaAllah jquery ajax ile yazaciyig -->
                                         <div class="row">
 
                                             <!-- Bura actyorun adi hissedir -->
                                             <div class="col-md-12 form-it">
-                                                <label>Celebrity Name</label>
+                                                <label style="margin-top: 10px;">Celebrity Name</label>
                                                 <input type="text" id="first_name_actor" name="first_name_actor" placeholder="Enter Name">
                                             </div>
 
@@ -121,23 +137,6 @@
                                                 </select>
                                             </div>
 
-                                            <!-- Bura actyorun pese secme hissesidir -->
-                                            <div class="col-md-12 form-it"><!-- duty_type_actor bura -->
-                                                <label>Duty Type Actor</label>
-                                                <select id="select_duty">
-                                                    <option value="director">Director</option>
-                                                    <option value="writer">Writer</option>
-                                                    <option value="actor">Actor</option>
-                                                    <option value="actress">Actress</option>
-                                                </select>
-                                            </div>
-                                            
-                                            <!-- Bura actyorun olke hissesidir -->
-                                            <div class="col-md-12 form-it">
-                                                <label>Celebrity Country</label>
-                                                <input type="text" id="country_actor" name="country_actor" placeholder="Enter Country">
-                                            </div>
-                                            
 
                                             <div class="col-md-12 ">
                                                 <input class="submit" type="submit" value="submit"><!-- eger form icinde buton varsa ve hemin buton backende ve ya basqa bir yere sorgu atirsa ve ya data gonderirse bu zaman mutleq sekilde butonun type deyeri submit olmalidir mutleq ve mutleq sekilde butonun type deyeri submit olmalidir hemcinin inputdada beledir -->
@@ -147,6 +146,9 @@
                                     </form>
                                 </div>
                                 
+                                
+						
+
                                 <div class="celebrities">
                                     <h4 class="sb-title">Last Five Celebrity</h4>
                                     {% for atfrt in actors_top_five_related_time %}

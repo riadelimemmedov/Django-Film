@@ -147,9 +147,109 @@
 #     if i == (len(test_list)-1):
 #         print ("The last element of list using loop : "
 #                                   +  str(test_list[i]))
-  
+
 # # Second naive method        
 # # using reverse method to print last element
 # test_list.reverse()
 # print("The last element of list using reverse : "
 #                             +  str(test_list[0]))
+
+
+#!Pythondaki decaoratolar
+
+#Burdaki numune decorator deyil decoratorun evezedicisidir
+# def salamla(fn):
+#     def innner():
+#         print('Salamla isledi')
+#         fn()
+#     return innner
+
+
+# def gunaydin():
+#     print("Merhaba riad")
+
+# a = salamla(gunaydin)
+# a()
+
+
+#!Indi ise decoratordan istifade edek
+
+# def selamver(fn):
+#     def inner():
+#         print('Salam Riad')
+#         fn()
+#     return inner
+
+# @selamver
+# def gunaydin():
+#     print('Gunaydin Riad')
+
+# gunaydin()
+
+
+#!Ornek Decorator
+#?Decaratorsuz
+# def make_pretty(func):
+#     def inner():
+#         print('l got decarated')
+#         func()
+#     return inner
+
+# def ordinary():
+#     print('l am ordinary')
+    
+# a = make_pretty(ordinary)
+# a()
+
+#?Decorator ile
+# def make_pretty(func):
+#     def inner():
+#         print('l got decorated')
+#         func()
+#     return inner
+
+# @make_pretty
+# def ordinary():
+#     print('l am ordinary')
+    
+# ordinary()
+
+#?Decorator funksiyalara parametr gondermek
+# def smart_divide(func):
+#     def inner(adeyeri,bdeyeri):
+#         print('Isledi decorator')
+#         if bdeyeri == 0:
+#             print('cannot divide')
+#         else:
+#             func(adeyeri,bdeyeri)
+#     return inner#return innner mutleq sekilde return olmalidir
+
+# @smart_divide
+# def divide(a,b):
+#     print(a/b)
+
+# divide(10,5)
+
+#?Ornek yene decorator
+def selamlama(func):
+    def inner(adiniz):
+        print('Fonksiyon Calisti')
+        func(adiniz)
+        print('Bitti Fonksiyonun Calismasi')
+    return inner #bura mutleq sekilde yazilmalidir yeni return innner hissesi hemcinin inner funksiyasi mutleq yazilmalidir
+
+@selamlama
+def gunaydin(isim):
+    print('Gunyadin',isim)
+    
+@selamlama
+def iyigunler(isim):
+    print('Iyi gunler',isim)
+
+@selamlama
+def iyiaksamlar(isim):
+    print('Iyi aksamlar',isim)
+    
+gunaydin('Riad')
+iyigunler('Tural')
+iyiaksamlar('Kenan')

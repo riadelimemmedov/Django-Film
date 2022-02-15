@@ -25,8 +25,12 @@ def actorListView(request):
         first_name_actor = request.POST.get('first_name_actor')
         last_name_actor = request.POST.get('last_name_actor')
         select_gender = request.POST.get('select_gender')
-        select_duty = request.POST.get('select_duty')
-        country_actor = request.POST.get('country_actor')
+    
+        actor = Actor.objects.filter(gender_actor=select_gender)
+        print('geldi genler',actor)
+        
+        
+        #print(select_gender)
         
         # print('POST REQUESTDEN DATALAR GELDI DEYESEN')
         # print('#################################################################')
@@ -37,13 +41,19 @@ def actorListView(request):
         # print('First Name',select_duty)
         # print('First Name',country_actor)
         
-        if(first_name_actor and last_name_actor and select_gender and select_duty and country_actor):
+        #istifadeci secir meselen => M amma qadin adi yazir
+        
+        if(first_name_actor and last_name_actor and select_gender):
             find_data = Actor.objects.filter(Q(first_name_actor__iexact=first_name_actor)|
-                                            Q(last_name_actor__iexact=last_name_actor)|
-                                            Q(gender_actor__iexact=select_gender)&
-                                            Q(duty_type_actor__iexact=select_duty)&
-                                            Q(country_actor__iexact=country_actor))
-            print('Data Tapilmaga calisi',find_data)
+                                            Q(last_name_actor__iexact=last_name_actor)&  #and ile baglayirsansa & isare yeni Js de && denedir yeni and ile bag;layirnsasa her iki terefdeki sert dogru olmalidir
+                                            Q(gender_actor=select_gender)).distinct()
+            print('tada tapildi',find_data)
+            if find_data:
+                actor_list = list(find_data.values())
+                print(actor_list)
+                print('Ajax response dondu')
+                return JsonResponse({'find_actor':actor_list},safe=False)
+
         
         #!country ni cixardarsan butun html ve js den ajaxdan hemcinnin hemcinin viewdede temizle yerini menasizdi cunki
     context = {
