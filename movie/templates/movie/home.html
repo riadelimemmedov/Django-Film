@@ -7,6 +7,7 @@
 
 <!--end of header-->
 {% block title %}Home Page{% endblock title %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
 
@@ -31,16 +32,40 @@
 
 {% block content %}
 
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@700&family=Roboto:wght@700&display=swap');
+	#socialacoount{
+		margin-right:20px;
+		text-align: right;
+		padding: auto;
+		position: relative;
+	}
+	#socialacoount p{
+		color: #f1f2f6 !important;
+		font-family: 'Dosis',sans-serif;
+		font-size: 14px;
+		font-weight: bold;
+		text-transform: uppercase;
+		position: absolute;
+		right: 105px;
+		top: 0;
+	}
+	.sebeke:hover{
+		color: #fff !important;
+	}
+
+</style>
+
 	<!-- !Slider Movie List -->
 	<div class="slider movie-items">
 		<div class="container">
 			<div class="row">
-				<div class="social-link">
+				<div id="socialacoount">
 					<p>Follow us: </p>
-					<a href="#"><i class="ion-social-facebook"></i></a>
-					<a href="#"><i class="ion-social-twitter"></i></a>
-					<a href="#"><i class="ion-social-googleplus"></i></a>
-					<a href="#"><i class="ion-social-youtube"></i></a>
+					<a href="https://www.facebook.com/" target="_blank" style="color: #1877F2;" class="sebeke"><i class="fa fa-facebook fa-lg"></i></a>
+					<a href="https://twitter.com/?lang=en" target="_blank" style="padding-left: 7px !important;color:#1D9BF0" class="sebeke" id="twittericonu"><i class="fa fa-twitter fa-lg"></i></a>
+					<a href="https://www.google.com/" target="_blank" style="padding-left:7px !important;color: #d63031;" class="sebeke" id="googleplusiconu"><i class="fa fa-google-plus fa-lg"></i></a>
+					<a href="https://www.linkedin.com/" target="_blank" style="padding-left:7px !important;color: #dfe6e9;" class="sebeke" id="linkediniconu"><i class="fa fa-brands fa-youtube"></i></a>
 				</div>
 
 				<!-- !Movie Slider List -->

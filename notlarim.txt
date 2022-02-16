@@ -12,16 +12,19 @@ Mulholland Drive => in categoriyasini sonra duzelt yadda qalsin yeni+
 
 
 3 => home.html de ---- SEE ALL CELEBRITIES duzeltmelisen yeni html seyfesi getirmelisen ora yeni butun aktyorlarin listelendiyi seyfe bunu ederik insaAllah 
-ajax filan yazmalisan 
+ajax filan yazmalisan +
 
 
-seyfelemede qaldin -+-+
+seyfelemede qaldin+
 
+sonra ardi => movielist.html den istifade ederek amma dark thema dan butun filmleri orda listese sonra ajax zad yaz axtaris ucun pagination filan ele
+sonra ise Api dan istifade ede top 20 filmi gosteeren api dan birinci bunu elemeye calis ele
 
 4 => filmin detalinde add to favoirite tiklayanda favoritlere elave etsin amma onun ucun profile lazimdir
 5 => verilen reqeme gore ulduz sayini yazdir
 6 => mail gonderme ele
 7 => facebbok ve google ile login ele
+
 
 kinolar 
 

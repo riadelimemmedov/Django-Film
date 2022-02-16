@@ -44,7 +44,7 @@ def actorListView(request):
         #istifadeci secir meselen => M amma qadin adi yazir
         
         if(first_name_actor and last_name_actor and select_gender):
-            find_data = Actor.objects.filter(Q(first_name_actor__iexact=first_name_actor)|
+            find_data = Actor.objects.filter(Q(first_name_actor__iexact=first_name_actor)& #olmasa yene | eleyersen
                                             Q(last_name_actor__iexact=last_name_actor)&  #and ile baglayirsansa & isare yeni Js de && denedir yeni and ile bag;layirnsasa her iki terefdeki sert dogru olmalidir
                                             Q(gender_actor=select_gender)).distinct()
             print('tada tapildi',find_data)

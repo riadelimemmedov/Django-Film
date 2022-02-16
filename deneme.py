@@ -231,25 +231,91 @@
 # divide(10,5)
 
 #?Ornek yene decorator
-def selamlama(func):
-    def inner(adiniz):
-        print('Fonksiyon Calisti')
-        func(adiniz)
-        print('Bitti Fonksiyonun Calismasi')
-    return inner #bura mutleq sekilde yazilmalidir yeni return innner hissesi hemcinin inner funksiyasi mutleq yazilmalidir
+# def selamlama(func):
+#     def inner(adiniz):
+#         print('Fonksiyon Calisti')
+#         func(adiniz)
+#         print('Bitti Fonksiyonun Calismasi')
+#     return inner #bura mutleq sekilde yazilmalidir yeni return innner hissesi hemcinin inner funksiyasi mutleq yazilmalidir
 
-@selamlama
-def gunaydin(isim):
-    print('Gunyadin',isim)
+# @selamlama
+# def gunaydin(isim):
+#     print('Gunyadin',isim)
     
-@selamlama
-def iyigunler(isim):
-    print('Iyi gunler',isim)
+# @selamlama
+# def iyigunler(isim):
+#     print('Iyi gunler',isim)
 
-@selamlama
-def iyiaksamlar(isim):
-    print('Iyi aksamlar',isim)
+# @selamlama
+# def iyiaksamlar(isim):
+#     print('Iyi aksamlar',isim)
     
-gunaydin('Riad')
-iyigunler('Tural')
-iyiaksamlar('Kenan')
+# gunaydin('Riad')
+# iyigunler('Tural')
+# iyiaksamlar('Kenan')
+
+#!Pythonda decoratorun eyni vaxtda hem parametreli hem parametresiz funksiyalarda istifadesidesi
+#*Decorator Funksiyalarin Parametreleri
+# def decoratorFunksiya(func):
+#     def inner(*args,**kwargs):
+#         func(*args,**kwargs)
+#     return inner
+
+
+# @decoratorFunksiya
+# def salamVer():
+#     print('Salam Sabahiniz Xeyir')
+    
+# @decoratorFunksiya
+# def salamAdim(ad):
+#     print(f"Menim adim : {ad} dir")
+
+# salamVer()
+# salamAdim('Riad')
+
+#!Parametre alan Decoratorlar decorator funksiyalarda
+# def dec_func_parametres(count):
+#     def dec_funk(func):
+#         def inner(*args,**kwargs):
+#             for _ in range(count):# _ deyilde i ve ya ne istesen yaza bilersen
+#                 func(*args,**kwargs)
+#         return inner
+#     return dec_funk
+
+# @dec_func_parametres(count=2)
+# def hello():
+#     print('Hello')
+    
+# @dec_func_parametres(count=5)
+# def greet(name):
+#     print(f"Hello {name}")#funksiya icinde ekrana yazdiranda format metodu ile yazma cunki xeta verir
+    
+# hello()
+# greet('Tural')
+
+#?Numune
+def decorator_root_function(func):
+    def inner(rakamlarlistesi):
+        cift_toplami = 0
+        cift_sayilar = 0
+        tek_toplam = 0
+        tek_sayilar = 0
+        for rakam in rakamlarlistesi:
+            if(rakam%2==0):
+                cift_sayilar+=1
+                cift_toplami+=rakam
+            else:
+                tek_sayilar+=1
+                tek_toplam+=rakam
+        print('Cift Sayilarin Ortalamsi :', cift_toplami/cift_sayilar)
+        func(rakamlarlistesi)#burani bele yazanda gedib ortalama funksiyasi isleyir => 316 setirdeki funksiya yeni
+        print('Tek Sayilarin Ortalamasi :', tek_toplam/tek_sayilar)
+    return inner
+
+@decorator_root_function
+def ortalama(sayilar):
+    toplam = 0
+    for i in sayilar:
+        toplam+=i
+    print('Genel Ortalama',toplam/len(sayilar))
+ortalama([1,2,3,4,5,6,7,8,9,10])

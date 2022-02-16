@@ -43,6 +43,11 @@
                                 <p class="pad-change" id="found-actor-count" style="padding: 5px !important;">Found <span>{{actors|length}} celebrities</span> in total</p>
                             </div>
                             <div class="row">
+
+                                <div id="notfounddata" style="display: none;"><!-- bura xeta mesajini yazacam eger aktyor tapilmayibsa -->
+                                    
+                                </div>
+                                
                                 <div id="search_result_data_hide">
                                     {% for actor in pages_actors %}<!-- !Burani nezerinde saxla -->
                                         <div class="col-md-12">

@@ -10,7 +10,9 @@ const search_result_data_hide = document.getElementById('search_result_data_hide
 const paginationpart = document.getElementById('paginationpart')
 const foundactorcount = document.getElementById('found-actor-count')
 const emptyvalueoferr = document.getElementById('emptyvalueoferr')
+const notfounddata = document.getElementById('notfounddata')
 let changedurl = window.location.href.substring(0,window.location.href.lastIndexOf('/')).replace('actor','')
+
 
 
 
@@ -93,14 +95,17 @@ const searchDataWithAjax = ()=>{
                             loadingrelatedfilmloader.firstElementChild.style.display = 'none'
                             search_result_data_hide.innerHTML = ''
             
-                            if(find_actor == undefined || find_actor==null ){
-                                search_result_data_hide.innerHTML = `
-                                    <div class="ui message" style="background-color:#E2E3E9;text-align:center !important;">
+                            if(find_actor == undefined || find_actor==null ){//!Burani duzelt html de deyisiklik elemelisen xeta var
+                                notfounddata.style.display='block'
+                                notfounddata.innerHTML = `
+                                    <div class="ui message" style="background-color:#f5f6fa;text-align:center !important;">
                                         <strong>No relevant info was found on this topic</strong>
                                     </div>`
+                                    
                                 setTimeout(()=>{
-                                    search_result_data_hide.innerHTML = ''
-                                },5000)
+                                    notfounddata.style.display = 'none'
+                                    notfounddata.innerHTML = ''
+                                },3000)
                                 
             
                                 
