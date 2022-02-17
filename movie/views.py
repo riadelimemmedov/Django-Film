@@ -106,3 +106,14 @@ def detailView(request,slug):
         
     moviecategory()
     return render(request,'movie/detailfilm.html',{'movie':movie,'filmler':filmler})
+
+
+#!popularFilmView
+def popularFilmView(request):
+    return render(request,'movie/trendingmovieapi.html')
+
+
+#!movieDetailForApi
+def movieDetailForApi(request,id):
+    print('Gelen filmiin id deyeri', id)
+    return render(request,'movie/detailApiFilm.html',{'idvalue':id})

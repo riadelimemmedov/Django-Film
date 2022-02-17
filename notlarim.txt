@@ -18,7 +18,10 @@ ajax filan yazmalisan +
 seyfelemede qaldin+
 
 sonra ardi => movielist.html den istifade ederek amma dark thema dan butun filmleri orda listese sonra ajax zad yaz axtaris ucun pagination filan ele
-sonra ise Api dan istifade ede top 20 filmi gosteeren api dan birinci bunu elemeye calis ele
+
+sonra ise Api dan istifade ede top 20 filmi gosteeren api dan birinci bunu elemeye calis ele => indi burani eleyirem amma filmin detailini zad apidan baxib fikirlesmeliyem yadda+ saxla burani
+axios POST request at amma doc oxumalinsan onun ucun
+
 
 4 => filmin detalinde add to favoirite tiklayanda favoritlere elave etsin amma onun ucun profile lazimdir
 5 => verilen reqeme gore ulduz sayini yazdir
