@@ -52,66 +52,103 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.25.0/axios.min.js"></script>
             <script>
 
-                //Html Tag
-                const tiklabutonu = document.getElementById('tiklabutonu')
-                const movielistapidata = document.getElementById('movielistapidata')
-                const loadingadata = document.querySelector('.loadingadata')
-                const findapimoviecount = document.getElementById('findapimoviecount')
-                //const currentUrl = window.location.href.substring(0,window.location.href.lastIndexOf('/')).replace('/popular','')
-                //ve ya
-                const currentUrl = window.location.href.replace('/popular/','')
-                //console.log('Hal Hazir Url', `${currentUrl}/actor/morgan`)
+            //Html Tag
+            const tiklabutonu = document.getElementById('tiklabutonu')
+            const movielistapidata = document.getElementById('movielistapidata')
+            const loadingadata = document.querySelector('.loadingadata')
+            const findapimoviecount = document.getElementById('findapimoviecount')
+            //const currentUrl = window.location.href.substring(0,window.location.href.lastIndexOf('/')).replace('/popular','')
+            //ve ya
+            const currentUrl = window.location.href.replace('/popular/','')
+            //console.log('Hal Hazir Url', `${currentUrl}/actor/morgan`)
+            
+
+
+            //Api Data
+            const api_key = '6eb08bbd168a23902ff08b4d31a3c687'
+            //https://api.themoviedb.org/3/movie/${rf.id}?api_key=${api_key}&language=en-US
+
+            //Token
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            const csrftoken = getCookie('csrftoken');
+
                 
-
-
-                //Api Data
-                const api_key = '6eb08bbd168a23902ff08b4d31a3c687'
-                //https://api.themoviedb.org/3/movie/${rf.id}?api_key=${api_key}&language=en-US
-
-                console.log('Finding api movie count ', findapimoviecount.textContent)
-
-                
-                setTimeout(()=>{
-                    loadingadata.style.display = 'none'
-                },2000)//burani sonra 7 cekersen saniye olarag yeni 7000 ne 10 ustunden 3 kimi dusunsen eger
-                
+            setTimeout(()=>{
+                loadingadata.style.display = 'none'
+            },2000)//burani sonra 7 cekersen saniye olarag yeni 7000 ne 10 ustunden 3 kimi dusunsen eger
+            
+            //https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=<<api_key>>&language=en-US
 
             
-                axios.get('https://api.themoviedb.org/3/trending/movie/day?api_key=6eb08bbd168a23902ff08b4d31a3c687')
-                    .then((response)=>{
-                        const resultFilms = response.data.results;
-                        findapimoviecount.textContent = `${resultFilms.length} movies`
-                        resultFilms.forEach(function(rf,index){
-                            if(rf.original_title==undefined){
+        
+            axios.get('https://api.themoviedb.org/3/trending/movie/day?api_key=6eb08bbd168a23902ff08b4d31a3c687')
+                .then((response)=>{
+                    const resultFilms = response.data.results;
+                    console.log('Gelen data', resultFilms)
+                    findapimoviecount.textContent = `${resultFilms.length} movies`
 
-                            }
-                            else{
-                                movielistapidata.innerHTML += `
-                                    <div class="movie-item-style-2 movie-item-style-1">
-                                        <img src="https://image.tmdb.org/t/p/w500/${rf.backdrop_path}" style="min-width: 170px;min-height: 170px;" alt="">
-                                        <div class="hvr-inner">
-                                            <a href="${currentUrl}/detailapifilm/${rf.id}" class="clickedDetailFilm"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                        </div>
-                                        <div class="mv-item-infor">
-                                            <h6><a>${rf.title}</a></h6>
-                                            <p class="rate"><i class="ion-android-star"></i><span>${rf.vote_average == 0 ? rf.vote_average=6.7 : rf.vote_average}</span> /10</p>
-                                        </div>
-                                    </div>
-                                `
-                            }
-                            
-                        })
-                        const clickedDetailFilm = document.getElementsByClassName('clickedDetailFilm')
-                        for(let i=0;i<clickedDetailFilm.length;i++){
-                            clickedDetailFilm[i].addEventListener('click',(e)=>{
-                                e.preventDefault()//burani sil sonra getmir xiyar basqa seyfeye buna gore
-                                //108 qaldim axios ile POST request atmalisan,notlarim.txt dide 23 setirdeki tapsirigi yerine yetirmeye calisaciyiq insaAllah
-                            })
+                    //forEach
+                    resultFilms.forEach(function(rf,index){
+                        let a = `https://api.themoviedb.org/3/movie/${rf.id}/credits?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US`
+                        console.log('film actor',a)
+                        if(rf.original_title==undefined){
+
                         }
+                        else{
+                            movielistapidata.innerHTML += `
+                                <div class="movie-item-style-2 movie-item-style-1">
+                                    <img src="https://image.tmdb.org/t/p/w500/${rf.backdrop_path}" style="min-width: 170px;min-height: 170px;" alt="">
+                                    <div class="hvr-inner">
+                                        <a href="${currentUrl}/detailapifilm/${rf.id}" class="clickedDetailFilm"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                    </div>
+                                    <div class="mv-item-infor">
+                                        <h6><a>${rf.title}</a></h6>
+                                        <p class="rate"><i class="ion-android-star"></i><span>${rf.vote_average == 0 ? rf.vote_average=6.7 : rf.vote_average}</span> /10</p>
+                                    </div>
+                                </div>
+                            `
+                        }
+                        
                     })
-                    .catch((err)=>{
-                        console.log(err);
-                    })
+                    const clickedDetailFilm = document.getElementsByClassName('clickedDetailFilm')
+                    for(let i=0;i<clickedDetailFilm.length;i++){
+                        clickedDetailFilm[i].addEventListener('click',(e)=>{
+                            e.preventDefault()//burani sil sonra getmir xiyar basqa seyfeye buna gore
+                            //108 qaldim axios ile POST request atmalisan,notlarim.txt dide 23 setirdeki tapsirigi yerine yetirmeye calisaciyiq insaAllah
+                            //axios.post(e.target.href,{
+                                
+                            //})
+                            
+                            
+
+                            console.log(movielistapidata.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.textContent.trim())
+
+
+
+
+
+                            //2 dene nextSibling = 1 dene nextElementSibling e
+                            //console.log(movielistapidata.firstElementChild.firstElementChild.nextElementSibling)
+                        })
+                    }
+                })
+                .catch((err)=>{
+                    console.log(err);
+                })
 
             </script>
     {% endblock scripts %}
