@@ -8,6 +8,7 @@ from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
+import requests
 from .models import *
 # Create your views here.
 
@@ -115,5 +116,56 @@ def popularFilmView(request):
 
 #!movieDetailForApi
 def movieDetailForApi(request,id):
+    responsemovie = requests.get(f"https://api.themoviedb.org/3/movie/{id}?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US")
+    returndatapifilm =  responsemovie.json()
+    
+    #Bunlar ucun bir model yarat databasede ayri bir model qarismasin digerlerine
+    #*MovieData From Api
+    movieimage = returndatapifilm['backdrop_path']
+    moviebudget = returndatapifilm['budget']
+    moviecategory = returndatapifilm['genres']#for isletdin belke burda yada template uzerinde isledersen ferq etmir
+    homepage = returndatapifilm['homepage']
+    movielanguage = returndatapifilm['original_language']
+    movietitle = returndatapifilm['original_title']
+    moviedescription = returndatapifilm['overview']
+    moviecreatedcountry = returndatapifilm['production_countries'][0]['name']
+    moviecreatedate = returndatapifilm['release_date']
+    moviemoney = returndatapifilm['revenue']
+    movieruntime = returndatapifilm['runtime']    
+    movietag = returndatapifilm['tagline']
+    movieimdb = returndatapifilm['vote_average']
+    moviecountvote = returndatapifilm['vote_average']
+    
+    #*MovieActor From Api 
+    responseactor = requests.get(f"https://api.themoviedb.org/3/movie/{id}/credits?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US")
+    returndatapiactor = responseactor.json()
+    
+    #!Bura Director,Writer,Producter olacag, oyuncular ucun cast dictionarysinden istifade edeciyik apidan
+    for i in returndatapiactor['crew']:
+        if(i['job']=='Director'):
+            print('Film Directors ',i['original_name'])
+        elif(i['job']=='Writer'):
+            print('Film Writer ', i['original_name'])
+        elif(i['job']=='Producer'):
+            print('Film Producer', i['original_name'])
+            
+        #?burda qaldig insaAllah davam ederik insaAllah
+            
+    
+    
+    print('response geldi deyesen', responseactor)
+    
+    
+    
+    
+    
+    
+    
+    context = {
+        
+    }
+    
+    
     print('Gelen filmiin id deyeri', id)
+    
     return render(request,'movie/detailApiFilm.html',{'idvalue':id})
