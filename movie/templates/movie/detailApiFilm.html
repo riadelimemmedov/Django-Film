@@ -47,7 +47,7 @@
 		<div class="row ipad-width2">
 			<div class="col-md-4 col-sm-12 col-xs-12">
 				<div class="movie-img sticky-sb">
-					<img src="{{movieimage}}" alt="">
+					<img src="{{movieimage}}" style="width: 330px !important;height: 506px !important;" alt="">
 					<div class="movie-btn" style="border: none">	
 						<div class="btn-transform transform-vertical red">
 							<div><a href="" class="item item-1 redbtn"> <i class="ion-play" disabled></i> Watch Trailer</a></div>
@@ -188,9 +188,9 @@
 
 						            		<div class="sb-it">
 						            			<h6>Genres:</h6>
-												{% for category in movie.category_movie.all %}
+												{% for mc in moviecategory %}
 						            				<p style="margin-bottom: 0px;">
-														<a href="#">{{category.name}}</a> 
+														<a href="#">{{mc}}</a> 
 													</p>
 												{% endfor %}
 						            		</div>
