@@ -116,16 +116,14 @@
 											</div>
 											<!-- movie cast -->
 											<div class="mvcast-item">	
-                                            	{% for actor in movie.actor_movie.all %}
-                                                    {% if actor.duty_type_actor == 'Actorisa' %}
+                                            	{% for actor in cast_list_top_five %}
                                                         <div class="cast-it">
                                                             <div class="cast-left">
-                                                                <img src="{{actor.image_actor.url}}" width="40px" height="40px" alt=""><!--!Xeta gelen yer -->
-                                                                <a href="{% url 'actor:actorDetailView' actor.slug_actor  %}">{{actor.first_name_actor}}&nbsp;{{actor.last_name_actor}}</a>
+                                                                <img src="https://image.tmdb.org/t/p/w500/{{actor.profile_path}}" width="40px" height="40px" alt=""><!--!Xeta gelen yer -->
+                                                                <a href="">{{actor.original_name}}</a>
                                                             </div>
-																<p>{{actor.country_actor}}</p>
+																<p>{{actor.character}}</p>
                                                         </div>
-                                                    {% endif %}
 												{% endfor %}										
 											</div>
 
@@ -190,29 +188,27 @@
 						            			<h6>Genres:</h6>
 												{% for mc in moviecategory %}
 						            				<p style="margin-bottom: 0px;">
-														<a href="#">{{mc}}</a> 
+														<a href="#">{{mc.name}}</a> 
 													</p>
 												{% endfor %}
 						            		</div>
 						            		<div class="sb-it"><!--!Burda qalmisam-->
 						            			<h6>Release Date:</h6>
-						            			<p>{{movie.date_created_movie}} ({{movie.language_movie}})</p>
+						            			<p>{{moviecreatedate}} ({{movielanguage|title}})</p>
 						            		</div>
 						            		<div class="sb-it">
 						            			<h6>Run Time:</h6>
-						            			<p>{{movie.video_time}} min</p>
+						            			<p>{{movieruntime}} min</p>
 						            		</div>
 						            		<div class="sb-it">
 						            			<h6>MMPA Rating:</h6>
-						            			<p>{{movie.mmpa_rating_movie}}</p>
+						            			<p>R</p>
 						            		</div>
 						            		<div class="sb-it">
 						            			<h6>Tags:</h6>
-												{% for tag in movie.tag_movie.all %}
 													<p class="tags">
-														<span class="time"><a href="#">#{{tag.name}}</a></span>
+														<span class="time"><a href="#">#{{movietag}}</a></span>
 													</p>
-												{% endfor %}
 						            		</div>
 						            		<div class="ads">
 												<img src="images/uploads/ads1.png" alt="">
@@ -414,35 +410,30 @@
 											<h4>Directors & Credit Writers</h4>
 										</div>
 										<div class="mvcast-item">
-											{% for actor in movie.actor_movie.all %}	
-												{% if actor.duty_type_actor == 'Director' %}									
+											{% for actor in director_list %}
 													<div class="cast-it">
 														<div class="cast-left" style="margin-bottom:0px">
-																<h4>{{actor.first_name_actor|title|first}}&nbsp; {{actor.last_name_actor|title|first}}</h4>
-															<a href="{% url 'actor:actorDetailView' actor.slug_actor  %}">{{actor.first_name_actor|title}}&nbsp; {{actor.last_name_actor|title}}</a>
+																<h4 class="actorsplittext">{{actor|title|first}}</h4>
+															<a href="" class="directorName">{{actor}}</a>
 														</div>
-														<p>Director</p>
-													</div>
-												{% endif %}
 											{% endfor %}
 										</div>
 										<!-- //== -->
 										
 										<div class="title-hd-sm">
-											<h4>Cast</h4>
+											<h4>Cast</h4>	
 										</div>
 										<div class="mvcast-item">
-											{% for actor in movie.actor_movie.all %}	
-												{% if actor.duty_type_actor == 'Actorisa' %}
+											{% for actor in cast_list_top_five %}	
 													<div class="cast-it">
 														<div class="cast-left">
-															<img src="{{actor.image_actor.url}}" width="40" height="40" alt="">
-															<a href="{% url 'actor:actorDetailView' actor.slug_actor  %}">{{actor.first_name_actor}}&nbsp;{{actor.last_name_actor}}</a>
+															<img src="https://image.tmdb.org/t/p/w500/{{actor.profile_path}}" width="40" height="40" alt="">
+															<a href="">{{actor.original_name}}</a>
 														</div>
-														<p>{{actor.country_actor}}</p>
+														<p>{{actor.character}}</p>
 													</div>
-												{% endif %}
 											{% endfor %}
+											
 										</div>
 										<!-- //== -->
 										<!-- Produced By -->

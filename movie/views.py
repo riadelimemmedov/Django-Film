@@ -148,6 +148,8 @@ def movieDetailForApi(request,id):
     responseactor = requests.get(f"https://api.themoviedb.org/3/movie/{id}/credits?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US")
     returndatapiactor = responseactor.json()
     
+    
+    
     #!Bura Director,Writer,Producter olacag, oyuncular ucun cast dictionarysinden istifade edeciyik apidan
     director_list = []
     writer_list = []
@@ -165,7 +167,8 @@ def movieDetailForApi(request,id):
             
     ###################################################################################################################################################################################
     
-    
+    profile_path = '/2qhIDp44cAqP2clOgt2afQI07X8.jpg'
+    urlrrot = 'https://image.tmdb.org/t/p/w500/2qhIDp44cAqP2clOgt2afQI07X8.jpg'
     
     
     #*SimilarMovieApi
@@ -218,7 +221,8 @@ def movieDetailForApi(request,id):
         'writer_list':writer_list,
         'producer_list':producer_list,
         'idvalue':id,
-        'cast_list': returndatapiactor['cast'],
+        'cast_list': returndatapiactor['cast'][0:10],
+        'cast_list_top_five':returndatapiactor['cast'][0:5],
         
         #SimilarMovie
         'similarmovielist':returnapisimilarmovie['results']
