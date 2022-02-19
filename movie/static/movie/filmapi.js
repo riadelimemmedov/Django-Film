@@ -69,16 +69,37 @@ axios.get('https://api.themoviedb.org/3/trending/movie/day?api_key=6eb08bbd168a2
                         <img src="https://image.tmdb.org/t/p/w500/${rf.backdrop_path}" style="min-width: 170px;min-height: 170px;" alt="">
                         <div class="hvr-inner">
 
-                            <a href="${currentUrl}/detailapifilm/${rf.id}" dataid="${rf.id}" class="clickedDetailFilm dataidfilm" style="display:block"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                            <a href="" dataid="${rf.id}" class="clickedDetailFilm dataidfilm" style="display:block"> Read more <i class="ion-android-arrow-dropright"></i> </a>
                         </div>
                         <div class="mv-item-infor">
                             <h6><a>${rf.title}</a></h6>
-                            <p class="rate"><i class="ion-android-star"></i><span>${rf.vote_average == 0 ? rf.vote_average=6.7 : rf.vote_average}</span> /10</p>
+                            <p class="rate"><i class="ion-android-star"></i><span>${parseFloat(rf.vote_average).toFixed(1)}</span> /10</p>
                         </div>
                     </div>
                 `
+                
             }
         })
+        //${currentUrl}/detailapifilm/${rf.id}
+        //<p class="rate"><i class="ion-android-star"></i><span>${rf.vote_average == 0 ? rf.vote_average=6.7 : rf.vote_average}</span> /10</p> qeseng koddur bu
+        const clickedDetailFilm = document.getElementsByClassName('clickedDetailFilm')
+        const filmsingledata = document.getElementById('filmsingledata')
+        for(let i=0;i<clickedDetailFilm.length;i++){
+            clickedDetailFilm[i].addEventListener('click',(e)=>{
+                e.preventDefault()
+                console.log(e.target.href)
+                loadingadata.style.display = 'block'
+                setTimeout(()=>{
+                    loadingadata.style.display = 'none'
+                    let idFilm = e.target.getAttribute('dataid')
+                    //console.log('Filmin id deyeri', idFilm);
+                    //console.log('Kohne url',clickedDetailFilm[i].href)
+                    clickedDetailFilm[i].href = `${currentUrl}/detailapifilm/${idFilm.trim()}`
+                    //console.log('Tek film url',clickedDetailFilm[i].href)
+                    location.href = clickedDetailFilm[i].href
+                },3000)
+            })
+        }
 
     })
     .catch((err)=>{

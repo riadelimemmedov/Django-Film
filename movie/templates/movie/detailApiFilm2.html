@@ -1,0 +1,51 @@
+<h1>Burasin Apiden Gelen Filmin Detail Hissesidir</h1>
+
+<h1 style="color: red;">Film Id : {{idvalue}}</h1>
+
+
+<h1 style="color:blue">Filmin datalari</h1>
+<div>
+
+    <img src="{{movieimage}}" alt="">
+    
+</div>
+
+<hr>
+<br>
+
+<h2 style="color:aqua">Director List</h2>
+<div>
+    {% for dl in director_list %}
+        <p>{{dl}}</p>
+    {% endfor %}
+</div>
+
+<hr>
+<br>
+
+
+<h2 style="color: aquamarine;">Writer List</h2>
+<div>
+    {% for wl in writer_list %}
+        <p>{{wl}}</p>
+    {% endfor %}
+</div>
+
+<hr>
+<br>
+
+
+<h2 style="color: darkgoldenrod;">Producer List</h2>
+<div>
+    {% for pl in producer_list %}
+        <p>{{pl}}</p>
+    {% endfor %}
+</div>
+
+<hr>
+<br>
+<br>
+<br>
+
+<h2 style="color: greenyellow;">Gelen Filmin Id Deyeri </h2>
+<span>{{idvalue}}</span>

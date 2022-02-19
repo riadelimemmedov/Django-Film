@@ -116,11 +116,12 @@ def popularFilmView(request):
 
 #!movieDetailForApi
 def movieDetailForApi(request,id):
+    
+    #*MovieData From Api
     responsemovie = requests.get(f"https://api.themoviedb.org/3/movie/{id}?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US")
     returndatapifilm =  responsemovie.json()
     
     #Bunlar ucun bir model yarat databasede ayri bir model qarismasin digerlerine
-    #*MovieData From Api
     movieimage = returndatapifilm['backdrop_path']
     moviebudget = returndatapifilm['budget']
     moviecategory = returndatapifilm['genres']#for isletdin belke burda yada template uzerinde isledersen ferq etmir
@@ -134,38 +135,96 @@ def movieDetailForApi(request,id):
     movieruntime = returndatapifilm['runtime']    
     movietag = returndatapifilm['tagline']
     movieimdb = returndatapifilm['vote_average']
-    moviecountvote = returndatapifilm['vote_average']
+    moviecountvote = returndatapifilm['vote_count']
+    
+    #change format movieimage
+    movieimage = f"https://image.tmdb.org/t/p/w500/{movieimage}"
+    ###################################################################################################################################################################################
+    
+    
+    
     
     #*MovieActor From Api 
     responseactor = requests.get(f"https://api.themoviedb.org/3/movie/{id}/credits?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US")
     returndatapiactor = responseactor.json()
     
     #!Bura Director,Writer,Producter olacag, oyuncular ucun cast dictionarysinden istifade edeciyik apidan
+    director_list = []
+    writer_list = []
+    producer_list = []
     for i in returndatapiactor['crew']:
         if(i['job']=='Director'):
-            print('Film Directors ',i['original_name'])
+            #print('Film Directors ',i['original_name'])
+            director_list.append(i['original_name'])
         elif(i['job']=='Writer'):
-            print('Film Writer ', i['original_name'])
+            #print('Film Writer ', i['original_name'])
+            writer_list.append(i['original_name'])
         elif(i['job']=='Producer'):
-            print('Film Producer', i['original_name'])
+            #print('Film Producer', i['original_name'])
+            producer_list.append(i['original_name']) 
             
-        #?burda qaldig insaAllah davam ederik insaAllah
-            
+    ###################################################################################################################################################################################
     
     
-    print('response geldi deyesen', responseactor)
     
     
+    #*SimilarMovieApi
+    responsesimilarmovie = requests.get(f"https://api.themoviedb.org/3/movie/634649/similar?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US&page=1")
+    returnapisimilarmovie =  responsesimilarmovie.json()
+    
+    #?Burda qalmisig ve bax gorum detailfilmlde related film hissesinde hansi datalar yerlesib html icinde ele olara uygun olanlari apiden cek ele bil butun datalari yazmiyag birde
+    #Bura
+    sayac = 0
+    #for j in returnapisimilarmovie['results']:
+        #responsesimilarcastcrewproducer = requests.get(f"https://api.themoviedb.org/3/movie/{j['id']}/credits?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US")
+        
+        #print(responsesimilarcastcrewproducer.json())
+        # print(j['title'])
+        # print(j['release_date'])
+        # print(round(j['vote_average'],1))
+        # print(j['overview'])
+        
+        # sayac += 1
+        # print('##########################################################')
+    
+    #print('Film sayi oxsar olan filmler', sayac)
+    
+    
+    ###################################################################################################################################################################################
     
     
     
     
     
     context = {
+        #FilmData
+        'movieimage':movieimage,
+        'moviebudget':moviebudget,
+        'moviecategory':moviecategory,
+        'homepage':homepage,
+        'movielanguage':movielanguage,
+        'movietitle':movietitle,
+        'moviedescription':moviedescription,
+        'moviecreatedcountry':moviecreatedcountry,
+        'moviecreatedate':moviecreatedate,
+        'moviemoney':moviemoney,
+        'movieruntime':movieruntime,
+        'movietag':movietag,
+        'movieimdb':movieimdb,
+        'moviecountvote':moviecountvote,
         
+        #Cast and Crew
+        'director_list':director_list,
+        'writer_list':writer_list,
+        'producer_list':producer_list,
+        'idvalue':id,
+        'cast_list': returndatapiactor['cast'],
+        
+        #SimilarMovie
+        'similarmovielist':returnapisimilarmovie['results']
     }
     
     
-    print('Gelen filmiin id deyeri', id)
+    #print('Gelen filmiin id deyeri', id)
     
-    return render(request,'movie/detailApiFilm.html',{'idvalue':id})
+    return render(request,'movie/detailApiFilm.html',context)
