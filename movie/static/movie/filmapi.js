@@ -96,6 +96,7 @@ axios.get('https://api.themoviedb.org/3/trending/movie/day?api_key=6eb08bbd168a2
                     //console.log('Kohne url',clickedDetailFilm[i].href)
                     clickedDetailFilm[i].href = `${currentUrl}/detailapifilm/${idFilm.trim()}`
                     //console.log('Tek film url',clickedDetailFilm[i].href)
+                    location.href = ''
                     location.href = clickedDetailFilm[i].href
                 },3000)
             })

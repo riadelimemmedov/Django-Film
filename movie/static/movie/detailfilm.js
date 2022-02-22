@@ -23,6 +23,18 @@ const homeurl = window.location.href.substring(0,window.location.href.lastIndexO
 const imageurl = `${homeurl}/media`
 const slugurlfield = currenturl.substring(currenturl.lastIndexOf('/')+1)
 
+//!xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+const similargetir = document.getElementById('similargetir')
+similargetir.addEventListener('click',(e)=>{
+    console.log(window.location.href);
+    e.preventDefault()
+    $.ajax({
+        type:'GET',
+    })
+})
+//!xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
 
 
 function getCookie(name) {
@@ -168,7 +180,21 @@ const handleGetData = () => sortlaformagore.addEventListener('change',(e)=>{
 handleGetData()
 
 
+
+
 //!FilmDetail Html Edit
+const clickCast = document.getElementById('clickCast')
+const tiklaRelated = document.getElementById('tiklaRelated')
+
+clickCast.addEventListener('click',(e)=>{
+    e.preventDefault()
+    console.log('tiklandi cast')
+})
+
+tiklaRelated.addEventListener('click',(e)=>{
+    e.preventDefault()
+    console.log('related click')
+})
 
 
 

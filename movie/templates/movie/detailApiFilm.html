@@ -48,16 +48,6 @@
 			<div class="col-md-4 col-sm-12 col-xs-12">
 				<div class="movie-img sticky-sb">
 					<img src="{{movieimage}}" style="width: 330px !important;height: 506px !important;" alt="">
-					<div class="movie-btn" style="border: none">	
-						<div class="btn-transform transform-vertical red">
-							<div><a href="" class="item item-1 redbtn"> <i class="ion-play" disabled></i> Watch Trailer</a></div>
-							<div><a class="item item-2 redbtn fancybox-media hvr-grow" disabled><i class="ion-play"></i></a></div>
-						</div>
-						<div class="btn-transform transform-vertical">
-							<div><a href="#" class="item item-1 yellowbtn" id="biletaliram" disabled> <i class="ion-card"></i> Buy ticket</a></div>
-							<div><a href="#" class="item item-2 yellowbtn" disabled><i class="ion-card"></i></a></div>
-						</div>
-					</div>
 				</div>
 			</div>
 			<div class="col-md-8 col-sm-12 col-xs-12">
@@ -91,8 +81,8 @@
 							<ul class="tab-links tabs-mv">
 								<li class="active" id="activeolanpage"><a href="#overview">Overview</a></li>
 								<li><a href="#reviews"> Reviews</a></li>
-								<li><a href="#cast">  Cast & Crew </a></li>
-								<li id="activeolanrelatedmovie"><a href="#moviesrelated"> Related Movies</a></li>                        
+								<li id="clickCast"><a href="#cast" >  Cast & Crew </a></li>
+								<li id="tiklaRelated"><a href="#moviesrelated"> Related Movies</a></li>                        
 							</ul>
 						    <div class="tab-content">
 						        <div id="overview" class="tab active">
@@ -399,7 +389,7 @@
 						        </div>
 
 								<!--!Cast and Create-->
-						        <div id="cast" class="tab">
+						        <div id="cast" class="tab cast">
 						        	<div class="row">
 						            	<h3>Cast & Crew of</h3>
 					       	 			<h2>{{movie.title_movie}}</h2>
@@ -410,14 +400,27 @@
 											<h4>Directors & Credit Writers</h4>
 										</div>
 										<div class="mvcast-item">
-											{% for actor in director_list %}
+											{% for dc in director_list %}
 													<div class="cast-it">
 														<div class="cast-left" style="margin-bottom:0px">
-																<h4 class="actorsplittext">{{actor|title|first}}</h4>
-															<a href="" class="directorName">{{actor}}</a>
+																<h4 class="actorsplittext">{{dc|title|first}}</h4>
+															<a href="" class="directorName">{{dc}}</a>
 														</div>
+														<p>Director</p>
+													</div>
 											{% endfor %}
-										</div>
+
+											{% for wl in writer_list  %}
+												<div class="cast-it">
+													<div class="cast-left" style="margin-bottom:0px">
+															<h4 class="actorsplittext">{{wl|title|first}}</h4>
+														<a href="" class="directorName">{{wl}}</a>
+													</div>
+													<p>Writer</p>
+												</div>
+											{% endfor %}
+										
+										
 										<!-- //== -->
 										
 										<div class="title-hd-sm">
@@ -441,98 +444,68 @@
 											<h4>Produced by</h4>
 										</div>
 										<div class="mvcast-item">	
-											{% for actor in movie.actor_movie.all %}	
-												{% if actor.duty_type_actor == 'Producter' %}										
+											{% for pl in producer_list %}	
 													<div class="cast-it">
 														<div class="cast-left">
-															<h4>{{actor.first_name_actor|title|first}}&nbsp;{{actor.last_name_actor|title|first}}</h4>
-															<a href="{% url 'actor:actorDetailView' actor.slug_actor  %}">{{actor.first_name_actor|title}} &nbsp;{{actor.last_name_actor|title}}</a>
+															<h4>{{pl|title|first}}&nbsp;{{pl.last_name_actor|title|first}}</h4>
+															<a href="">{{pl}}</a>
 														</div>
 														<p>Producer</p>
 													</div>
-												{% endif %}
 											{% endfor %}
 										</div>
 						            </div>
 					       	 	</div>
 
 									<!-- !Related Movie -->
-									<div id="moviesrelated" class="tab">
-									
-					       	 		<div class="row">
-					       	 			<h3>Related Movies To</h3>
-					       	 			<h2>{{movie.title_movie}}</h2>
-					       	 			<div class="topbar-filter"><!-- Topbar Burda -->
-											<p>Found <span>{{filmler|length}} movies</span> in total</p>
-											
-
-											<label>Sort by:</label>
-											<form action="" id="relatedfilmajax">
-												<select id="sortlaformagore">
-													<option value="">Options</option>
-													<hr>
-													<option value="ratingdesc">Rating Descending</option>
-													<option value="ratingasc">Rating Ascending</option>
-													<option value="datedsc" id="data-desc">Release Date Descending</option>
-													<option value="dateasc" id="data-esc">Release Date Ascending</option>
-												</select>
-											</form>
-
-										</div>
-
-
-										<div id="loadingrelatedfilmloader">
-											<div id="preloader" style="display: none;">
-												<img class="logo" src="{% static 'images/logo1.png' %}" alt="" width="119" height="58">
-												<div id="status">
-													<span></span>
-													<span></span>
-												</div>
-											</div>
-										</div>
-
-										<div id="allrelatedfilmlistdiv">
-										{% for film in filmler %}
-											<div class="movie-item-style-2" id="films-related-area">
-												<img src="{{film.image_movie.url}}" style="width: 170px;height: 261px;" alt="">
-												<div class="mv-item-infor">
-													<h6><a href="{% url 'movie:detailfilm' film.slug_movie %}">{{film.title_movie}} &nbsp; <span class="moviedate">{{film.date_created_movie}}</span></a></h6><!-- Burda bu deyer olmalidirki js terefine gedib split olunsun yeniden innerHtml ile span tagi yeni inline olan span taginin icine gomulsun -->
-													<p class="rate"><i class="ion-android-star"></i><span class="filmajaxrayting">{{film.avarage_ibdm}}</span> /10</p>
-													<p class="describe">{{film.description_movie|truncatechars:160}}</p>
-													<p class="run-time"> Run Time: {{film.video_time}} .<span>MMPA: {{film.mmpa_rating_movie}} </span> .<span>Release: {{film.date_created_movie}}</span></p>
-
-													<p>
-														Director:
-														{% for actor in film.actor_movie.all %}
-															{% if actor.duty_type_actor == 'Director' %}	
-																<a href="{% url 'actor:actorDetailView' actor.slug_actor  %}">{{actor.first_name_actor|title}}&nbsp; {{actor.last_name_actor|title}}</a>,
-															{% endif %}
-														{% endfor %}
-													</p>
-
-													<p style="display: inline;">
-														Stars: 
-														{% for actor in film.actor_movie.all %}
-																{% if actor.duty_type_actor == 'Actorisa' %}
-																	<a href="{% url 'actor:actorDetailView' actor.slug_actor  %}">{{actor.first_name_actor|title}}&nbsp; {{actor.last_name_actor|title}}</a>,
-																{% endif %}
-														{% endfor %}
-													</p>
-												</div>
-											</div>
-										{% endfor %}
-													
-										
-										<!-- !Axirinci yol bunu html icinde yaz olmadi aler ile yaz fso ne olar olar--->
-										
-										
-
-
-
-					       	 		</div>
-					       	 	</div>
-						    </div>
+								
 						</div>
+
+						<!-- !Related Movie -->
+						
+						<div id="moviesrelated" class="tab">
+									
+							<div class="row">
+								<h3>Related Movies To</h3>
+								<h2>{{movietitle}}</h2>
+								<div class="topbar-filter"><!-- Topbar Burda -->
+								<p>Found <span>{{similarmovieslistlenght}} movies</span> in total</p>
+								<button id="similargetir">similar</button>
+							</div>
+
+
+							<div id="loadingrelatedfilmloader">
+								<div id="preloader" style="display: none;">
+									<img class="logo" src="{% static 'images/logo1.png' %}" alt="" width="119" height="58">
+									<div id="status">
+										<span></span>
+										<span></span>
+									</div>
+								</div>
+							</div>
+
+							<div id="allrelatedfilmlistdiv">
+								{% for film in similarmovieslist %}
+									<div class="movie-item-style-2" id="films-related-area">
+										<img src="https://image.tmdb.org/t/p/w500/{{film.backdrop_path}}" style="width: 170px;height: 261px;" alt="">
+										<div class="mv-item-infor">
+											<h6><a href="">{{film.original_title}} &nbsp; <span class="moviedate">{{film.release_date}}</span></a></h6><!-- Burda bu deyer olmalidirki js terefine gedib split olunsun yeniden innerHtml ile span tagi yeni inline olan span taginin icine gomulsun -->
+											<p class="rate"><i class="ion-android-star"></i><span class="filmajaxrayting">{{film.vote_average|floatformat}}</span> /10</p>
+											<p class="describe">{{film.overview|truncatechars:200}}...</p>
+											<p class="" style="margin-right: 50px !important;">
+												<span>Release: {{film.release_date}}</span>
+											</p>
+										</div>
+									</div>
+								{% endfor %}
+							<!-- !Axirinci yol bunu html icinde yaz olmadi aler ile yaz fso ne olar olar--->
+							</div>
+
+								</div>
+							</div>
+						</div>
+						</div>
+
 					</div>
 				</div>
 			</div>

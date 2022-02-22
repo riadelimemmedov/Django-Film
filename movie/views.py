@@ -167,33 +167,41 @@ def movieDetailForApi(request,id):
             
     ###################################################################################################################################################################################
     
-    profile_path = '/2qhIDp44cAqP2clOgt2afQI07X8.jpg'
-    urlrrot = 'https://image.tmdb.org/t/p/w500/2qhIDp44cAqP2clOgt2afQI07X8.jpg'
+    #profile_path = '/2qhIDp44cAqP2clOgt2afQI07X8.jpg'
+    #urlrrot = 'https://image.tmdb.org/t/p/w500/2qhIDp44cAqP2clOgt2afQI07X8.jpg'
     
     
     #*SimilarMovieApi
-    responsesimilarmovie = requests.get(f"https://api.themoviedb.org/3/movie/634649/similar?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US&page=1")
+    responsesimilarmovie = requests.get(f"https://api.themoviedb.org/3/movie/634649/similar?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US&page=1")#yeni her bir filme uygun gelir bu
     returnapisimilarmovie =  responsesimilarmovie.json()
     
     #?Burda qalmisig ve bax gorum detailfilmlde related film hissesinde hansi datalar yerlesib html icinde ele olara uygun olanlari apiden cek ele bil butun datalari yazmiyag birde
-    #Bura
+    similarmovieslist = []
+    similarcastlist = []
     sayac = 0
-    #for j in returnapisimilarmovie['results']:
-        #responsesimilarcastcrewproducer = requests.get(f"https://api.themoviedb.org/3/movie/{j['id']}/credits?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US")
-        
-        #print(responsesimilarcastcrewproducer.json())
-        # print(j['title'])
-        # print(j['release_date'])
-        # print(round(j['vote_average'],1))
-        # print(j['overview'])
-        
-        # sayac += 1
-        # print('##########################################################')
+    for j in returnapisimilarmovie['results']:
+        #print(j['id'])
+        #responsesimilarcastcrewproducer = requests.get(f"https://api.themoviedb.org/3/movie/{j['id']}/credits?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US").json()
+        similarmovieslist.append(j)
+        print('Id ler filmin',j['id'])
+            
     
-    #print('Film sayi oxsar olan filmler', sayac)
+        
     
     
     ###################################################################################################################################################################################
+    
+    #!Similar Movie
+    #!Pagination Elave ele
+    
+    #*Js load more data hissesi amma model yoxdu problemler var
+    def loadMoreDataJs():
+        serializerssimilarmovies=similarmovieslist
+        print('uzunlug',len(serializerssimilarmovies))
+        return JsonResponse({'serializerssimilarmovies':serializerssimilarmovies},safe=False)
+    loadMoreDataJs()
+    
+    
     
     
     
@@ -225,7 +233,8 @@ def movieDetailForApi(request,id):
         'cast_list_top_five':returndatapiactor['cast'][0:5],
         
         #SimilarMovie
-        'similarmovielist':returnapisimilarmovie['results']
+        'similarmovieslist':similarmovieslist,
+        'similarmovieslistlenght':len(similarmovieslist),
     }
     
     
