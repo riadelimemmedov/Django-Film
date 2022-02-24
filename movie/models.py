@@ -1,3 +1,5 @@
+
+from xml.parsers.expat import model
 from django.db import models
 from django.db.models.deletion import SET_NULL
 from django.utils.text import slugify
@@ -113,3 +115,14 @@ class Movie(models.Model):
     def get_category(self):
         return self.category_movie.all()
         
+#!Related Movie
+class RelatedMovieModel(models.Model):
+    title_relatedmovie = models.CharField(max_length=100)
+    created_relatedmovie = models.CharField(max_length=100)
+    imdb_relatedmovie = models.CharField(max_length=20)
+    overview_relatedmovie = models.TextField()
+    idvalue_relatedmovie = models.CharField(max_length=100)
+    image_relatedmovie = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.title_relatedmovie

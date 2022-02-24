@@ -180,10 +180,11 @@ def movieDetailForApi(request,id):
     similarcastlist = []
     sayac = 0
     for j in returnapisimilarmovie['results']:
-        #print(j['id'])
-        #responsesimilarcastcrewproducer = requests.get(f"https://api.themoviedb.org/3/movie/{j['id']}/credits?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US").json()
+    
         similarmovieslist.append(j)
-        print('Id ler filmin',j['id'])
+       
+
+        
             
     
         
@@ -195,11 +196,11 @@ def movieDetailForApi(request,id):
     #!Pagination Elave ele
     
     #*Js load more data hissesi amma model yoxdu problemler var
-    def loadMoreDataJs():
-        serializerssimilarmovies=similarmovieslist
-        print('uzunlug',len(serializerssimilarmovies))
-        return JsonResponse({'serializerssimilarmovies':serializerssimilarmovies},safe=False)
-    loadMoreDataJs()
+    # def loadMoreDataJs():
+    #     serializerssimilarmovies=similarmovieslist
+    #     print('uzunlug',len(serializerssimilarmovies))
+    #     return JsonResponse({'serializerssimilarmovies':serializerssimilarmovies},safe=False)
+    # loadMoreDataJs()
     
     
     
