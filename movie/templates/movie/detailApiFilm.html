@@ -110,7 +110,7 @@
                                                         <div class="cast-it">
                                                             <div class="cast-left">
                                                                 <img src="https://image.tmdb.org/t/p/w500/{{actor.profile_path}}" width="40px" height="40px" alt=""><!--!Xeta gelen yer -->
-                                                                <a href="">{{actor.original_name}}</a>
+                                                                <a href="{% url 'movie:castcrewDetailForApi' actor.id %}">{{actor.original_name}}</a>
                                                             </div>
 																<p>{{actor.character}}</p>
                                                         </div>
@@ -151,7 +151,7 @@
 													<h6>Director: </h6>
 													{% for dl in director_list %}
                                                         <p style="margin-bottom:0px;">
-                                                            <a href="">{{dl}}</a><!-- !Burani duzeltmeye calis neyse fikirles -->
+                                                            <a href="{% url 'movie:castcrewDetailForApi' dl.1 %}">{{dl.0}}</a><!-- !Burani duzeltmeye calis neyse fikirles -->
                                                         </p>
 													{% endfor %}
 												</div>
@@ -160,7 +160,7 @@
 													<h6>Writer: </h6>
                                                     {% for wl in writer_list %}
                                                         <p style="margin-bottom:0px">
-                                                            <a href="">{{wl}}</a><!-- !Burani duzeltmeye calis neyse fikirles -->
+                                                            <a href="{% url 'movie:castcrewDetailForApi' wl.1 %}">{{wl.0}}</a><!-- !Burani duzeltmeye calis neyse fikirles -->
                                                         </p>
                                                     {% endfor %}
 												</div>
@@ -169,7 +169,7 @@
 													<h6>Stars: </h6>
 													{% for cl in cast_list %}<!-- !Burda xeta var yene fuckkkkkk -->
 															<p style="margin-bottom: 0px;">
-																<a href="">{{cl.original_name}}</a> 
+																<a href="{% url 'movie:castcrewDetailForApi' cl.id %}">{{cl.original_name}}</a> 
 															</p>
                                                     {% endfor %}
 												</div>
@@ -403,8 +403,8 @@
 											{% for dc in director_list %}
 													<div class="cast-it">
 														<div class="cast-left" style="margin-bottom:0px">
-																<h4 class="actorsplittext">{{dc|title|first}}</h4>
-															<a href="" class="directorName">{{dc}}</a>
+																<h4 class="actorsplittext">{{dc.0|title|first}}</h4>
+															<a href="{% url 'movie:castcrewDetailForApi' dc.1 %}" class="directorName">{{dc.0}}</a>
 														</div>
 														<p>Director</p>
 													</div>
@@ -413,8 +413,8 @@
 											{% for wl in writer_list  %}
 												<div class="cast-it">
 													<div class="cast-left" style="margin-bottom:0px">
-															<h4 class="actorsplittext">{{wl|title|first}}</h4>
-														<a href="" class="directorName">{{wl}}</a>
+															<h4 class="actorsplittext">{{wl.0|title|first}}</h4>
+														<a href="{% url 'movie:castcrewDetailForApi' wl.1  %}" class="directorName">{{wl.0}}</a>
 													</div>
 													<p>Writer</p>
 												</div>
@@ -431,7 +431,7 @@
 													<div class="cast-it">
 														<div class="cast-left">
 															<img src="https://image.tmdb.org/t/p/w500/{{actor.profile_path}}" width="40" height="40" alt="">
-															<a href="">{{actor.original_name}}</a>
+															<a href="{% url 'movie:castcrewDetailForApi' actor.id %}">{{actor.original_name}}</a>
 														</div>
 														<p>{{actor.character}}</p>
 													</div>
@@ -447,8 +447,8 @@
 											{% for pl in producer_list %}	
 													<div class="cast-it">
 														<div class="cast-left">
-															<h4>{{pl|title|first}}&nbsp;{{pl.last_name_actor|title|first}}</h4>
-															<a href="">{{pl}}</a>
+															<h4>{{pl.0|title|first}}&nbsp;{{pl.0.last_name_actor|title|first}}</h4>
+															<a href="{% url 'movie:castcrewDetailForApi' pl.1 %}">{{pl.0}}</a>
 														</div>
 														<p>Producer</p>
 													</div>
@@ -488,7 +488,7 @@
 									<div class="movie-item-style-2" id="films-related-area">
 										<img src="https://image.tmdb.org/t/p/w500/{{film.backdrop_path}}" style="width: 170px;height: 261px;" alt="">
 										<div class="mv-item-infor">
-											<h6><a href="">{{film.original_title}} &nbsp; <span class="moviedate">{{film.release_date}}</span></a></h6><!-- Burda bu deyer olmalidirki js terefine gedib split olunsun yeniden innerHtml ile span tagi yeni inline olan span taginin icine gomulsun -->
+											<h6><a href="{% url 'movie:movieDetailForApi' film.id %}">{{film.original_title}} &nbsp; <span class="moviedate">{{film.release_date}}</span></a></h6><!-- Burda bu deyer olmalidirki js terefine gedib split olunsun yeniden innerHtml ile span tagi yeni inline olan span taginin icine gomulsun -->
 											<p class="rate"><i class="ion-android-star"></i><span class="filmajaxrayting">{{film.vote_average|floatformat}}</span> /10</p>
 											<p class="describe">{{film.overview|truncatechars:200}}...</p>
 											<p class="" style="margin-right: 50px !important;">

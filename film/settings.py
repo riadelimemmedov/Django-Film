@@ -137,5 +137,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #django-admin --version =>vasitesile djangonun versiyasini oyrenek olur
+#djangodaki list icindeki deyeri template gostermek ucun => i.0 yeni 0 inci indexdeki deyeri template yazfir formasinda istifade oluna biler, yadda saxla meselen => {{i.0}} django formatinda yazmagi unutma amma
+
 
 #filmenv\Scripts\activate

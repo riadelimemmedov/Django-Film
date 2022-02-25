@@ -7,7 +7,8 @@ urlpatterns = [
     path('',homeView,name='home'),
     path('<slug:slug>',detailView,name='detailfilm'),
     path('popular/',popularFilmView,name='popularFilmView'),
-    path('detailapifilm/<int:id>',movieDetailForApi,name='movieDetailForApi')
+    path('detailapifilm/<int:id>',movieDetailForApi,name='movieDetailForApi'),
+    path('detailcastcrew/<int:id>',castcrewDetailForApi,name='castcrewDetailForApi')
     
     #path('jsonver',jsonver,name='jsonver'),
 ]

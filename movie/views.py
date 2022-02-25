@@ -157,13 +157,13 @@ def movieDetailForApi(request,id):
     for i in returndatapiactor['crew']:
         if(i['job']=='Director'):
             #print('Film Directors ',i['original_name'])
-            director_list.append(i['original_name'])
+            director_list.append((i['original_name'],i['id']))
         elif(i['job']=='Writer'):
             #print('Film Writer ', i['original_name'])
-            writer_list.append(i['original_name'])
+            writer_list.append((i['original_name'],i['id']))
         elif(i['job']=='Producer'):
             #print('Film Producer', i['original_name'])
-            producer_list.append(i['original_name']) 
+            producer_list.append((i['original_name'],i['id'])) 
             
     ###################################################################################################################################################################################
     
@@ -179,33 +179,10 @@ def movieDetailForApi(request,id):
     similarmovieslist = []
     similarcastlist = []
     sayac = 0
-    for j in returnapisimilarmovie['results']:
-    
+    for j in returnapisimilarmovie['results']:    
         similarmovieslist.append(j)
-       
 
-        
-            
-    
-        
-    
-    
-    ###################################################################################################################################################################################
-    
-    #!Similar Movie
     #!Pagination Elave ele
-    
-    #*Js load more data hissesi amma model yoxdu problemler var
-    # def loadMoreDataJs():
-    #     serializerssimilarmovies=similarmovieslist
-    #     print('uzunlug',len(serializerssimilarmovies))
-    #     return JsonResponse({'serializerssimilarmovies':serializerssimilarmovies},safe=False)
-    # loadMoreDataJs()
-    
-    
-    
-    
-    
     
     
     context = {
@@ -242,3 +219,8 @@ def movieDetailForApi(request,id):
     #print('Gelen filmiin id deyeri', id)
     
     return render(request,'movie/detailApiFilm.html',context)
+
+
+def castcrewDetailForApi(request,id):
+    print('Gelen Id Deyeri',id)
+    return render(request,'movie/detailCastCrew.html',{'id':id})
