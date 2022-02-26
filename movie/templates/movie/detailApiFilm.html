@@ -105,12 +105,16 @@
 												<h4>cast</h4>
 											</div>
 											<!-- movie cast -->
-											<div class="mvcast-item">	
+											<div class="mvcast-item">
                                             	{% for actor in cast_list_top_five %}
                                                         <div class="cast-it">
                                                             <div class="cast-left">
-                                                                <img src="https://image.tmdb.org/t/p/w500/{{actor.profile_path}}" width="40px" height="40px" alt=""><!--!Xeta gelen yer -->
-                                                                <a href="{% url 'movie:castcrewDetailForApi' actor.id %}">{{actor.original_name}}</a>
+																{% if actor.profile_path %}
+                                                                	<img src="https://image.tmdb.org/t/p/w500/{{actor.profile_path}}" width="40px" height="40px" alt=""><!--!Xeta gelen yer -->
+																{% else %}
+																	<img src="{% static 'images/sekilyox.png' %}" width="40px" style="height: 54px;" alt=""><!--!Xeta gelen yer -->
+																{% endif %}
+																	<a href="{% url 'movie:castcrewDetailForApi' actor.id %}">{{actor.original_name}}</a>
                                                             </div>
 																<p>{{actor.character}}</p>
                                                         </div>

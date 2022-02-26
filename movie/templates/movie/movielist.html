@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Movies{% endblock title %}
+
+
+<body>
+    {% block content %}
+
+    <div id="blockloader">
+        <div id="preloader">
+            <img class="logo" src="{% static 'images/logo1.png' %}" alt="" width="119" height="58">
+            <div id="status">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+
+        <div class="hero common-hero" id="herocommonhero">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="hero-ct">
+                            <h1> movie listing - grid</h1>
+                            <ul class="breadcumb">
+                                <li class="active"><a href="{% url 'movie:home' %}">Home</a></li>
+                                <li> <span class="ion-ios-arrow-right"></span> movie listing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-single">
+            <div class="container">
+                <div class="row ipad-width">
+                    <div class="col-md-8 col-sm-12 col-xs-12">
+
+                        <div class="topbar-filter">
+                            <p>Found <span id="foundMovieCount">{{movies|length}} movies</span> in total</p>
+                            <a  href="moviegrid.html" class="grid"><i class="ion-grid active"></i></a>
+                        </div>
+
+                        <div id="notFoundMovieAlert">
+
+                        </div>
+
+                        <div class="flex-wrap-movielist" id="filmList">
+                            {% for movie in movies %}
+                                <div class="movie-item-style-2 movie-item-style-1">
+                                    <img src="{{movie.image_movie.url}}" alt="">
+                                    <div class="hvr-inner">
+                                        <a href="{% url 'movie:detailfilm' movie.slug_movie %}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                    </div>
+                                    <div class="mv-item-infor">
+                                        <h6><a href="{% url 'movie:detailfilm' movie.slug_movie %}">{{movie.title_movie}}</a></h6>
+                                        <p class="rate"><i class="ion-android-star"></i><span>{{movie.avarage_ibdm}}</span> /10</p>
+                                    </div>
+                                </div>			
+                            {% endfor %}
+                        </div>		
+                        <div class="topbar-filter" id="paginationData">
+                            <label>Movies per page:</label>
+                            <select>
+                                <option value="range">20 Movies</option>
+                                <option value="saab">10 Movies</option>
+                            </select>
+                            
+                            <div class="pagination2">
+                                <span>Page 1 of 2:</span>
+                                <a class="active" href="#">1</a>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#">...</a>
+                                <a href="#">78</a>
+                                <a href="#">79</a>
+                                <a href="#"><i class="ion-arrow-right-b"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="sidebar">
+                            <div class="searh-form">
+                                <h4 class="sb-title">Search for movie</h4>
+                                <!-- !Search Form Movies -->
+                                <form class="form-style-1" id="searchFormId" autocomplete="off">
+                                    <div class="row">
+                                        <div class="col-md-12 form-it">
+                                            <label>Movie name</label>
+                                            <input type="text" id="inputSearchText" placeholder="Enter keywords" required>
+                                        </div>
+
+                                        <div class="col-md-12 ">
+                                            <input class="submit" id="searchButton" type="submit" value="submit">
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="ads">
+                                <img src="images/uploads/ads1.png" alt="">
+                            </div>
+                            <div class="sb-facebook sb-it">
+                                <h4 class="sb-title">Find us on Facebook</h4>
+                                <iframe src="#" data-src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ftemplatespoint.net%2F%3Ffref%3Dts&tabs=timeline&width=340&height=315px&small_header=true&adapt_container_width=false&hide_cover=false&show_facepile=true&appId"  height="315" style="width:100%;border:none;overflow:hidden" ></iframe>
+                            </div>
+                            <div class="sb-twitter sb-it">
+                                <h4 class="sb-title">Tweet to us</h4>
+                                <div class="slick-tw">
+                                    <div class="tweet item" id=""><!-- Put your twiter id here -->
+                                    </div>
+                                    <div class="tweet item" id=""><!-- Put your 2nd twiter account id here -->
+                                    </div>
+                                </div>					
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock content %}
+</body>
+
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'movie/films.js' %}" defer></script>
+{% endblock scripts %}

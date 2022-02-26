@@ -222,5 +222,30 @@ def movieDetailForApi(request,id):
 
 
 def castcrewDetailForApi(request,id):
-    print('Gelen Id Deyeri',id)
-    return render(request,'movie/detailCastCrew.html',{'id':id})
+    responseCastCrewSingleData = requests.get(f"https://api.themoviedb.org/3/person/{id}?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US").json()
+    castcrewStarredMovie = requests.get(f"https://api.themoviedb.org/3/person/{id}/movie_credits?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US").json()['cast'][:3]
+
+    context = {
+        'singleDataActor':responseCastCrewSingleData,
+        'castcrewStarredMovie':castcrewStarredMovie
+    }
+    
+    return render(request,'movie/detailCastCrew.html',context)
+
+
+def allMoviesListView(request):
+    movies = Movie.objects.all()
+    
+    if request.method == 'POST':
+        inputSearchText = request.POST.get('inputSearchText')
+        if(inputSearchText):
+            findMovies = Movie.objects.filter(Q(title_movie__icontains=inputSearchText))
+            print(len(findMovies))
+            serilazersFindMovie = serializers.serialize('json',findMovies)
+            return JsonResponse({'serilazersFindMovie':serilazersFindMovie,'findCountMovie':len(findMovies)},safe=False)
+    
+    context = {
+        'movies':movies
+    }
+    return render(request,'movie/movielist.html',context)
+
