@@ -235,17 +235,31 @@ def castcrewDetailForApi(request,id):
 
 def allMoviesListView(request):
     movies = Movie.objects.all()
+    paginator = Paginator(movies,4)
+    page = request.GET.get('page')
+    paged_movie = paginator.get_page(page)
+    
+    #print(paginator.num_pages)
     
     if request.method == 'POST':
         inputSearchText = request.POST.get('inputSearchText')
+        print('Url deyeri',request.POST.get('urlvalue'))
+        a = request.POST.get('urlvalue')
+        homeUrl = a.replace(f"movies/?page={page}",'')
+        
         if(inputSearchText):
             findMovies = Movie.objects.filter(Q(title_movie__icontains=inputSearchText))
             print(len(findMovies))
             serilazersFindMovie = serializers.serialize('json',findMovies)
-            return JsonResponse({'serilazersFindMovie':serilazersFindMovie,'findCountMovie':len(findMovies)},safe=False)
+            #print('Gelen filmin datasi',serilazersFindMovie)
+            return JsonResponse({'serilazersFindMovie':serilazersFindMovie,'findCountMovie':len(findMovies),'page':page,'homeUrl':homeUrl},safe=False)
+        
     
     context = {
-        'movies':movies
+        'movies':paged_movie,
+        'allmovie':movies,
+        
+        'paginator':paginator
     }
     return render(request,'movie/movielist.html',context)
 

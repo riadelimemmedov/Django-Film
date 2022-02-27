@@ -48,7 +48,8 @@ function findMovieAjax(){
             url : currentUrl,
             data:{
                 'csrfmiddlewaretoken':csrftoken,
-                'inputSearchText':inputSearchText.value
+                'inputSearchText':inputSearchText.value,
+                'urlvalue':currentUrl
             },
             success:function(response){
                 console.log('Ugurlu bir sekilde post request atildi');
@@ -84,7 +85,18 @@ function findMovieAjax(){
                         foundMovieCount.textContent = response.findCountMovie
 
                         serilazersFindMovie.forEach((sermovie,index)=>{
-                            const movieImages = currentUrl.replace('movies/','')
+                            
+                            var movieImages = undefined
+                            console.log(window.location.pathname);
+                            if(response.page==null){
+                                movieImages = currentUrl.replace(`movies/`,'')
+                            }
+                            else{
+                                movieImages = currentUrl.replace(`movies/?page=${response.page}`,'')
+                            }
+                            
+                            console.log('isleee amkkk');
+                            console.log(movieImages)
                             filmList.innerHTML += `
                                 <div class="movie-item-style-2 movie-item-style-1">
                                     <img src="${movieImages}media/${sermovie.fields.image_movie}" alt="">
@@ -109,7 +121,10 @@ function findMovieAjax(){
                         document.getElementById('notFoundMovieAlert')
                             .innerHTML = `
                                 <div class="ui message" style="background-color:#f5f6fa;text-align:center !important;text-align:center !important;">
-                                    <strong>No relevant info was found on this topic</strong>
+                                    <strong>No relevant info was found on this topic
+                                        <a href="${response.homeUrl}">All Movies</a>
+                                    </strong>
+
                                 </div>
                             `
                             foundMovieCount.textContent = '0'

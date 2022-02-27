@@ -39,7 +39,7 @@
                     <div class="col-md-8 col-sm-12 col-xs-12">
 
                         <div class="topbar-filter">
-                            <p>Found <span id="foundMovieCount">{{movies|length}} movies</span> in total</p>
+                            <p>Found <span id="foundMovieCount">{{allmovie|length}} movies</span> in total</p>
                             <a  href="moviegrid.html" class="grid"><i class="ion-grid active"></i></a>
                         </div>
 
@@ -64,19 +64,33 @@
                         <div class="topbar-filter" id="paginationData">
                             <label>Movies per page:</label>
                             <select>
-                                <option value="range">20 Movies</option>
+                                <option value="range">5 Movies</option>
                                 <option value="saab">10 Movies</option>
                             </select>
                             
                             <div class="pagination2">
-                                <span>Page 1 of 2:</span>
-                                <a class="active" href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#">...</a>
-                                <a href="#">78</a>
-                                <a href="#">79</a>
-                                <a href="#"><i class="ion-arrow-right-b"></i></a>
+                                {% if movies.has_other_pages %}
+                                    <span>Page 1 of {{paginator.num_pages}}:</span>
+
+                                    {% if movies.has_previous %}
+                                        <a href="?page={{movies.previous_page_number}}"><i class="ion-arrow-left-b"></i></a>
+                                    {% endif %}
+
+                                    {% for i in movies.paginator.page_range %}
+                                        {% if movies.number == i  %}
+                                            <a class="active">{{i}}</a>
+                                        {% else %}
+                                            <a href="?page={{i}}">{{i}}</a>
+                                        {% endif %}
+                                    {% endfor %}
+
+
+                                    {% if movies.has_next %}
+                                        <a href="?page={{movies.next_page_number}}"><i class="ion-arrow-right-b"></i></a>
+                                    {% endif %}
+                                    
+
+                                {% endif %}
                             </div>
                         </div>
                     </div>
