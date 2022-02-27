@@ -242,24 +242,30 @@ def allMoviesListView(request):
     #print(paginator.num_pages)
     
     if request.method == 'POST':
-        inputSearchText = request.POST.get('inputSearchText')
-        print('Url deyeri',request.POST.get('urlvalue'))
-        a = request.POST.get('urlvalue')
-        homeUrl = a.replace(f"movies/?page={page}",'')
-        
-        if(inputSearchText):
-            findMovies = Movie.objects.filter(Q(title_movie__icontains=inputSearchText))
-            print(len(findMovies))
-            serilazersFindMovie = serializers.serialize('json',findMovies)
-            #print('Gelen filmin datasi',serilazersFindMovie)
-            return JsonResponse({'serilazersFindMovie':serilazersFindMovie,'findCountMovie':len(findMovies),'page':page,'homeUrl':homeUrl},safe=False)
+
+        if request.POST.get('datareconginizeid'):
+            inputSearchText = request.POST.get('inputSearchText')
+            print('Url deyeri',request.POST.get('urlvalue'))
+            a = request.POST.get('urlvalue')
+            homeUrl = a.replace(f"movies/?page={page}",'')
+            
+            if(inputSearchText):
+                findMovies = Movie.objects.filter(Q(title_movie__icontains=inputSearchText))
+                print(len(findMovies))
+                serilazersFindMovie = serializers.serialize('json',findMovies)
+                #print('Gelen filmin datasi',serilazersFindMovie)
+                return JsonResponse({'serilazersFindMovie':serilazersFindMovie,'findCountMovie':len(findMovies),'page':page,'homeUrl':homeUrl},safe=False)
+        elif(request.POST.get('ididentification')):
+            perpagemovie = request.POST.get('perpagemovie')
+            print('geldi per page deyeri',perpagemovie)
+            #!Burda qalmisam
         
     
     context = {
         'movies':paged_movie,
         'allmovie':movies,
         
-        'paginator':paginator
+        'paginator':paginator,
     }
     return render(request,'movie/movielist.html',context)
 

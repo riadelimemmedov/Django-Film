@@ -49,7 +49,8 @@ function findMovieAjax(){
             data:{
                 'csrfmiddlewaretoken':csrftoken,
                 'inputSearchText':inputSearchText.value,
-                'urlvalue':currentUrl
+                'urlvalue':currentUrl,
+                'datareconginizeid':678910
             },
             success:function(response){
                 console.log('Ugurlu bir sekilde post request atildi');
@@ -95,7 +96,6 @@ function findMovieAjax(){
                                 movieImages = currentUrl.replace(`movies/?page=${response.page}`,'')
                             }
                             
-                            console.log('isleee amkkk');
                             console.log(movieImages)
                             filmList.innerHTML += `
                                 <div class="movie-item-style-2 movie-item-style-1">
@@ -109,15 +109,9 @@ function findMovieAjax(){
                                     </div>
                                 </div>			
                             `
-                            console.log(blockloader.style.display)
                         })
                     }
                     else if(response.findCountMovie==0){
-                        console.log(blockloader.style.display)
-                        console.log('Filmin Sayi',response.findCountMovie)
-
-
-                        console.log('film tapilmadi');
                         document.getElementById('notFoundMovieAlert')
                             .innerHTML = `
                                 <div class="ui message" style="background-color:#f5f6fa;text-align:center !important;text-align:center !important;">
@@ -130,7 +124,6 @@ function findMovieAjax(){
                             foundMovieCount.textContent = '0'
                     }
 
-                    console.log(blockloader.style.display)
                 },2500)
             //alert('Islede amk') => debuglamag ucun burani istifade ede bilersen 
             },
@@ -140,8 +133,31 @@ function findMovieAjax(){
             }
         })
     })
-    
-
 }
 findMovieAjax()
+
+
+const paginationmovievalue = document.getElementById('paginationmovievalue')
+paginationmovievalue.addEventListener('change',(e)=>{
+    e.preventDefault()
+    const perpagepaginationcounturl = document.getElementById('allmovies').getAttribute('href')
+    console.log(perpagepaginationcounturl);
+    console.log(e.target.value)
+    $.ajax({
+        type: 'POST',
+        url : perpagepaginationcounturl,
+        data:{
+            "csrfmiddlewaretoken":csrftoken,
+            "perpagemovie":e.target.value,
+            "ididentification":12345
+        },
+        success:function(response){
+            console.log('ugurlu respose oldu selected movie per pageden');
+        },
+        error:function(err){
+            console.log('per page secerken xeta bas verdi');
+        }
+        
+    })
+})
 
