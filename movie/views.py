@@ -1,7 +1,8 @@
 import json
 from math import radians
 from posixpath import sep
-from django.shortcuts import render,get_object_or_404
+from pprint import pprint
+from django.shortcuts import redirect, render,get_object_or_404
 from django.core import serializers
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.db.models import Q
@@ -239,11 +240,13 @@ def allMoviesListView(request):
     page = request.GET.get('page')
     paged_movie = paginator.get_page(page)
     
+    
     #print(paginator.num_pages)
     
     if request.method == 'POST':
 
         if request.POST.get('datareconginizeid'):
+            paged_movie = paginator.get_page(page)
             inputSearchText = request.POST.get('inputSearchText')
             print('Url deyeri',request.POST.get('urlvalue'))
             a = request.POST.get('urlvalue')
@@ -258,8 +261,10 @@ def allMoviesListView(request):
         elif(request.POST.get('ididentification')):
             perpagemovie = request.POST.get('perpagemovie')
             print('geldi per page deyeri',perpagemovie)
-            #!Burda qalmisam
-        
+            paged_movie = paginator.get_page(perpagemovie)
+            print(paged_movie)
+            return render(request,'movie/movielist.html',{'movies':paged_movie,'allmovie':movies,'paginator':paginator})
+            
     
     context = {
         'movies':paged_movie,
