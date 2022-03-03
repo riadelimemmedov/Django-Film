@@ -63,12 +63,13 @@
                         </div>		
                         <div class="topbar-filter" id="paginationData">
                             <label>Movies per page:</label>
-                            <form>
-                                <select id="paginationmovievalue"><!-- !Burda option yerine button yaz belke isledi deyecem  -->
-                                    <option value="5">5 Movies</option>
-                                    <option value="10">10 Movies</option>
-                                </select>
-                            </form>
+
+
+                            <!-- !xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+                                <!-- <form id="paginationmovievalueForm">
+                                    <button id="fivePageId" dataFivePage="5">5 Movies</button><!-- eger form icersinde button yazirigsa ve butonun type deyeri mutleq sekilde submit olmalidir yeni => type="submit" -->
+                                    <!-- <button id="tenPageId" dataTenPage="10">10 Movies</button> -->
+                                <!-- </form> --> 
                             
                             <div class="pagination2">
                                 {% if movies.has_other_pages %}

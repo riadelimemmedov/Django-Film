@@ -137,27 +137,35 @@ function findMovieAjax(){
 findMovieAjax()
 
 
-const paginationmovievalue = document.getElementById('paginationmovievalue')
-paginationmovievalue.addEventListener('change',(e)=>{
-    e.preventDefault()
-    const perpagepaginationcounturl = document.getElementById('allmovies').getAttribute('href')
-    console.log(perpagepaginationcounturl);
-    console.log(e.target.value)
-    $.ajax({
-        type: 'POST',
-        url : perpagepaginationcounturl,
-        data:{
-            "csrfmiddlewaretoken":csrftoken,
-            "perpagemovie":e.target.value,
-            "ididentification":12345
-        },
-        success:function(response){
-            console.log('ugurlu respose oldu selected movie per pageden');
-        },
-        error:function(err){
-            console.log('per page secerken xeta bas verdi');
-        }
+// const paginationmovievalueForm = document.getElementById('paginationmovievalueForm')
+// paginationmovievalueForm.addEventListener('submit',(e)=>{
+//     //e.preventDefault()
+//     const perpagepaginationcounturl = document.getElementById('allmovies').getAttribute('href')
+//     console.log(perpagepaginationcounturl)
+
+//     const dataFivePage = paginationmovievalueForm.firstElementChild.getAttribute('dataFivePage')
+//     const dataTenPage = paginationmovievalueForm.lastElementChild.getAttribute('dataTenPage')
+    
+//     console.log(dataFivePage)
+//     console.log(dataTenPage)
+
+    
+//     $.ajax({
+//         type: 'POST',
+//         url : perpagepaginationcounturl,
+//         data:{
+//             "csrfmiddlewaretoken":csrftoken,
+//             "perpagemovieFive":dataFivePage,
+//             'perpagemovieTen':dataTenPage,
+//             "ididentification":12345
+//         },
+//         success:function(response){
+//             console.log('ugurlu respose oldu selected movie per pageden');
+//         },
+//         error:function(err){
+//             console.log('per page secerken xeta bas verdi');
+//         }
         
-    })
-})
+//     })
+// })
 

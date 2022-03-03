@@ -257,16 +257,8 @@ def allMoviesListView(request):
                 print(len(findMovies))
                 serilazersFindMovie = serializers.serialize('json',findMovies)
                 #print('Gelen filmin datasi',serilazersFindMovie)
+                print('Bura isleyir')
                 return JsonResponse({'serilazersFindMovie':serilazersFindMovie,'findCountMovie':len(findMovies),'page':page,'homeUrl':homeUrl},safe=False)
-            
-        elif(request.POST.get('ididentification')):
-            perpagemovie = request.POST.get('perpagemovie')
-            print('geldi per page deyeri',perpagemovie)
-            paged_movie = paginator.get_page(perpagemovie)
-            print(paged_movie)
-            return render(request,'movie/movielist.html',{'movies':paged_movie,'allmovie':movies,'paginator':paginator})
-            
-    
     context = {
         'movies':paged_movie,
         'allmovie':movies,
