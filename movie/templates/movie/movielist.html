@@ -63,10 +63,12 @@
                         </div>		
                         <div class="topbar-filter" id="paginationData">
                             <label>Movies per page:</label>
-                            <select id="paginationmovievalue">
-                                <option value="5">5 Movies</option>
-                                <option value="10">10 Movies</option>
-                            </select>
+                            <form>
+                                <select id="paginationmovievalue"><!-- !Burda option yerine button yaz belke isledi deyecem  -->
+                                    <option value="5">5 Movies</option>
+                                    <option value="10">10 Movies</option>
+                                </select>
+                            </form>
                             
                             <div class="pagination2">
                                 {% if movies.has_other_pages %}
