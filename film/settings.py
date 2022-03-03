@@ -141,3 +141,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 #filmenv\Scripts\activate
+
+#https://www.w3resource.com/javascript-exercises/javascript-basic-exercises.php
