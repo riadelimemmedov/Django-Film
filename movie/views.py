@@ -244,7 +244,6 @@ def allMoviesListView(request):
     #print(paginator.num_pages)
     
     if request.method == 'POST':
-
         if request.POST.get('datareconginizeid'):
             paged_movie = paginator.get_page(page)
             inputSearchText = request.POST.get('inputSearchText')

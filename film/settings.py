@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django_cleanup',
     
     'movie',
-    'actor'
+    'actor',
+    'profiles'
 ]
 
 MIDDLEWARE = [
