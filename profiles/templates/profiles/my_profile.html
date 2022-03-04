@@ -25,6 +25,9 @@
                 <div class="row ipad-width">
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <div class="user-information">
+                        
+                        <!-- !Change Image Form-->
+                        <form action="">
                             <div class="user-img">
                                 {% if profile.avatar %}
                                     <a href="#"><img src="{{profile.avatar.url}}" width="170px" height="150px" alt="" id="imagesekilim" style="border-radius: 25px;"><br></a>
@@ -33,10 +36,12 @@
                                 {% endif %}
                                 <a href="#" class="redbtn">Change avatar</a>
                             </div>
+                        </form>
+                        
                             <div class="user-fav">
                                 <p>Account Details</p>
                                 <ul>
-                                    <li  class="active"><a href="userprofile.html">Profile</a></li>
+                                    <li class="active"><a href="userprofile.html">Profile</a></li>
                                     <li><a href="userfavoritelist.html">Favorite movies</a></li>
                                     <li><a href="userrate.html">Rated movies</a></li>
                                 </ul>
@@ -52,42 +57,46 @@
                     </div>
                     <div class="col-md-9 col-sm-12 col-xs-12">
                         <div class="form-style-1 user-pro" action="#">
+
+                            <!-- !Profile Form -->
                             <form action="#" class="user">
                                 <h4>01. Profile details</h4>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>Username</label>
-                                        <input type="text" placeholder="edwardkennedy">
+                                        <input type="text" value="{{profile.user}}" placeholder="">
                                     </div>
                                     <div class="col-md-6 form-it">
                                         <label>Email Address</label>
-                                        <input type="text" placeholder="edward@kennedy.com">
+                                        <input type="text" value="{{profile.user.email}}" placeholder="">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>First Name</label>
-                                        <input type="text" placeholder="Edward ">
+                                        <input type="text" value="{{profile.user.first_name}}" placeholder="">
                                     </div>
                                     <div class="col-md-6 form-it">
                                         <label>Last Name</label>
-                                        <input type="text" placeholder="Kennedy">
+                                        <input type="text" value="{{profile.user.last_name}}" placeholder="">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>Country</label>
-                                        <select>
-                                        <option value="united">United States</option>
-                                        <option value="saab">Others</option>
-                                        </select>
+                                        {% if profile.country %}
+                                            <input type="text" value="{{profile.country|title}}" placeholder="">
+                                        {% else %}
+                                            <input type="text" placeholder="Input Country">
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-6 form-it">
                                         <label>State</label>
-                                        <select>
-                                        <option value="united">New York</option>
-                                        <option value="saab">Others</option>
-                                        </select>
+                                        {% if profile.state %}
+                                            <input type="text" value="{{profile.state|title}}" placeholder="">
+                                        {% else %}
+                                            <input type="text" placeholder="Input State">
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -96,24 +105,27 @@
                                     </div>
                                 </div>	
                             </form>
+                            <!-- !End Profile Form -->
+
+                            <!-- !Change Password Form -->
                             <form action="#" class="password">
                                 <h4>02. Change password</h4>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>Old Password</label>
-                                        <input type="text" placeholder="**********">
+                                        <input type="text" placeholder="">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>New Password</label>
-                                        <input type="text" placeholder="***************">
+                                        <input type="text" placeholder="">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>Confirm New Password</label>
-                                        <input type="text" placeholder="*************** ">
+                                        <input type="text" placeholder="">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -122,6 +134,8 @@
                                     </div>
                                 </div>	
                             </form>
+                            <!-- !End ChangePassword Form -->
+
                         </div>
                     </div>
                 </div>
