@@ -64,20 +64,31 @@
                         </a>
                     </li>
                 </ul>
+
                 <ul class="nav navbar-nav flex-child-menu menu-right">
                     <li><a href="#">Help</a></li>
-                    <li class="loginLink"><a href="#">LOG In</a></li>
-                    <li class="btn signupLink"><a href="#">sign up</a></li>
-
+                    {% if request.user.is_authenticated %}<!-- eger user giris edibse yeni authetication olubsa if e girsin olmasa else girsin -->
+                            {% if pic_user_navbar %}
+                                <li class="dropdown first">
+                                    <a href="{% url 'profiles:myProfileView' %}" class="btn btn-default dropdown-toggle lv1">
+                                        <img src="{{pic_user_navbar.url}}" style="width: 40px;height: 40px;border-radius: 50%;" alt="">
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="dropdown first">
+                                    <a href="{% url 'profiles:myProfileView' %}" class="btn btn-default dropdown-toggle lv1">
+                                        <img src="{% static 'images/sekilyox.png' %}" style="width: 40px;height: 40px;border-radius: 50%;" alt="">
+                                    </a>
+                                </li>
+                            {% endif %}
+                    {% else %}
+                        <li class="loginLink"><a href="#">LOG In</a></li>
+                        <li class="btn signupLink"><a href="#">sign up</a></li>
+                    {% endif %}
                     <!-- !User profile directed and user profile puicture,bura if yaz cunki istifadenin sekili olub ve ya olmama ehtimali vardir -->
-                    <li class="dropdown first">
-                        <a href="{% url 'profiles:myProfileView' %}" class="btn btn-default dropdown-toggle lv1">
-                            <img src="{% static 'images/sekilyox.png' %}" style="width: 40px;height: 40px;border-radius: 50%;" alt="">
-                        </a>
-                    </li>
-                    <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
-
+                    <!-- !xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
                 </ul>
+
             </div>
             <!-- /.navbar-collapse -->
         </nav>
