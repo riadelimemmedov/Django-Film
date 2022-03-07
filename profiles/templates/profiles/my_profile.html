@@ -5,6 +5,31 @@
 
 <body>
     {% block content %}
+
+            <!-- !Profile Image -->
+            <div class="ui modal" style="margin-bottom: 100px;" id="modalProfile">
+                    <i class="close icon"></i>
+                    <div class="header">
+                    Profile Picture
+                    </div>
+                    <div class="image content">
+                    <div class="ui medium image">
+                        <img src="" id="profPictureSingle" style="width: 200px !important;height:200px !important;">
+                    </div>
+                    <div class="description">
+                        <div class="ui header"></div>
+                        <div class="ui header"></div>
+                        <div class="ui header"></div>
+                    </div>
+                    </div>
+                    <div class="actions">
+                    <div class="ui black deny button">
+                        Close
+                    </div>
+                    </div>
+            </div>
+
+
         <div class="hero user-hero">
             <div class="container">
                 <div class="row">
@@ -30,9 +55,9 @@
                         <form action="">
                             <div class="user-img">
                                 {% if profile.avatar %}
-                                    <a href="#"><img src="{{profile.avatar.url}}" width="170px" height="150px" alt="" id="imagesekilim" style="border-radius: 25px;"><br></a>
+                                    <a href="#"><img src="{{profile.avatar.url}}" width="170px" height="150px" alt="" class="imageProfile" style="border-radius: 25px;"><br></a>
                                 {% else %}
-                                    <a href=""><img src="{% static 'images/sekilyox.png' %}" alt="" width="170px" height="150px" alt="" id="imagesekilim" style="border-radius: 25px;"></a>
+                                    <a href=""><img src="{% static 'images/sekilyox.png' %}" alt="" width="170px" height="150px" alt="" class="imageProfile" style="border-radius: 25px;"></a>
                                 {% endif %}
                                 <a href="#" class="redbtn">Change avatar</a>
                             </div>
@@ -64,7 +89,7 @@
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>Username</label>
-                                        <input type="text" value="{{profile.user}}" placeholder="">
+                                        <input type="text" value="{{profile.user}}" id="profileUsername" placeholder="">
                                     </div>
                                     <div class="col-md-6 form-it">
                                         <label>Email Address</label>
@@ -74,11 +99,11 @@
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>First Name</label>
-                                        <input type="text" value="{{profile.user.first_name}}" placeholder="">
+                                        <input type="text" value="{{profile.user.first_name}}" id="profileFirstName" placeholder="">
                                     </div>
                                     <div class="col-md-6 form-it">
                                         <label>Last Name</label>
-                                        <input type="text" value="{{profile.user.last_name}}" placeholder="">
+                                        <input type="text" value="{{profile.user.last_name}}" id="profileLastName" placeholder="">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -102,6 +127,7 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <input class="submit" type="submit" value="save">
+                                        <!-- <button class="ui loading button">Loading</button> bu butona css yazmlasan ele css yazmalisanki ozde yuxardaju inputun formasini alsin -->
                                     </div>
                                 </div>	
                             </form>
@@ -143,4 +169,13 @@
         </div>
     {% endblock content %}
 </body>
+
+    {% block scripts %}
+        <script type="text/javascript" src="{% static 'profiles/my_profile.js' %}" defer>
+        </script>
+        <script>
+            
+        </script>
+    {% endblock scripts %}
+
 </html>
