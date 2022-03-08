@@ -84,33 +84,33 @@
                         <div class="form-style-1 user-pro" action="#">
 
                             <!-- !Profile Form -->
-                            <form action="#" class="user">
-                                <h4>01. Profile details</h4>
+                            <form class="user" id="profileDetailForm">
+                                <h4> Profile details</h4>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>Username</label>
-                                        <input type="text" value="{{profile.user}}" id="profileUsername" placeholder="">
+                                        <input type="text" value="{{profile.user}}" id="profileUsername">
                                     </div>
                                     <div class="col-md-6 form-it">
                                         <label>Email Address</label>
-                                        <input type="text" value="{{profile.user.email}}" placeholder="">
+                                        <input type="email" value="{{profile.user.email}}" id="profileEmail">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>First Name</label>
-                                        <input type="text" value="{{profile.user.first_name}}" id="profileFirstName" placeholder="">
+                                        <input type="text" value="{{profile.user.first_name}}" id="profileFirstName">
                                     </div>
                                     <div class="col-md-6 form-it">
                                         <label>Last Name</label>
-                                        <input type="text" value="{{profile.user.last_name}}" id="profileLastName" placeholder="">
+                                        <input type="text" value="{{profile.user.last_name}}" id="profileLastName">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>Country</label>
                                         {% if profile.country %}
-                                            <input type="text" value="{{profile.country|title}}" placeholder="">
+                                            <input type="text" value="{{profile.country|title}}" id="profileCountry">
                                         {% else %}
                                             <input type="text" placeholder="Input Country">
                                         {% endif %}
@@ -118,7 +118,7 @@
                                     <div class="col-md-6 form-it">
                                         <label>State</label>
                                         {% if profile.state %}
-                                            <input type="text" value="{{profile.state|title}}" placeholder="">
+                                            <input type="text" value="{{profile.state|title}}" id="profileState">
                                         {% else %}
                                             <input type="text" placeholder="Input State">
                                         {% endif %}
@@ -135,7 +135,7 @@
 
                             <!-- !Change Password Form -->
                             <form action="#" class="password">
-                                <h4>02. Change password</h4>
+                                <h4> Change password</h4>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>Old Password</label>
@@ -171,11 +171,7 @@
 </body>
 
     {% block scripts %}
-        <script type="text/javascript" src="{% static 'profiles/my_profile.js' %}" defer>
-        </script>
-        <script>
-            
-        </script>
+        <script type="text/javascript" src="{% static 'profiles/my_profile.js' %}" defer></script>
     {% endblock scripts %}
 
 </html>

@@ -1,14 +1,37 @@
 //!This Is MyProfile Js
 console.log('Hello MyProfile')
 
+//?profile modal show data
 const modalProfile = document.getElementById('modalProfile')
 const imageProfile = [...document.getElementsByClassName('imageProfile')]
 const profPictureSingle = document.getElementById('profPictureSingle')
 const description = document.querySelector('.description')
+
+//?profile input data
 const profileUsername = document.getElementById('profileUsername')
+const profileEmail = document.getElementById('profileEmail')
 const profileFirstName = document.getElementById('profileFirstName')
 const profileLastName = document.getElementById('profileLastName')
+const profileCountry = document.getElementById('profileCountry')
+const profileState = document.getElementById('profileState')
 
+//!getCookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
 
 //!showRelatedObjectPicture function
 function showModalProfilePicture(){
@@ -26,6 +49,40 @@ function showModalProfilePicture(){
     })
 }
 showModalProfilePicture()
+
+//!Profile Data Update Function
+const profileDetailForm = document.getElementById('profileDetailForm')
+const currentUrl = window.location.href
+const url = currentUrl.replace('myprofile/','updateprofiledata/')
+
+profileDetailForm.addEventListener('submit',(e)=>{
+    e.preventDefault()
+    const updateProfileDataAjax = () =>{
+        $.ajax({
+            method: 'POST',
+            url:url,
+            data:{
+                'csrfmiddlewaretoken':csrftoken,
+                'profileUsername':profileUsername.value,
+                'profileEmail':profileEmail.value,
+                'profileFirstName':profileFirstName.value,
+                'profileLastName':profileLastName.value,
+                'profileCountry':profileCountry.value,
+                'profileState':profileState.value
+            },
+            success:function(response){//funksiya cavab geri donuyr yeni response o responsi tutmag ucun yazdig biz bu funksiyani
+                console.log('Successfully response url')
+                console.table(response)
+            },
+            error:function(err){
+                console.log('Hata',err)
+            }
+        })
+    }
+    updateProfileDataAjax()
+})
+
+
 
 
 
