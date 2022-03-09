@@ -55,6 +55,20 @@ const profileDetailForm = document.getElementById('profileDetailForm')
 const currentUrl = window.location.href
 const url = currentUrl.replace('myprofile/','updateprofiledata/')
 
+//?Alert user Function
+const alertBoxUsername = document.getElementById('alert-box-username')
+const handleAlerts = function(type,text){
+    alertBoxUsername.innerHTML = `
+        <div class="alert alert-${type} text-center">
+            <strong style="color:black">${text}</strong>
+        </div>
+    `
+    setTimeout(()=>{
+        alertBoxUsername.style.display = 'none'
+    },3000)
+}
+
+//?Profile Update Data Form
 profileDetailForm.addEventListener('submit',(e)=>{
     e.preventDefault()
     const updateProfileDataAjax = () =>{
@@ -72,7 +86,15 @@ profileDetailForm.addEventListener('submit',(e)=>{
             },
             success:function(response){//funksiya cavab geri donuyr yeni response o responsi tutmag ucun yazdig biz bu funksiyani
                 console.log('Successfully response url')
-                console.table(response)
+
+                if(response.errorUsernameFind){
+                    handleAlerts('info',response.errorUsernameFind)
+                }
+                else{
+                    //profileUsername.value = response.username
+                    console.log('worked successfully response from backend')
+                }
+                
             },
             error:function(err){
                 console.log('Hata',err)

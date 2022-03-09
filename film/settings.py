@@ -145,3 +145,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #filmenv\Scripts\activate
 
 #https://www.w3resource.com/javascript-exercises/javascript-basic-exercises.php
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.DEBUG:'alert-secondary',
+    messages.INFO:'alert-info',
+    messages.SUCCESS:'alert-success',
+    messages.WARNING:'alert-warning',
+    messages.ERROR:'alert-danger'
+}
