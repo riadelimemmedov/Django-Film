@@ -57,11 +57,7 @@ def updateProfileDataView(request):
         
         print(currentProfile.country)
         print(currentProfile.state)
-        
-        
-        
-        
-        
+
         #(email=profileEmail,first_name=profileFirstName,last_name=profileLastName)
         
         print('################################################################')
@@ -69,13 +65,24 @@ def updateProfileDataView(request):
         
         #*burda esas etmek istediyim sey gelen user dan databasede basqa biri var? exist modulu ile filan yoxlamag lazimdir sonra random filan yazmag adi deyismek ucun
         a = User.objects.exclude(username = request.user.username)
-        print(a)
+        #print(a)
+        b = User.objects.exclude(username = request.user.username)
+        print(b)
+        for i in b:
+            #print('username other',i.username)
+            print('################################################################')#!xeta var burdada,profile hissinseki user a unique true ver ordan filter yazag yeni Profile modelinden Userdan yaramir
+            if(profileUsername == i.username):
+                print('this name already exists in database')
+                print(profileUsername)
+            else:
+                print('hata')
         
         
         
-        #if(a.objects.filter(username=profileUsername).exists()):
-        if(User.objects.exclude(username = request.user.username).filter(username=profileUsername).exists()):#!burda xeta var
-            #messages.add_message(request,messages.WARNING,'This username already exists')
-            return JsonResponse({'errorUsernameFind':'This username already exists'})
-        else:
-            return JsonResponse({'username':profileUsername})
+        # if(a.objects.filter(username=profileUsername).exists()):
+        # if(User.objects.exclude(username = request.user.username).filter(username=profileUsername).exists()):#!burda xeta var
+        #     #messages.add_message(request,messages.WARNING,'This username already exists')
+        #     #print('fff')
+        #     return JsonResponse({'errorUsernameFind':'This username already exists'})
+        # else:
+    return JsonResponse({'username':profileUsername})
