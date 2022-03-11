@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.models import User
@@ -40,42 +41,60 @@ def updateProfileDataView(request):
         currentUser = User.objects.get(username=request.user.username)
         currentProfile = Profile.objects.get(user=request.user)
         
-        print('Before Updated PROFILE')
-        print(currentProfile.country)
-        print(currentProfile.state)
+        #print('Before Updated PROFILE')
+        #print(currentProfile.country)
+        #print(currentProfile.state)
 
-        currentUser.username = profileUsername
+        #deyesen burda aradirmag lazimdir xetanin sebebini cunki burada save edirik burda ola biler problem
+        print('################################################################')
+        b = User.objects.exclude(username = request.user.username)#!last error this field
+        for i in b:
+            try:
+                if(i.username == profileUsername):
+                    print('isimler hata var')
+            except IntegrityError:
+                print('noldu')
+            # else:
+            #     print('User saved successfully')
+            #     currentUser.username = profileUsername
+        
+        #print(profileUsername)
+        #print('hata')
+        print('################################################################')
+        
+
+        
         currentUser.email = profileEmail
         currentUser.first_name = profileFirstName
         currentUser.last_name = profileLastName
         currentUser.save()
         
-        print('After Updated PROFILE')
+        #print('After Updated PROFILE')
         currentProfile.country = profileCountry
         currentProfile.state = profileState
         currentProfile.save()
         
-        print(currentProfile.country)
-        print(currentProfile.state)
+        #print(currentProfile.country)
+        #print(currentProfile.state)
 
         #(email=profileEmail,first_name=profileFirstName,last_name=profileLastName)
         
-        print('################################################################')
+        #print('################################################################')
 
         
         #*burda esas etmek istediyim sey gelen user dan databasede basqa biri var? exist modulu ile filan yoxlamag lazimdir sonra random filan yazmag adi deyismek ucun
         a = User.objects.exclude(username = request.user.username)
         #print(a)
-        b = User.objects.exclude(username = request.user.username)
-        print(b)
-        for i in b:
-            #print('username other',i.username)
-            print('################################################################')#!xeta var burdada,profile hissinseki user a unique true ver ordan filter yazag yeni Profile modelinden Userdan yaramir
-            if(profileUsername == i.username):
-                print('this name already exists in database')
-                print(profileUsername)
-            else:
-                print('hata')
+
+        
+        # for i in b:
+        #     #print('username other',i.username)
+        #     print('################################################################')#!xeta var burdada,profile hissinseki user a unique true ver ordan filter yazag yeni Profile modelinden Userdan yaramir
+        #     if(profileUsername == i.username):
+        #         print('this name already exists in database')
+        #         print(profileUsername)
+        #     else:
+        #         print('hata')
         
         
         
