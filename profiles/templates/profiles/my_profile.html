@@ -83,18 +83,24 @@
                     <div class="col-md-9 col-sm-12 col-xs-12">
                         <div class="form-style-1 user-pro" action="#">
                             
-                            <!-- ?find already username -->
+                            <!-- ?!find already username and alert that is why  -->
                             <div id="alert-box-username">
                                 
                             </div>
 
+                            <div id="alert-box-username2">
+                                
+                            </div>
+
+
+
                             <!-- !Profile Form -->
-                            <form class="user" id="profileDetailForm">
+                            <form class="user" id="profileDetailForm" autocomplete="off">
                                 <h4> Profile details</h4>
                                 <div class="row">
                                     <div class="col-md-6 form-it">
                                         <label>Username</label>
-                                        <input type="text" value="{{profile.user}}" id="profileUsername">
+                                        <input type="text" value="{{profile.user}}" id="profileUsername" required>
                                     </div>
                                     <div class="col-md-6 form-it">
                                         <label>Email Address</label>

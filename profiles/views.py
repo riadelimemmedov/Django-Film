@@ -48,32 +48,26 @@ def updateProfileDataView(request):
         #deyesen burda aradirmag lazimdir xetanin sebebini cunki burada save edirik burda ola biler problem
         print('################################################################')
         b = User.objects.exclude(username = request.user.username)#!last error this field
-        for i in b:
-            try:
-                if(i.username == profileUsername):
-                    print('isimler hata var')
-            except IntegrityError:
-                print('noldu')
-            # else:
-            #     print('User saved successfully')
-            #     currentUser.username = profileUsername
-        
-        #print(profileUsername)
-        #print('hata')
-        print('################################################################')
-        
 
-        
-        currentUser.email = profileEmail
-        currentUser.first_name = profileFirstName
-        currentUser.last_name = profileLastName
-        currentUser.save()
+        if(User.objects.exclude(username = request.user.username).filter(username=profileUsername).exists()):
+                print('girilen isim already exists in database')
+                return JsonResponse({'errorUsernameFind':'This username already exists'})
+                #break
+        else:
+            #print('Success Updated User Data')
+            print('Bu isim databasede halen yok')
+            currentUser.username = profileUsername
+            currentUser.email = profileEmail
+            currentUser.first_name = profileFirstName
+            currentUser.last_name = profileLastName
+            currentProfile.country = profileCountry
+            currentProfile.state = profileState
+            currentProfile.save()
+            currentUser.save()
+            
+    
         
         #print('After Updated PROFILE')
-        currentProfile.country = profileCountry
-        currentProfile.state = profileState
-        currentProfile.save()
-        
         #print(currentProfile.country)
         #print(currentProfile.state)
 
@@ -102,6 +96,6 @@ def updateProfileDataView(request):
         # if(User.objects.exclude(username = request.user.username).filter(username=profileUsername).exists()):#!burda xeta var
         #     #messages.add_message(request,messages.WARNING,'This username already exists')
         #     #print('fff')
-        #     return JsonResponse({'errorUsernameFind':'This username already exists'})
+        #     
         # else:
     return JsonResponse({'username':profileUsername})
