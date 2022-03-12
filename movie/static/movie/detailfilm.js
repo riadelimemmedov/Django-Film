@@ -218,7 +218,6 @@ addToFavorite.addEventListener('click',(e)=>{
         addToFavorite.lastElementChild.textContent = 'Add to Favorite'
         isActive = true
     }
-
 })
 
 
