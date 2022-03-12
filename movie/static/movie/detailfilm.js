@@ -180,5 +180,48 @@ const handleGetData = () => sortlaformagore.addEventListener('change',(e)=>{
 handleGetData()
 
 
+//!Add Favorite List Movie
+var addToFavorite = document.getElementById('addToFavorite')
+let currentUrlAddToFavorite = `${homeurl}/addtofavorite/`
+console.log(currentUrlAddToFavorite)
+
+var isActive = true
+addToFavorite.addEventListener('click',(e)=>{
+    e.preventDefault()
+    const ionHeart = document.getElementById('ionHeart')
+
+    $.ajax({
+        type:'POST',
+        url : currentUrlAddToFavorite,
+        data:{
+            'csrfmiddlewaretoken':csrftoken,
+            'slugurlfield':slugurlfield
+
+        },
+        success:function(response){
+            console.log(response.workResponse)
+        },
+        error:function(err){
+            console.log(err)
+        }
+    })
+
+    if(isActive){
+        ionHeart.style.color = '#DD003F'
+        ionHeart.style.borderColor = '#DD003F'
+        addToFavorite.lastElementChild.textContent = 'Added Successfully Film List'
+        isActive = false
+    }
+    else if(isActive == false){
+        ionHeart.style.color = '#fff'
+        ionHeart.style.borderColor = '#fff'
+        addToFavorite.lastElementChild.textContent = 'Add to Favorite'
+        isActive = true
+    }
+
+})
+
+
+
 
 

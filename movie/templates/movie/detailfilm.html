@@ -62,9 +62,12 @@
 			</div>
 			<div class="col-md-8 col-sm-12 col-xs-12">
 				<div class="movie-single-ct main-content">
-					<h1 class="bd-hd">{{movie.title_movie}}<span>&nbsp; {{movie.date_created_movie}}</span></h1>
+					<h1 class="bd-hd" style="color:#b2bec3">{{movie.title_movie}}<span>&nbsp; {{movie.date_created_movie}}</span></h1>
 					<div class="social-btn">
-						<a href="#" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
+						<a href="" id="addToFavorite" class="parent-btn">
+							<i class="ion-heart" style="color:#fff;border-color: #fff;" id="ionHeart"></i> 
+							<span>Add to Favorite</span>
+						</a>
 					</div>
 					<div class="movie-rate">
 						<div class="rate">

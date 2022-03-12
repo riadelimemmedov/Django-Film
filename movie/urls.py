@@ -9,7 +9,8 @@ urlpatterns = [
     path('popular/',popularFilmView,name='popularFilmView'),
     path('detailapifilm/<int:id>',movieDetailForApi,name='movieDetailForApi'),
     path('detailcastcrew/<int:id>',castcrewDetailForApi,name='castcrewDetailForApi'),
-    path('movies/',allMoviesListView,name='allMoviesListView')
+    path('movies/',allMoviesListView,name='allMoviesListView'),
+    path('addtofavorite/',addToFavoriteListFilm,name='addToFavoriteListFilm'),
     
     #path('jsonver',jsonver,name='jsonver'),
 ]

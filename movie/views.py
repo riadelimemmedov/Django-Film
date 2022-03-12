@@ -266,3 +266,11 @@ def allMoviesListView(request):
     }
     return render(request,'movie/movielist.html',context)
 
+
+def addToFavoriteListFilm(request):
+    if request.method == 'POST':
+        slugurlfield = request.POST.get('slugurlfield')
+        addedFilm = Movie.objects.get(slug_movie=slugurlfield)
+        #burda basqa bir sey fikirles cunki toggle prosesi bas verir fikrim varki succses olanda true ve ya false donderib burda if else salib save ve ya remove dan istfiade ederek yazim yeni istifadeci hem elave ede biler filmi favorite listine hemde cixarda biler favorite listinden burani biraz dusun ona gore
+        
+        return JsonResponse({'workResponse':'Successfully Response Favorite Film List'})
