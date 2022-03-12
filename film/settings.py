@@ -146,6 +146,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #https://www.w3resource.com/javascript-exercises/javascript-basic-exercises.php
 
+
 from django.contrib.messages import constants as messages
 
 MESSAGE_TAGS = {
@@ -155,3 +156,5 @@ MESSAGE_TAGS = {
     messages.WARNING:'alert-warning',
     messages.ERROR:'alert-danger'
 }
+
+#admin panel sifre ve ad => riad,riadsifre123321

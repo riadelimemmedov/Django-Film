@@ -89,11 +89,13 @@ profileDetailForm.addEventListener('submit',(e)=>{
             },
             success:function(response){//funksiya cavab geri donuyr yeni response o responsi tutmag ucun yazdig biz bu funksiyani
                 console.log('Successfully response url')
+                // console.log(response.profileUsername.length)
+                //response.errorUsernameFind
 
                 if(response.errorUsernameFind){
                     alertBoxUsername.innerHTML = `
-                        <div class="alert alert-danger text-center text-capitalize">
-                            <strong style="color:black">${response.errorUsernameFind}</strong>
+                        <div class="alert alert-danger text-center text-capitalize" style="text-transform: capitalize">
+                            <strong style="color:black">${response.profileUsername.length <= 2 ? 'username must be minimum 3 character': response.errorUsernameFind}</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -109,7 +111,7 @@ profileDetailForm.addEventListener('submit',(e)=>{
                     //profileUsername.value = response.username
                     console.log('worked successfully response from backend')
                     alertBoxUsername2.innerHTML = `
-                        <div class="alert alert-success text-center text-capitalize">
+                        <div class="alert alert-success text-center text-capitalize" style="text-transform: capitalize">
                             <strong style="color:black">${'Your profile data has been successfully updated'}</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -128,6 +130,12 @@ profileDetailForm.addEventListener('submit',(e)=>{
     }
     updateProfileDataAjax()
 })
+
+//?ChangePasswordForm
+const changePasswordForm = document.getElementById('changePasswordId')
+// changePasswordForm.addEventListener('submit',(e)=>{
+//     $('html,body').animate({scrollTop:4800},200)
+// })
 
 
 

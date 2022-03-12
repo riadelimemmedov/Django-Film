@@ -1,17 +1,33 @@
 from django.db import IntegrityError
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from .forms import *
 from .models import *
 # Create your views here.
 
 #!MyProfile
 def myProfileView(request):
     profile = Profile.objects.get(user=request.user)
+    
+    if request.method == 'POST':
+        if request.method == 'POST':
+            form = UserPasswordChange(request.user,request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request,user)
+                print('sifre degisti')
+                messages.add_message(request,messages.SUCCESS,'Successfully Changed Password')
+                return redirect(request.path)
+    else:
+        form = PasswordChangeForm(request.user)
 
     context = {
         'profile':profile,
+        'form':form
     }
     
     return render(request,'profiles/my_profile.html',context)
@@ -49,9 +65,11 @@ def updateProfileDataView(request):
         print('################################################################')
         b = User.objects.exclude(username = request.user.username)#!last error this field
 
-        if(User.objects.exclude(username = request.user.username).filter(username=profileUsername).exists()):
+        if(User.objects.exclude(username = request.user.username).filter(username=profileUsername).exists()) or len(profileUsername)<=2:
                 print('girilen isim already exists in database')
-                return JsonResponse({'errorUsernameFind':'This username already exists'})
+                print(len(profileUsername))
+                return JsonResponse({'errorUsernameFind':'This username already exists','profileUsername':profileUsername})
+            
                 #break
         else:
             #print('Success Updated User Data')
@@ -99,3 +117,8 @@ def updateProfileDataView(request):
         #     
         # else:
     return JsonResponse({'username':profileUsername})
+
+
+
+def userFavoriteView(request):
+    return render(request,'profiles/my_favorite.html')

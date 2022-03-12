@@ -66,8 +66,8 @@
                             <div class="user-fav">
                                 <p>Account Details</p>
                                 <ul>
-                                    <li class="active"><a href="userprofile.html">Profile</a></li>
-                                    <li><a href="userfavoritelist.html">Favorite movies</a></li>
+                                    <li class="active"><a href="{% url 'profiles:myProfileView' %}">Profile</a></li>
+                                    <li><a href="{% url 'profiles:userFavoriteView' %}">Favorite movies</a></li>
                                     <li><a href="userrate.html">Rated movies</a></li>
                                 </ul>
                             </div>
@@ -145,31 +145,53 @@
                             <!-- !End Profile Form -->
 
                             <!-- !Change Password Form -->
-                            <form action="#" class="password">
+                            <form action="{% url 'profiles:myProfileView' %}" method="POST" id="changePasswordId" class="password" autocomplete="off">
+                                {% csrf_token %}
+
+                                <!-- {% if form.errors %}
+                                    {% for error in form.non_field_errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{error}}</strong>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %} -->
+
                                 <h4> Change password</h4>
-                                <div class="row">
-                                    <div class="col-md-6 form-it">
-                                        <label>Old Password</label>
-                                        <input type="text" placeholder="">
+
+                                {% if messages %}
+                                {% for message in messages %}
+                                        <div class="alert {{message.tags}}">
+                                            <strong>{{message}}</strong>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="margin-right: 10px;">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+
+                                {% for field in form %}
+                                    <div class="row">
+                                        <div class="col-md-6 form-it">
+                                            {% if field.errors %}
+                                                <div class="alert alert-danger" style="padding: 0; text-align: center;padding-top: 10px;border: 1px solid gray;border-radius: 3px">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="margin-right: 10px;">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <strong style="color: #222f3e !important;">{{field.errors}}</strong>
+                                                </div>
+                                            {% endif %}
+                                            <label for="{{field.id_for_label}}">{{field.label}}</label>
+                                            {{field}}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 form-it">
-                                        <label>New Password</label>
-                                        <input type="text" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 form-it">
-                                        <label>Confirm New Password</label>
-                                        <input type="text" placeholder="">
-                                    </div>
-                                </div>
+                                {% endfor %}
+                                
                                 <div class="row">
                                     <div class="col-md-2">
                                         <input class="submit" type="submit" value="change">
                                     </div>
-                                </div>	
+                                </div>
+
                             </form>
                             <!-- !End ChangePassword Form -->
 
