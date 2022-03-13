@@ -10,6 +10,7 @@ from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 import requests
+from profiles.models import *
 from .models import *
 # Create your views here.
 
@@ -268,9 +269,68 @@ def allMoviesListView(request):
 
 
 def addToFavoriteListFilm(request):
+    
     if request.method == 'POST':
         slugurlfield = request.POST.get('slugurlfield')
+        isActive = request.POST.get('isActive')
         addedFilm = Movie.objects.get(slug_movie=slugurlfield)
+        currentProfile = Profile.objects.get(user=request.user)
+        
+        # favorite_added_film = FavoriteFilms(profile=currentProfile)
+        # favorite_added_film.save()
+        # favorite_added_film.films.add(addedFilm)
+        
+        print('Hal hazirdaki profil',currentProfile)
         #burda basqa bir sey fikirles cunki toggle prosesi bas verir fikrim varki succses olanda true ve ya false donderib burda if else salib save ve ya remove dan istfiade ederek yazim yeni istifadeci hem elave ede biler filmi favorite listine hemde cixarda biler favorite listinden burani biraz dusun ona gore
+        
+        #!Bu hisseni eger user ilk defe yox diger filmlerin uzeride ADD etmek isteyirnse istifade edek
+        if(FavoriteFilms.objects.filter(profile=currentProfile).exists()):
+            favorite_added_film = FavoriteFilms.objects.get(profile=currentProfile)
+            favorite_added_film.films.add(addedFilm)
+            favorite_added_film.save()
+            print('Evvelceden var idi listem')
+        else:
+            favorite_added_film = FavoriteFilms(profile=currentProfile)
+            favorite_added_film.save()
+            favorite_added_film.films.add(addedFilm)
+            print('Listem yox amkkk')
+        #!#############################################################################################
+        
+        #!After request
+        #print(favorite_added_film.films.all())
+        
+        
+        if(isActive == 'false'):
+            if(FavoriteFilms.objects.filter(profile=currentProfile).exists()):
+                favorite_added_film = FavoriteFilms.objects.get(profile=currentProfile)
+                favorite_added_film.films.add(addedFilm)
+                favorite_added_film.save()
+                return JsonResponse({'isAdd':'false'})#false olubsa demeli databaseye save olub bu
+                #print('Evvelceden var idi listem')
+            else:
+                favorite_added_film = FavoriteFilms(profile=currentProfile)
+                favorite_added_film.save()
+                favorite_added_film.films.add(addedFilm)
+                return JsonResponse({'isAdd':'false'})
+                #print('Listem yox amkkk')
+        
+            #print('Film databaseye ELAVE olundu')#ve hemin elave olunan vaxti geri respobse ati html yaza bilek hal hazirdaki vezittei
+            
+        elif(isActive == 'true'):
+            if(FavoriteFilms.objects.filter(profile=currentProfile).exists()):
+                favorite_added_film = FavoriteFilms.objects.get(profile=currentProfile)
+                favorite_added_film.films.remove(addedFilm)
+                favorite_added_film.save()
+                return JsonResponse({'isAdd':'true'})#true olubsa demeli databaseden silirik
+                #print('Evvelceden var idi listem')
+            else:
+                print('Xeta var')
+                
+            # favorite_added_film = FavoriteFilms(profile=currentProfile)
+            # favorite_added_film.save()
+            # favorite_added_film.films.remove(addedFilm)
+            print('Film elave olunan listesen cixarildi yeni filmler listesinden')#hemcinin burdada if deki kimi
+        else:
+            print('Xeta')
         
         return JsonResponse({'workResponse':'Successfully Response Favorite Film List'})

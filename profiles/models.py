@@ -30,7 +30,7 @@ class FavoriteFilms(models.Model):
     films = models.ManyToManyField(Movie,blank=True,related_name='films_list')
     
     def __str__(self):
-        return str(self.films)
+        return (f'Favorited Profile Films List --- {self.profile}')
     
     class Meta:
         verbose_name = 'Favorite Films'

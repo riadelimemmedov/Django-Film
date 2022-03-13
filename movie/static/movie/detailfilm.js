@@ -190,22 +190,7 @@ addToFavorite.addEventListener('click',(e)=>{
     e.preventDefault()
     const ionHeart = document.getElementById('ionHeart')
 
-    $.ajax({
-        type:'POST',
-        url : currentUrlAddToFavorite,
-        data:{
-            'csrfmiddlewaretoken':csrftoken,
-            'slugurlfield':slugurlfield
-
-        },
-        success:function(response){
-            console.log(response.workResponse)
-        },
-        error:function(err){
-            console.log(err)
-        }
-    })
-
+    //checkActive part
     if(isActive){
         ionHeart.style.color = '#DD003F'
         ionHeart.style.borderColor = '#DD003F'
@@ -218,6 +203,25 @@ addToFavorite.addEventListener('click',(e)=>{
         addToFavorite.lastElementChild.textContent = 'Add to Favorite'
         isActive = true
     }
+
+    //ajax part
+    $.ajax({
+        type:'POST',
+        url : currentUrlAddToFavorite,
+        data:{
+            'csrfmiddlewaretoken':csrftoken,
+            'slugurlfield':slugurlfield,
+            'isActive':isActive,
+        },
+        success:function(response){
+            const isAdd = response.isAdd
+            console.log('Is Added Value', isAdd)
+        },
+        error:function(err){
+            console.log(err)
+        }
+    })
+
 })
 
 
