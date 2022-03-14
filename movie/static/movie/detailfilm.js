@@ -192,15 +192,15 @@ addToFavorite.addEventListener('click',(e)=>{
 
     //checkActive part
     if(isActive){
-        ionHeart.style.color = '#DD003F'
-        ionHeart.style.borderColor = '#DD003F'
-        addToFavorite.lastElementChild.textContent = 'Added Successfully Film List'
+        //ionHeart.style.color = '#DD003F'
+        //ionHeart.style.borderColor = '#DD003F'
+        //addToFavorite.lastElementChild.textContent = 'Added Successfully Film List'
         isActive = false
     }
     else if(isActive == false){
-        ionHeart.style.color = '#fff'
-        ionHeart.style.borderColor = '#fff'
-        addToFavorite.lastElementChild.textContent = 'Add to Favorite'
+        //ionHeart.style.color = '#fff'
+        //ionHeart.style.borderColor = '#fff'
+        //addToFavorite.lastElementChild.textContent = 'Add to Favorite'
         isActive = true
     }
 

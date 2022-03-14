@@ -52,11 +52,21 @@ def detailView(request,slug):
     
     print(request.user)
 
+    #scope add
+    favoriteFilmsList = None
     if(request.user.is_authenticated):
         profileUser= Profile.objects.get(user=request.user)
         print('Profile User',profileUser)
         favoriteFilmProfile = FavoriteFilms.objects.get(profile=profileUser)
         favoriteFilmsList = favoriteFilmProfile.films.all() 
+        for i in favoriteFilmsList:
+            if(i.title_movie == movie.title_movie):
+                print('bu film var')
+                favoriteFilmsList = i.slug_movie
+                break
+            else:
+                print('Bu film yoxdur favarit siyahida')
+                favoriteFilmsList = 'yox'
         #favoriteFilmProfile.films.all()
     else:
         print('Giris Yap')
