@@ -17,6 +17,7 @@ class Profile(models.Model):
     slug_user = models.SlugField(unique=True,db_index=True,blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+    isFavoriteMovie = models.BooleanField(default=False)
     
     def save(self,*args,**kwargs):
         self.slug_user = slugify(self.user.username)

@@ -50,6 +50,21 @@ def detailView(request,slug):
     movie = get_object_or_404(Movie,slug_movie=slug)
     movies = Movie.objects.all()
     
+    print(request.user)
+
+    if(request.user.is_authenticated):
+        profileUser= Profile.objects.get(user=request.user)
+        print('Profile User',profileUser)
+        favoriteFilmProfile = FavoriteFilms.objects.get(profile=profileUser)
+        favoriteFilmsList = favoriteFilmProfile.films.all() 
+        #favoriteFilmProfile.films.all()
+    else:
+        print('Giris Yap')
+    #print('User Profile Film List',favoriteFilmProfile.films.all(),'Lenght FIlm List',len(favoriteFilmProfile.films.all()))
+    #print('Favorite films id list')
+    isFavorite = None
+    
+    
     allmoviecategoryies = []
     relatedcategorymovie = []
     
@@ -108,7 +123,7 @@ def detailView(request,slug):
             return JsonResponse({'datedesc':datedesc,'dolumudate_desc':dolumudate_desc,'targetvalueselect':targetvalueselect},safe=False)
         
     moviecategory()
-    return render(request,'movie/detailfilm.html',{'movie':movie,'filmler':filmler})
+    return render(request,'movie/detailfilm.html',{'movie':movie,'filmler':filmler,'favoriteFilmsList':favoriteFilmsList})
 
 
 #!popularFilmView
@@ -321,6 +336,7 @@ def addToFavoriteListFilm(request):
                 favorite_added_film = FavoriteFilms.objects.get(profile=currentProfile)
                 favorite_added_film.films.remove(addedFilm)
                 favorite_added_film.save()
+                print('Film Silindi')
                 return JsonResponse({'isAdd':'true'})#true olubsa demeli databaseden silirik
                 #print('Evvelceden var idi listem')
             else:
