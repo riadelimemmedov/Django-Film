@@ -119,6 +119,6 @@ def updateProfileDataView(request):
     return JsonResponse({'username':profileUsername})
 
 
-
+#!userFavoriteView
 def userFavoriteView(request):
     return render(request,'profiles/my_favorite.html')
