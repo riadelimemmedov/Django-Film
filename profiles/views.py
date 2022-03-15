@@ -121,4 +121,13 @@ def updateProfileDataView(request):
 
 #!userFavoriteView
 def userFavoriteView(request):
-    return render(request,'profiles/my_favorite.html')
+    profile = Profile.objects.get(user=request.user)
+    profFav = FavoriteFilms.objects.get(profile=profile)
+    filmsFavs = profFav.films.all()
+    
+    context = {
+        'filmsFavs':filmsFavs,
+        'profile':profile
+    }
+    
+    return render(request,'profiles/my_favorite.html',context)

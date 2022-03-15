@@ -1,0 +1,29 @@
+{% load static %}
+
+<div class="col-md-3 col-sm-12 col-xs-12">
+    <div class="user-information">
+        <div class="user-img">
+            {% if profile.avatar %}
+                <a href="#"><img src="{{profile.avatar.url}}" width="170px" height="150px" alt="" class="imageProfile" style="border-radius: 25px;"><br></a>
+            {% else %}
+                <a href=""><img src="{% static 'images/sekilyox.png' %}" alt="" width="170px" height="150px" alt="" class="imageProfile" style="border-radius: 25px;"></a>
+            {% endif %}
+            <a href="#" class="redbtn">Change avatar</a>
+        </div>
+        <div class="user-fav">
+            <p>Account Details</p>
+            <ul>
+                <li><a href="{% url 'profiles:myProfileView' %}">Profile</a></li>
+                <li class="active"><a href="userfavoritelist.html">Favorite movies</a></li>
+                <li><a href="userrate.html">Rated movies</a></li>
+            </ul>
+        </div>
+        <div class="user-fav">
+            <p>Others</p>
+            <ul>
+                <li><a href="#">Change password</a></li>
+                <li><a href="#">Log out</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

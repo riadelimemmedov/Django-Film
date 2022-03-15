@@ -99,9 +99,15 @@
 									{% if favoriteFilmsList == movie.slug_movie %}
 										<!-- <i class="ion-heart" style="color:#DD003F;border-color: #DD003F;" id="ionHeart"></i> 
 										<input type="hidden" id="inputAddFavorite" value="false"> -->
-										<span>This movie is already on the list of favorites
-											<!-- !Bura bir dene link yazki isifadeci favarit filmler listesine gede bilsin yadda saxla burani-->
-										</span>
+
+										<span class="iconify" data-icon="akar-icons:info" data-width="44"></span>
+
+										<a href="{% url 'profiles:userFavoriteView' %}" class="parent-btn" style="text-align: start;">											
+											<span>This movie is already on the list of favorites
+												<!-- !Bura bir dene link yazki isifadeci favarit filmler listesine gede bilsin yadda saxla burani-->
+											</span>
+										</a>
+
 										
 									{% else %}
 										<i class="ion-heart" style="color:#fff;border-color: #fff;" id="ionHeart"></i>
