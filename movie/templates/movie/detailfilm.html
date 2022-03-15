@@ -92,11 +92,24 @@
 							</a>
 						{% endif %} -->
 
-					{% if favoriteFilmsList == movie.slug_movie %}
-						<p>var filminiz</p>
-					{% else %}
-						<p>yoxdu hecne</p>
-					{% endif %}
+					
+						<!-- <p>var filminiz</p> -->
+						{% if request.user.is_authenticated %}
+							<a href="" id="addToFavorite" class="parent-btn">
+									{% if favoriteFilmsList == movie.slug_movie %}
+										<!-- <i class="ion-heart" style="color:#DD003F;border-color: #DD003F;" id="ionHeart"></i> 
+										<input type="hidden" id="inputAddFavorite" value="false"> -->
+										<span>This movie is already on the list of favorites</span>
+									{% else %}
+										<i class="ion-heart" style="color:#fff;border-color: #fff;" id="ionHeart"></i>
+										<input type="hidden" id="inputAddFavorite2" value="true">
+										<span>Add to favorite</span>
+									{% endif %}
+							</a>
+						{% endif %}
+					
+						<!-- <p>yoxdu hecne</p> -->
+			
 
 					</div>
 					
