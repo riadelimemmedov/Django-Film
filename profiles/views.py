@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 from .forms import *
 from .models import *
 # Create your views here.
@@ -125,9 +126,22 @@ def userFavoriteView(request):
     profFav = FavoriteFilms.objects.get(profile=profile)
     filmsFavs = profFav.films.all()
     
+    #paginator
+    paginator = Paginator(filmsFavs,5)
+    page = request.GET.get('page')
+    paged_films = paginator.get_page(page)
+    
+    currentPage = request.GET.get('currentPage')
+    print(currentPage)
+    
+    #print(paginator.get_page(page))
+    
     context = {
-        'filmsFavs':filmsFavs,
-        'profile':profile
+        'filmsFavs':paged_films,
+        'profile':profile,
+        'filmsAll':filmsFavs,
+        'paginator':paginator,
+        'page':page
     }
     
     return render(request,'profiles/my_favorite.html',context)

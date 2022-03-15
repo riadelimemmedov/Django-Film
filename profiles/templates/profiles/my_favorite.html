@@ -12,9 +12,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="hero-ct">
-                        <h1>Edward kennedy’s profile</h1>
+                        <h1>{{profile.user.first_name}}&nbsp;{{profile.user.last_name}}’s profile</h1>
                         <ul class="breadcumb">
-                            <li class="active"><a href="#">Home</a></li>
+                            <li class="active"><a href="{% url 'movie:home' %}">Home</a></li>
                             <li> <span class="ion-ios-arrow-right"></span>Favorite movies</li>
                         </ul>
                     </div>
@@ -31,14 +31,7 @@
 
                 <div class="col-md-9 col-sm-12 col-xs-12">
                     <div class="topbar-filter user">
-                        <p>Found <span>1,608 movies</span> in total</p>
-                        <label>Sort by:</label>
-                        <select>
-                            <option value="range">-- Choose option --</option>
-                            <option value="saab">-- Choose option 2--</option>
-                        </select>
-                        <a href="userfavoritelist.html" class="list"><i class="ion-ios-list-outline "></i></a>
-                        <a  href="userfavoritegrid.html" class="grid"><i class="ion-grid active"></i></a>
+                        <p>Found <span>{{filmsAll|length}} movies</span> in total</p>
                     </div>
 
                     <!-- !Favorite Films List -->
@@ -59,23 +52,33 @@
                 
 
                     <div class="topbar-filter">
-                        <label>Movies per page:</label>
-                        <select>
-                            <option value="range">20 Movies</option>
-                            <option value="saab">10 Movies</option>
-                        </select>
-                        
-                        <div class="pagination2">
-                            <span>Page 1 of 2:</span>
-                            <a class="active" href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">...</a>
-                            <a href="#">78</a>
-                            <a href="#">79</a>
-                            <a href="#"><i class="ion-arrow-right-b"></i></a>
-                        </div>
+                        <label>Movies Pagination:</label>
+                
+                        {% if filmsFavs.has_other_pages %}
+                            <div class="pagination2">
+                                
+                                {% if filmsFavs.has_previous %}
+                                    <a href="?page={filmsFavs.previous_page_number}"><i class="ion-arrow-left-b"></i></a>
+                                {% endif %}
+
+                                {% for i in filmsFavs.paginator.page_range %}
+                                    {% if filmsFavs.number == i %}
+                                        <input type="hidden" id="currentIdPage" name="currentPage" value="{{i}}">
+                                        <span> Page: &nbsp;{{i}} of &nbsp;{{paginator.num_pages}}:</span><!-- !Burani duzeltmek lazimdir -->
+                                        <a class="active" href="">{{i}}</a>
+                                    {% else %}
+                                        <a href="?page={{i}}">{{i}}</a>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if filmsFavs.has_next %}
+                                    <a href="?page={{filmsFavs.next_page_number}}"><i class="ion-arrow-right-b"></i></a>
+                                {% endif %}
+
+                            </div>
+                        {% endif %}
                     </div>
+
                 </div>
             </div>
         </div>
@@ -86,5 +89,7 @@
     {% block scripts %}
         <script type="text/javascript" src="{% static 'profiles/my_favorite.js' %}" defer></script>
     {% endblock scripts %}
+
+
 
 </html>

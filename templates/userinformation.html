@@ -8,20 +8,19 @@
             {% else %}
                 <a href=""><img src="{% static 'images/sekilyox.png' %}" alt="" width="170px" height="150px" alt="" class="imageProfile" style="border-radius: 25px;"></a>
             {% endif %}
-            <a href="#" class="redbtn">Change avatar</a>
+            <a href="#" class="redbtn">Change avatar</a><!-- !burani ayri parca kimi goturub include yazib birlesdireresen cunki change eleyende framework isletdik belke -->
         </div>
         <div class="user-fav">
             <p>Account Details</p>
             <ul>
                 <li><a href="{% url 'profiles:myProfileView' %}">Profile</a></li>
-                <li class="active"><a href="userfavoritelist.html">Favorite movies</a></li>
+                <li class="active"><a href="{% url 'profiles:userFavoriteView' %}">Favorite movies</a></li>
                 <li><a href="userrate.html">Rated movies</a></li>
             </ul>
         </div>
         <div class="user-fav">
             <p>Others</p>
-            <ul>
-                <li><a href="#">Change password</a></li>
+            <ul><!-- !logout yazarsan bura -->
                 <li><a href="#">Log out</a></li>
             </ul>
         </div>
