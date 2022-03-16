@@ -1,0 +1,43 @@
+{% load static %}
+
+<div class="user-fav">
+    <p>Account Details</p>
+    <ul>
+        <li class="{% if 'myprofile/' in request.path %} active {% endif %}" ><a href="{% url 'profiles:myProfileView' %}">Profile</a></li>
+        <li class="{% if 'myfavorite/' in request.path %} active {% endif %}"><a href="{% url 'profiles:userFavoriteView' %}">Favorite movies</a></li>
+        <li><a href="userrate.html">Rated movies</a></li>
+    </ul>
+</div>
+
+<div class="user-fav">
+    <!-- !Logout Part -->
+    <p>Others</p>
+    <ul>
+        <li id="logoutProfile"  data-toggle="modal" data-target="#exampleModalCenter"><a href="#">Log out</a></li>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                ...
+                </div>
+                <div class="modal-footer">
+                    <!-- !Burda bidene form tagi icine yazki logout yazaciyig ona gore -->
+                    <button class="ui inverted blue button">Blue</button>
+                    <button class="ui inverted red button">Red</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </ul>
+</div>
+
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'profiles/logout_profile.js' %}"></script>
+{% endblock scripts %}

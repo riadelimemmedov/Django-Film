@@ -10,19 +10,6 @@
             {% endif %}
             <a href="#" class="redbtn">Change avatar</a><!-- !burani ayri parca kimi goturub include yazib birlesdireresen cunki change eleyende framework isletdik belke -->
         </div>
-        <div class="user-fav">
-            <p>Account Details</p>
-            <ul>
-                <li><a href="{% url 'profiles:myProfileView' %}">Profile</a></li>
-                <li class="active"><a href="{% url 'profiles:userFavoriteView' %}">Favorite movies</a></li>
-                <li><a href="userrate.html">Rated movies</a></li>
-            </ul>
-        </div>
-        <div class="user-fav">
-            <p>Others</p>
-            <ul><!-- !logout yazarsan bura -->
-                <li><a href="#">Log out</a></li>
-            </ul>
-        </div>
+        {% include 'accountdetails.html' %}
     </div>
 </div>

@@ -63,8 +63,8 @@
 
                                 {% for i in filmsFavs.paginator.page_range %}
                                     {% if filmsFavs.number == i %}
-                                        <input type="hidden" id="currentIdPage" name="currentPage" value="{{i}}">
-                                        <span> Page: &nbsp;{{i}} of &nbsp;{{paginator.num_pages}}:</span><!-- !Burani duzeltmek lazimdir -->
+                                        <!-- <input type="hidden" id="currentIdPage" name="currentPage" value="{{i}}"> -->
+                                        <!--<span> Page: &nbsp;{{i}} of &nbsp;{{paginator.num_pages}}:</span> !Burani duzeltmek lazimdir -->
                                         <a class="active" href="">{{i}}</a>
                                     {% else %}
                                         <a href="?page={{i}}">{{i}}</a>

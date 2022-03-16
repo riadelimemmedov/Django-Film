@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
+from django.contrib.auth import login,authenticate,logout
 from .forms import *
 from .models import *
 # Create your views here.
@@ -145,3 +146,8 @@ def userFavoriteView(request):
     }
     
     return render(request,'profiles/my_favorite.html',context)
+
+#!userLogoutView
+#?bura => @login_required(login_url='') yazmagi unutma yoxlayag gerek bu istifadeci giris edib ya yox
+def userLogoutView(request):
+    pass
