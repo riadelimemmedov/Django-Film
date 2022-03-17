@@ -20,23 +20,36 @@ function getCookie(name) {
 const csrftoken = getCookie('csrftoken');
 
 
-const removeFavariteList = document.querySelector('.filmFavClass')
+const removeFavariteListForm = document.getElementsByClassName('removeFavariteList')
 const currentUrl = window.location.href.replace('myfavorite/','removefilmsfavoritelist/')
-const filmFavClass = document.getElementsByClassName('filmFavClass')
-
-console.log(filmFavClass);
+const filmsIds = [...document.getElementsByClassName('filmsIds')]
 
 
-//!removeFavariteList Ajax
-removeFavariteList.addEventListener('submit',(e)=>{
-    e.preventDefault()
-    //console.log(e.target.children[0].value)
-    //id deyerini almag ucun filmin e.target.value dan istifade ederem belke ele alindi gedib inputun hemen andaki tiklanan valuesini alaram type='hidden' olan yerinden
-    $.ajax({
-        type:'POST',
-        url:currentUrl,
-        data:{
-            'csrfmiddlewaretoken':csrftoken
-        }
+for(let i=0;i<removeFavariteListForm.length;i++){
+    removeFavariteListForm[i].addEventListener('submit',(e)=>{
+        e.preventDefault()
+        const dataFavFilmId = removeFavariteListForm[i].lastElementChild.children[1].getAttribute('data-favfilmId') 
+        const hideFilm = removeFavariteListForm[i].parentElement.parentElement
+        
+        // console.log('DataFilmId Value', dataFavFilmId)
+        //console.log(removeFavariteListForm[i].parentElement.parentElement)
+        $.ajax({
+            type: 'POST',
+            url:currentUrl,
+            data:{
+                'csrfmiddlewaretoken':csrftoken,
+                'idFilm':dataFavFilmId
+            },
+            success:function(response){
+                console.log('Response Remove Film List')
+                console.log(response)
+                hideFilm.style.display = 'none'
+            },
+            error:function(err){
+                console.log('Error')
+                console.log(err)
+            }
+        })
     })
-})
+}
+

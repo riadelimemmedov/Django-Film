@@ -158,6 +158,19 @@ def userLogoutView(request):
 def removeFavoriteFilmFromList(request):
     if request.method == 'POST':
         print('post request atildi FILMI cikarmak icin')
+
+        idFilm = request.POST.get('idFilm')
+        existsFilm = Movie.objects.get(id=idFilm)
+        
+        print('Finding Film',existsFilm)
+        
+        currentProfileUser = Profile.objects.get(user=request.user)
+        favorite_removed_film = FavoriteFilms.objects.get(profile=currentProfileUser)
+        favorite_removed_film.films.remove(existsFilm)#Bir Seyi Yadinda Saxlaki ManyToMany ler => pytondaki set tipinde olurlar
+        favorite_removed_film.save()
+        
+        print('Removed Film List Film Successfully')
+        
         return JsonResponse({'removeFilm':'RemovedFilmData'},safe=False)
     #else
     return HttpResponse('Response Remove Film List')
