@@ -17,20 +17,26 @@
         <!-- Modal -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="border: 1px solid #bdc3c7;border-radius: 4px;">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: 0;">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <h5 class="modal-title" id="exampleModalLongTitle" style="margin-top:-20px">Profile Logout</h5>
+
                 </div>
-                <div class="modal-body">
-                ...
+                <div class="modal-body text-capitalize">
+                    Are You Sure You Want To Logout?
                 </div>
                 <div class="modal-footer">
                     <!-- !Burda bidene form tagi icine yazki logout yazaciyig ona gore -->
-                    <button class="ui inverted blue button">Blue</button>
-                    <button class="ui inverted red button">Red</button>
+                    
+                    <form action="{% url 'profiles:userLogoutView' %}" method="POST" autocomplete="off">
+                        {% csrf_token %}
+                        <button class="ui inverted blue button">Logout</button>
+                        <button class="ui inverted red button" data-dismiss="modal">Close</button>
+                    </form>
+
                 </div>
             </div>
             </div>

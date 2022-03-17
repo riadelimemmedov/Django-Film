@@ -1,6 +1,6 @@
 from django.db import IntegrityError
 from django.shortcuts import render,redirect
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
@@ -150,4 +150,14 @@ def userFavoriteView(request):
 #!userLogoutView
 #?bura => @login_required(login_url='') yazmagi unutma yoxlayag gerek bu istifadeci giris edib ya yox
 def userLogoutView(request):
-    pass
+    if request.method == 'POST':
+        logout(request)
+        return redirect('movie:home')
+    
+#!removeFavoriteFilmFromList
+def removeFavoriteFilmFromList(request):
+    if request.method == 'POST':
+        print('post request atildi FILMI cikarmak icin')
+        return JsonResponse({'removeFilm':'RemovedFilmData'},safe=False)
+    #else
+    return HttpResponse('Response Remove Film List')

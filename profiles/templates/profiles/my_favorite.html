@@ -40,7 +40,20 @@
                             <div class="movie-item-style-2 movie-item-style-1 style-3">
                                 <img src="{{filmsFav.image_movie.url}}" alt="">
                                 <div class="hvr-inner">
-                                    <a  href="{% url 'movie:detailfilm' filmsFav.slug_movie %}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                    
+                                    <!-- ?Remove Film From Favorite Film List Form with Ajax -->
+                                    <form class="removeFavariteList">
+                                        {% csrf_token %}
+                                        <button type="submit" style="border: 1px solid transparent;background-color: #DD003F !important;color: #fff !important;font-weight: 550;font-size: 14px">
+                                            Remove
+                                            <i class="ion-android-arrow-dropright"></i>
+                                            <input type="hidden" class="filmFavClass" name="filmFavName" value="{{filmsFav.id}}">
+                                        </button>
+                                        
+                                    </form>
+                                    <!-- ?xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+                                    <!-- {% url 'movie:detailfilm' filmsFav.slug_movie %} -->
+
                                 </div>
                                 <div class="mv-item-infor">
                                     <h6><a href="{% url 'movie:detailfilm' filmsFav.slug_movie %}">{{filmsFav.title_movie}}</a></h6>
