@@ -4,11 +4,11 @@
     <div class="user-information">
         <div class="user-img">
             {% if profile.avatar %}
-                <a href="#"><img src="{{profile.avatar.url}}" width="170px" height="150px" alt="" class="imageProfile" style="border-radius: 25px;"><br></a>
+                <a href=""><img src="{{profile.avatar.url}}" width="170px" height="150px" alt="" class="imageProfile" style="border-radius: 25px;"><br></a>
             {% else %}
                 <a href=""><img src="{% static 'images/sekilyox.png' %}" alt="" width="170px" height="150px" alt="" class="imageProfile" style="border-radius: 25px;"></a>
             {% endif %}
-            <a href="#" class="redbtn">Change avatar</a><!-- !burani ayri parca kimi goturub include yazib birlesdireresen cunki change eleyende framework isletdik belke -->
+            {% include 'changeavatar.html' %}<!-- !burani ayri parca kimi goturub include yazib birlesdireresen cunki change eleyende framework isletdik belke -->
         </div>
         {% include 'accountdetails.html' %}
     </div>

@@ -8,5 +8,6 @@ urlpatterns = [
     path('updateprofiledata/',updateProfileDataView,name='updateProfileDataView'),
     path('myfavorite/',userFavoriteView,name='userFavoriteView'),
     path('logout/',userLogoutView,name='userLogoutView'),
-    path('removefilmsfavoritelist/',removeFavoriteFilmFromList,name='removeFavoriteFilmFromList')
+    path('removefilmsfavoritelist/',removeFavoriteFilmFromList,name='removeFavoriteFilmFromList'),
+    path('change-image-profile/',changeImageProfile,name='changeImageProfile')
 ]

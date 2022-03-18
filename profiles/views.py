@@ -12,6 +12,7 @@ from .models import *
 # Create your views here.
 
 #!MyProfile
+#bura login_required yazmagi unutma
 def myProfileView(request):
     profile = Profile.objects.get(user=request.user)
     
@@ -35,6 +36,7 @@ def myProfileView(request):
     return render(request,'profiles/my_profile.html',context)
 
 #!updateProfileDataView
+#bura login_required yazmagi unutma
 def updateProfileDataView(request):
     if request.method == 'POST':
         print('worked method post')
@@ -122,6 +124,7 @@ def updateProfileDataView(request):
 
 
 #!userFavoriteView
+#bura login_required yazmagi unutma
 def userFavoriteView(request):
     profile = Profile.objects.get(user=request.user)
     profFav = FavoriteFilms.objects.get(profile=profile)
@@ -174,3 +177,16 @@ def removeFavoriteFilmFromList(request):
         return JsonResponse({'removeFilm':'RemovedFilmData'},safe=False)
     #else
     return HttpResponse('Response Remove Film List')
+
+#!changeImageProfile
+#bura login_required yazmagi unutma
+def changeImageProfile(request):
+    profile = Profile.objects.get(user=request.user)
+    
+    print('Change Image View Worked')
+    
+    context = {
+        'profile':profile,
+    }
+    
+    return render(request,'profiles/change_image.html',context)

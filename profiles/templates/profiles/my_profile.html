@@ -6,36 +6,30 @@
 
 <body>
     {% block content %}
-
-
-    
-
-            <!-- !Profile Image -->
-            <div class="ui modal" style="margin-bottom: 100px;" id="modalProfile">
-                    <i class="close icon"></i>
-                    <div class="header">
-                    Profile Picture
-                    </div>
-                    <div class="image content">
-                    <div class="ui medium image">
-                        <img src="" id="profPictureSingle" style="width: 200px !important;height:200px !important;">
-                    </div>
-                    <div class="description">
-                        <div class="ui header"></div>
-                        <div class="ui header"></div>
-                        <div class="ui header"></div>
-                    </div>
-                    </div>
-                    <div class="actions">
-                    <div class="ui black deny button">
-                        Close
-                    </div>
-                    </div>
-            </div>
-
-        
-
             
+        <!-- !Profile Image -->
+        <div class="ui modal" style="margin-bottom: 100px;" id="modalProfile">
+                <i class="close icon"></i>
+                <div class="header">
+                Profile Picture
+                </div>
+                <div class="image content">
+                <div class="ui medium image">
+                    <img src="" id="profPictureSingle" style="width: 200px !important;height:200px !important;">
+                </div>
+                <div class="description">
+                    <div class="ui header"></div>
+                    <div class="ui header"></div>
+                    <div class="ui header"></div>
+                </div>
+                </div>
+                <div class="actions">
+                <div class="ui black deny button">
+                    Close
+                </div>
+                </div>
+        </div>
+        
         <div class="hero user-hero">
             <div class="container">
                 <div class="row">
@@ -65,12 +59,15 @@
                                 {% else %}
                                     <a href=""><img src="{% static 'images/sekilyox.png' %}" alt="" width="170px" height="150px" alt="" class="imageProfile" style="border-radius: 25px;"></a>
                                 {% endif %}
-                                <a href="#" class="redbtn">Change avatar</a>
+                                {% include 'changeavatar.html' %}
                             </div>
                         </form>
-                        <!-- !xxxxxxxxxxxxxxxx -->
+
+                    
                         
+                        <!-- !xxxxxxxxxxxxxxxx -->
                         {% include 'accountdetails.html' %}
+                        
 
                         </div>
                     </div>

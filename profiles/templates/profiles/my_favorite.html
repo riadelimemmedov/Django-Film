@@ -36,6 +36,7 @@
 
                     <!-- !Favorite Films List -->
                     <div class="flex-wrap-movielist grid-fav">
+                    {% if filmsFavs %}
                         {% for filmsFav in filmsFavs %}
                             <div class="movie-item-style-2 movie-item-style-1 style-3">
                                 <img src="{{filmsFav.image_movie.url}}" alt="">
@@ -50,7 +51,6 @@
                                             <!-- <input type="hidden" class="filmFavClass" name="filmFavName" value="{{filmsFav.id}}"> -->
                                             <span style="display: none;" class="filmsIds" data-favfilmId="{{filmsFav.id}}"></span>
                                         </button>
-                                        
                                     </form>
                                     <!-- ?xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
                                     <!-- {% url 'movie:detailfilm' filmsFav.slug_movie %} -->
@@ -62,6 +62,12 @@
                                 </div>
                             </div>
                         {% endfor %}
+                    {% else %}
+                            <!-- ?burani js ile yaz innerHtml deyiseceksen ele bil veziyyete gore yeni burdaki h3 yazacagsan ele bil dicin innehtml icine -->
+                            <div>
+                                <h3 style="color:#e74c3c;margin-bottom: 20px;">You Don't Have A Favorite Movie</h3>
+                            </div>
+                    {% endif %}
                     </div>	    
                 
 
