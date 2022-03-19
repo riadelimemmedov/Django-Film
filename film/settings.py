@@ -158,3 +158,6 @@ MESSAGE_TAGS = {
 }
 
 #admin panel sifre ve ad => riad,riadsifre123321
+
+
+#en son user budur yuxardaki islemir => riadpy,123321

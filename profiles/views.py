@@ -182,11 +182,17 @@ def removeFavoriteFilmFromList(request):
 #bura login_required yazmagi unutma
 def changeImageProfile(request):
     profile = Profile.objects.get(user=request.user)
-    
-    print('Change Image View Worked')
-    
+    print(profile.avatar)
+    print(request.user.id)
+    form = ChangeImageForm(request.POST or None,request.FILES or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            print('noldun amk')
+            return JsonResponse({'message':'works'})
+            
     context = {
         'profile':profile,
+        'form':form
     }
     
     return render(request,'profiles/change_image.html',context)

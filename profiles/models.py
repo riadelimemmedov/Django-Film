@@ -26,6 +26,8 @@ class Profile(models.Model):
     def __str__(self):  
         return str(self.user)
 
+
+#!FavoriteFilms
 class FavoriteFilms(models.Model):
     profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
     films = models.ManyToManyField(Movie,blank=True,related_name='films_list')

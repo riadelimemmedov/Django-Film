@@ -301,6 +301,8 @@ def addToFavoriteListFilm(request):
         addedFilm = Movie.objects.get(slug_movie=slugurlfield)
         currentProfile = Profile.objects.get(user=request.user)
         
+        print(Profile.objects.all())
+        
         # favorite_added_film = FavoriteFilms(profile=currentProfile)
         # favorite_added_film.save()
         # favorite_added_film.films.add(addedFilm)

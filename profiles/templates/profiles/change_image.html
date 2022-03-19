@@ -5,31 +5,56 @@
 
 {% block content %}
 
+<style>
+        
+</style>
+
     <div class="hero user-hero">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="hero-ct" style="text-align: center;">
-                        <h1 style="color:#fff;white-space: nowrap">Change Profile Avatar</h1>
+                        <h1 style="color:#fff;white-space: nowrap;text-align: center;">Change Profile Avatar</h1>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+
     <div class="page-single">
         <div class="container">
-            <div class="col-md-3 col-sm-12 col-xs-12">
-                <!-- !Burani form kimi yazacagsan ajax ile filan -->
-                <button type="submit" style="border: 1px solid transparent;background-color: #DD003F !important;color: #fff !important;font-weight: 550;font-size: 14px;border-radius: 5px;padding: 10px;width: 50%;">
+            
+            <!-- !Alert Box -->
+            <div id="alert-box"></div>
+
+            <!-- !Image Box -->
+            <div style="text-align: center;" id="image-box">
+                {% if profile.avatar %}
+                    <img src="{{profile.avatar.url}}" id="image" style="width:50% !important;text-align: center;display: inline-block;" alt="">
+                {% else %}
+                    <img src="{% static 'images/sekilyox.png' %}" id="image" style="width:50% !important;text-align: center;display: inline-block;" alt="">
+                {%endif %}
+            </div>
+
+            <!-- !Image Form -->
+            <div style="padding: 10px;">
+                <form action="" id="image-form">
+                    {% csrf_token %}<!-- Eger form icersinde buton yazirsansa ve bu formun method deyeri POST dursa bu formun buton daki type deyeri mutleq sekilde submit olmalidir cunki data gonderirik databaseye -->
+                    {{form.as_p}}<br>
+                </form>
+                <button id="confirm-btn" style="border: 1px solid transparent;background-color: #DD003F !important;color: #fff !important;font-weight: 550;font-size: 14px;border-radius: 5px;padding: 10px;width: 100%;display:inline-block">
                     Confirm
                 </button>
             </div>
+
         </div>
     </div>
 
 {% endblock content %}
 
 {% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.css"/>
     <script type="text/javascript" src="{% static 'profiles/change_avatar.js' %}" defer></script>
 {% endblock scripts %}
