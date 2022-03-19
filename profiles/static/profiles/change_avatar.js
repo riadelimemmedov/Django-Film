@@ -58,7 +58,7 @@ input.addEventListener('change',()=>{
         cropper.getCroppedCanvas().toBlob((blob)=>{//blob = kesilen sekilin deyeri
             const fd = new FormData()
             fd.append('csrfmiddlewaretoken',csrftoken)
-            fd.append('avatar',blob,img_data)
+            fd.append('avatar',blob,'my-image.png')
 
             console.log('ddd',blob)
 

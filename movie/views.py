@@ -57,6 +57,7 @@ def detailView(request,slug):
     if(request.user.is_authenticated):
         profileUser= Profile.objects.get(user=request.user)
         print('Profile User',profileUser)
+        #?fuck burdada xeta var
         favoriteFilmProfile = FavoriteFilms.objects.get(profile=profileUser)
         favoriteFilmsList = favoriteFilmProfile.films.all() 
         for i in favoriteFilmsList:

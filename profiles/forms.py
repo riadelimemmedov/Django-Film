@@ -20,4 +20,4 @@ class ChangeImageForm(forms.ModelForm):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
         self.fields['avatar'].label = False
-    
+        #self.fields['user'].queryset = Profile.objects.get(user=self.request.user)

@@ -9,7 +9,7 @@ from django.utils.text import slugify
 
 #!Profile Model
 class Profile(models.Model):
-    user = models.OneToOneField(User,default=1,on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     bio = models.TextField(blank=True,null=True)
     country = models.CharField(max_length=20,blank=True,null=True)
     state = models.CharField(max_length=20,blank=True,null=True)
@@ -28,6 +28,7 @@ class Profile(models.Model):
 
 
 #!FavoriteFilms
+
 class FavoriteFilms(models.Model):
     profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
     films = models.ManyToManyField(Movie,blank=True,related_name='films_list')

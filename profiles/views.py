@@ -179,20 +179,25 @@ def removeFavoriteFilmFromList(request):
     return HttpResponse('Response Remove Film List')
 
 #!changeImageProfile
-#bura login_required yazmagi unutma
+
 def changeImageProfile(request):
-    profile = Profile.objects.get(user=request.user)
-    print(profile.avatar)
-    print(request.user.id)
-    form = ChangeImageForm(request.POST or None,request.FILES or None)
+    
+    try:
+        profile = Profile.objects.get(user=request.user)
+        print('Profil Var')
+    except Profile.DoesNotExist:
+        profile = Profile(user=request.user)
+    
     if request.method == 'POST':
+        form = ChangeImageForm(request.POST or None,request.FILES or None,instance=profile)
         if form.is_valid():
-            print('noldun amk')
-            return JsonResponse({'message':'works'})
-            
+            form.save()
+            return redirect('profiles:myProfileView')
+    else:
+        form = ChangeImageForm(instance=profile)
+    
     context = {
         'profile':profile,
         'form':form
     }
-    
     return render(request,'profiles/change_image.html',context)
