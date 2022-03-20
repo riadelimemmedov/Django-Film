@@ -30,8 +30,8 @@
                 {% include "userinformation.html" %}
 
                 <div class="col-md-9 col-sm-12 col-xs-12">
-                    <div class="topbar-filter user">
-                        <p>Found <span>{{filmsAll|length}} movies</span> in total</p>
+                    <div class="topbar-filter user"><!--burdada xeta var sayda js ile yaz => movies -->
+                        <p>Found <span id="favFilmCount"> {{filmsFavs|length}} movies </span> in total</p>
                     </div>
 
                     <!-- !Favorite Films List -->
@@ -62,12 +62,15 @@
                                 </div>
                             </div>
                         {% endfor %}
-                    {% else %}
-                            <!-- ?burani js ile yaz innerHtml deyiseceksen ele bil veziyyete gore yeni burdaki h3 yazacagsan ele bil dicin innehtml icine -->
-                            <div>
-                                <h3 style="color:#e74c3c;margin-bottom: 20px;">You Don't Have A Favorite Movie</h3>
-                            </div>
-                    {% endif %}
+                            {% else %}
+                                <div>
+                                    <h3 style="color:#e74c3c;margin-bottom: 20px;">You Don't Have A Favorite Movie</h3>
+                                </div>
+                            {% endif %}
+                        <!-- ?burani js ile yaz innerHtml deyiseceksen ele bil veziyyete gore yeni burdaki h3 yazacagsan ele bil dicin innehtml icine -->
+                        <div id="notFavFilm" style="display: none;">
+                            <h3 style="color:#e74c3c;margin-bottom: 20px;">You Don't Have A Favorite Movie</h3>
+                        </div>
                     </div>	    
                 
 

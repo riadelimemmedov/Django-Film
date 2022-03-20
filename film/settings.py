@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     
     'movie',
     'actor',
-    'profiles'
+    'profiles',
+    'contactadmin'
 ]
 
 MIDDLEWARE = [
@@ -160,4 +161,5 @@ MESSAGE_TAGS = {
 #admin panel sifre ve ad => riad,riadsifre123321
 
 
-#en son user budur yuxardaki islemir => riadpy,123321
+#en son user budur yuxardaki islemir => riadpy,123321 => bu hesab admin hesabidir
+#bu hesab ise adi bir hesabdir giris ucun yoxlayiram => tural,tural123321

@@ -22,14 +22,9 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="dropdown first">
-                        <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
-                            Home <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        <a href="{% url 'movie:home' %}" class="btn btn-default dropdown-toggle lv1">
+                            home
                         </a>
-                        <ul class="dropdown-menu level1">
-                            <li><a href="index-2.html">Home 01</a></li>
-                            <li><a href="homev2.html">Home 02</a></li>
-                            <li><a href="homev3.html">Home 03</a></li>
-                        </ul>
                     </li>
                     <li>
                         <a href="{% url 'movie:allMoviesListView' %}" class="btn btn-default dropdown-toggle lv1">
@@ -66,7 +61,7 @@
                 </ul>
 
                 <ul class="nav navbar-nav flex-child-menu menu-right">
-                    <li><a href="#">Help</a></li>
+                    <li><a href="{% url 'contact:contactView' %}">contact</a></li>
                     {% if request.user.is_authenticated %}<!-- eger user giris edibse yeni authetication olubsa if e girsin olmasa else girsin -->
                             {% if pic_user_navbar %}
                                 <li class="dropdown first">

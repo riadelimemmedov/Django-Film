@@ -127,17 +127,23 @@ def updateProfileDataView(request):
 #bura login_required yazmagi unutma
 def userFavoriteView(request):
     profile = Profile.objects.get(user=request.user)
-    profFav = FavoriteFilms.objects.get(profile=profile)
-    filmsFavs = profFav.films.all()
     
+    filmsFavs = None
+    paged_films = None
+    paginator = None
+    page = None
+    if(FavoriteFilms.objects.filter(profile=profile).exists()):
+        profFav = FavoriteFilms.objects.get(profile=profile)
+        filmsFavs = profFav.films.all()
+        paginator = Paginator(filmsFavs,5)
+        page = request.GET.get('page')
+        paged_films = paginator.get_page(page)
+        currentPage = request.GET.get('currentPage')
+        print(currentPage)
+    else:
+        filmsFavs = None
+        
     #paginator
-    paginator = Paginator(filmsFavs,5)
-    page = request.GET.get('page')
-    paged_films = paginator.get_page(page)
-    
-    currentPage = request.GET.get('currentPage')
-    print(currentPage)
-    
     #print(paginator.get_page(page))
     
     context = {
@@ -169,12 +175,15 @@ def removeFavoriteFilmFromList(request):
         
         currentProfileUser = Profile.objects.get(user=request.user)
         favorite_removed_film = FavoriteFilms.objects.get(profile=currentProfileUser)
+        allfilmslistuser = favorite_removed_film.films.all()
         favorite_removed_film.films.remove(existsFilm)#Bir Seyi Yadinda Saxlaki ManyToMany ler => pytondaki set tipinde olurlar
         favorite_removed_film.save()
         
+        print('Userin filmler listesi favaritlerdeki', allfilmslistuser.count())
+        
         print('Removed Film List Film Successfully')
         
-        return JsonResponse({'removeFilm':'RemovedFilmData'},safe=False)
+        return JsonResponse({'removeFilm':'RemovedFilmData','counfFavFilm':allfilmslistuser.count()},safe=False)
     #else
     return HttpResponse('Response Remove Film List')
 

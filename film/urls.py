@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('movie.urls',namespace='movie')),
     path('actor/',include('actor.urls',namespace='actor')),
-    path('profile/',include('profiles.urls',namespace='profiles'))
+    path('profile/',include('profiles.urls',namespace='profiles')),
+    path('contact/',include('contactadmin.urls',namespace='contact'))
 ]
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

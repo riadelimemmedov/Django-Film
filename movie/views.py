@@ -58,7 +58,16 @@ def detailView(request,slug):
         profileUser= Profile.objects.get(user=request.user)
         print('Profile User',profileUser)
         #?fuck burdada xeta var
-        favoriteFilmProfile = FavoriteFilms.objects.get(profile=profileUser)
+        
+        favoriteFilmProfile = None
+        if(FavoriteFilms.objects.filter(profile=profileUser).exists()):
+            favoriteFilmProfile = FavoriteFilms.objects.get(profile=profileUser)
+            print('User var idi onsuz')
+        else:
+            favoriteFilmProfile = FavoriteFilms(profile=profileUser,id=21)
+            print('USER FAVORIT indi yarandi')
+            
+        #favoriteFilmProfile = FavoriteFilms.objects.get(profile=profileUser)
         favoriteFilmsList = favoriteFilmProfile.films.all() 
         for i in favoriteFilmsList:
             if(i.title_movie == movie.title_movie):

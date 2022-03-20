@@ -23,6 +23,9 @@ const csrftoken = getCookie('csrftoken');
 const removeFavariteListForm = document.getElementsByClassName('removeFavariteList')
 const currentUrl = window.location.href.replace('myfavorite/','removefilmsfavoritelist/')
 const filmsIds = [...document.getElementsByClassName('filmsIds')]
+const notFavFilm = document.getElementById('notFavFilm')
+const favFilmCount = document.getElementById('favFilmCount')
+console.log(favFilmCount)
 
 
 for(let i=0;i<removeFavariteListForm.length;i++){
@@ -42,8 +45,13 @@ for(let i=0;i<removeFavariteListForm.length;i++){
             },
             success:function(response){
                 console.log('Response Remove Film List')
-                console.log(response)
+                console.log('Fav Film Number ', response.counfFavFilm)
                 hideFilm.style.display = 'none'
+                if(response.counfFavFilm <= 0){
+                    notFavFilm.style.display = 'block'
+                }
+                favFilmCount.innerHTML = `${response.counfFavFilm}`
+                console.log(response.counfFavFilm)
             },
             error:function(err){
                 console.log('Error')
