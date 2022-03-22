@@ -13,17 +13,54 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="hero-ct" style="text-align: center;">
-                        <h1 style="color:#fff;white-space: nowrap;text-align: center;">Change Profile Avatar</h1>
+                        <h1 style="color:#fff;white-space: nowrap;text-align: center;">Contact</h1>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="page-single"><!-- !crispy form islet burda cunki templatim yoxdu onda eger islese  crispy form -->
+    <div class="page-single">
         <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-sm-12 col-xs-12">
+                    <div class="blog-detail-ct">
+                        <!-- comment items -->
+                        <div class="comment-form">
+                            <h4>Leave a comment</h4>
+
+                        <!-- !Contact Form -->
+                            <form id="contact-form">
+                                {% csrf_token %}
+                                <div class="row" id="formattributelist">
+                                    <div class="col-md-4">
+                                        <input type="text" name="contact_firstname" id="fsname" placeholder="Name">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" name="contact_lastname" placeholder="Surname">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="email" name="contact_email" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <textarea name="contact_message" id="" placeholder="Message"></textarea>
+                                    </div>
+                                </div>
+                                <input class="submit" type="submit" placeholder="submit">
+                            </form>
+                        <!-- !xxxxxxxxxxxxxxxxxxxxx -->
+                        </div>
+                        <!-- comment form -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    
 
 {% endblock content %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'contactadmin/contact.js' %}" defer></script>
+{% endblock scripts %}
