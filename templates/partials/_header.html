@@ -61,8 +61,8 @@
                 </ul>
 
                 <ul class="nav navbar-nav flex-child-menu menu-right">
-                    <li><a href="{% url 'contact:contactView' %}">contact</a></li>
                     {% if request.user.is_authenticated %}<!-- eger user giris edibse yeni authetication olubsa if e girsin olmasa else girsin -->
+                            <li><a href="{% url 'contact:contactView' %}">contact</a></li>
                             {% if pic_user_navbar %}
                                 <li class="dropdown first">
                                     <a href="{% url 'profiles:myProfileView' %}" class="btn btn-default dropdown-toggle lv1">

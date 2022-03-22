@@ -26,29 +26,39 @@
                 <div class="col-md-10 col-sm-12 col-xs-12">
                     <div class="blog-detail-ct">
                         <!-- comment items -->
+
+                        <!-- !Show Error Message Divs -->
+                        <div id="contact-error-show">
+
+                        </div>
+
+                        <!-- !xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
                         <div class="comment-form">
-                            <h4>Leave a comment</h4>
+                            <h4>Leave Form</h4>
 
                         <!-- !Contact Form -->
                             <form id="contact-form">
                                 {% csrf_token %}
                                 <div class="row" id="formattributelist">
                                     <div class="col-md-4">
-                                        <input type="text" name="contact_firstname" id="fsname" placeholder="Name">
+                                        <input type="text" value="{{profile.user.first_name}}" name="contact_firstname" readonly>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" name="contact_lastname" placeholder="Surname">
+                                        <input type="text" value="{{profile.user.last_name}}" name="contact_lastname" readonly>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="email" name="contact_email" placeholder="Email">
+                                        <input type="email" value="{{profile.user.email}}" name="contact_email" readonly>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <textarea name="contact_message" id="" placeholder="Message"></textarea>
+                                        <textarea name="contact_message" placeholder="Message" autofocus>
+
+                                        </textarea>
                                     </div>
                                 </div>
-                                <input class="submit" type="submit" placeholder="submit">
+                                <input class="submit" id="contactButtonSend" type="submit" placeholder="submit">
                             </form>
                         <!-- !xxxxxxxxxxxxxxxxxxxxx -->
                         </div>
