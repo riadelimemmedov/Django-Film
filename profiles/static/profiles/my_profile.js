@@ -107,6 +107,7 @@ profileDetailForm.addEventListener('submit',(e)=>{
                     // },4000)
                     //handleAlerts('info',response.errorUsernameFind)
                 }
+
                 else{
                     //profileUsername.value = response.username
                     console.log('worked successfully response from backend')

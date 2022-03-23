@@ -67,7 +67,7 @@ def updateProfileDataView(request):
 
         #deyesen burda aradirmag lazimdir xetanin sebebini cunki burada save edirik burda ola biler problem
         print('################################################################')
-        b = User.objects.exclude(username = request.user.username)#!last error this field
+        #b = User.objects.exclude(username = request.user.username)#!last error this field
 
         if(User.objects.exclude(username = request.user.username).filter(username=profileUsername).exists()) or len(profileUsername)<=2:
                 print('girilen isim already exists in database')
@@ -75,6 +75,9 @@ def updateProfileDataView(request):
                 return JsonResponse({'errorUsernameFind':'This username already exists','profileUsername':profileUsername})
             
                 #break
+        if(User.objects.exclude(username = request.user.username).filter(email=profileEmail).exists()):
+            print('Bu emailden var amkkkkk')
+            return JsonResponse({'errorEmailFind':'This email already exists','profileEmail':profileEmail})#?burani donder js terefine
         else:
             #print('Success Updated User Data')
             print('Bu isim databasede halen yok')
