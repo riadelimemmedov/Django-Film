@@ -71,65 +71,101 @@ const alertBoxUsername2 = document.getElementById('alert-box-username2')
 //     },4000)
 // }
 
+
+
+
 //?Profile Update Data Form
 profileDetailForm.addEventListener('submit',(e)=>{
     e.preventDefault()
-    const updateProfileDataAjax = () =>{
-        $.ajax({
-            method: 'POST',
-            url:url,
-            data:{
-                'csrfmiddlewaretoken':csrftoken,
-                'profileUsername':profileUsername.value,
-                'profileEmail':profileEmail.value,
-                'profileFirstName':profileFirstName.value,
-                'profileLastName':profileLastName.value,
-                'profileCountry':profileCountry.value,
-                'profileState':profileState.value
-            },
-            success:function(response){//funksiya cavab geri donuyr yeni response o responsi tutmag ucun yazdig biz bu funksiyani
-                console.log('Successfully response url')
-                // console.log(response.profileUsername.length)
-                //response.errorUsernameFind
 
-                if(response.errorUsernameFind){
-                    alertBoxUsername.innerHTML = `
-                        <div class="alert alert-danger text-center text-capitalize" style="text-transform: capitalize">
-                            <strong style="color:black">${response.profileUsername.length <= 2 ? 'username must be minimum 3 character': response.errorUsernameFind}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    `
-
-                    // setTimeout(()=>{
-                    //     alertBoxUsername.style.display = 'none'
-                    // },4000)
-                    //handleAlerts('info',response.errorUsernameFind)
-                }
-
-                else{
-                    //profileUsername.value = response.username
-                    console.log('worked successfully response from backend')
-                    alertBoxUsername2.innerHTML = `
-                        <div class="alert alert-success text-center text-capitalize" style="text-transform: capitalize">
-                            <strong style="color:black">${'Your profile data has been successfully updated'}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    `
-                    //alertBoxUsername.style.display = 'block'
-
-                    //handleAlerts('success','Your profile data has been successfully updated')
-                }
-            },
-            error:function(err){
-                console.log('Hata',err)
-            }
-        })
+    //!Check Email
+    function isEmail(emailUser){
+        var pattern = /^([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)@([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)[\\.]([a-zA-Z]{2,9})$/;
+        return pattern.test(emailUser)
     }
-    updateProfileDataAjax()
+
+    if(isEmail(profileEmail.value) == false){
+        alertBoxUsername.innerHTML = `
+        <div class="alert alert-info text-center text-capitalize" style="text-transform: capitalize">
+            <strong style="color:black">please enter the correct email</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        `
+    }
+
+    else{
+        const updateProfileDataAjax = () =>{
+            $.ajax({
+                method: 'POST',
+                url:url,
+                data:{
+                    'csrfmiddlewaretoken':csrftoken,
+                    'profileUsername':profileUsername.value,
+                    'profileEmail':profileEmail.value,
+                    'profileFirstName':profileFirstName.value,
+                    'profileLastName':profileLastName.value,
+                    'profileCountry':profileCountry.value,
+                    'profileState':profileState.value
+                },
+                success:function(response){//funksiya cavab geri donuyr yeni response o responsi tutmag ucun yazdig biz bu funksiyani
+                    console.log('Successfully response url')
+                    // console.log(response.profileUsername.length)
+                    //response.errorUsernameFind
+    
+                    if(response.errorUsernameFind){
+                        alertBoxUsername.innerHTML = `
+                            <div class="alert alert-danger text-center text-capitalize" style="text-transform: capitalize">
+                                <strong style="color:black">${response.profileUsername.length < 4 ? 'username must be minimum 4 character': response.errorUsernameFind}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        `
+    
+                        // setTimeout(()=>{
+                        //     alertBoxUsername.style.display = 'none'
+                        // },4000)
+                        //handleAlerts('info',response.errorUsernameFind)
+                    }
+    
+                    else if(response.errorEmailFind){
+                        alertBoxUsername.innerHTML = `
+                            <div class="alert alert-danger text-center text-capitalize" style="text-transform: capitalize">
+                                <strong style="color:black">${response.profileEmail.length <4 ? 'email must be minimum 4 character': response.errorEmailFind}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        `
+                    }
+        
+    
+                    else{
+                        //profileUsername.value = response.username
+                        console.log('worked successfully response from backend')
+                        alertBoxUsername2.innerHTML = `
+                            <div class="alert alert-success text-center text-capitalize" style="text-transform: capitalize">
+                                <strong style="color:black">${'Your profile data has been successfully updated'}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        `
+                        //alertBoxUsername.style.display = 'block'
+    
+                        //handleAlerts('success','Your profile data has been successfully updated')
+                    }
+    
+                },
+                error:function(err){
+                    console.log('Hata',err)
+                }
+            })
+        }
+        updateProfileDataAjax()
+    }
 })
 
 //?ChangePasswordForm
