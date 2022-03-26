@@ -238,17 +238,163 @@ const seventh = document.getElementById('seventh')
 const eighth = document.getElementById('eighth')
 const nineth = document.getElementById('nineth')
 const tenth = document.getElementById('tenth')
+const messagestatus = document.getElementById('messagestatus')
 
 //?html elements
 //const formRating = document.querySelectorAll('.rate-form')//node listlerde forEach ile gezmek olur
-const formRating = document.querySelector('.rate-form')
+const formRating = document.querySelector('.rate-form')//quertSelector ise htmlcollection geri donur
+const csrf = document.getElementsByName('csrfmiddlewaretoken')
+
+
+//!handleSelect function
+const handleStarSelect = (size) =>{
+    const ratedataform = formRating.children
+    for(let i=0;i<ratedataform.length;i++){
+        if(i<=size){
+            if(ratedataform[i].classList.contains('ion-ios-star-outline')){
+                ratedataform[i].classList.remove('ion-ios-star-outline')
+                ratedataform[i].classList.add('ion-ios-star')
+            }
+        }
+        else{
+            ratedataform[i].classList.add('ion-ios-star-outline')
+        }
+    }
+}
+
+//!handleSelect
+const handleSelect = (selection) =>{
+    switch(selection){
+        case 'first':{
+            handleStarSelect(1)
+            return//dayandirmaq ucun kodu yeni asagidaki kodlar islemesin artiq eger bu sert dogrudursa
+        }
+        case 'second':{
+            handleStarSelect(2)
+            return
+        }
+        case 'third':{
+            handleStarSelect(3)
+            return
+        }
+        case 'fourth':{
+            handleStarSelect(4)
+            return
+        }
+        case 'fifth':{
+            handleStarSelect(5)
+            return
+        }
+        case 'sixth':{
+            handleStarSelect(6)
+            return
+        }
+        case 'seventh':{
+            handleStarSelect(7)
+            return
+        }
+        case 'eighth':{
+            handleStarSelect(8)
+            return
+        }
+        case 'nineth':{
+            handleStarSelect(9)
+            return
+        }
+        case 'tenth':{
+            handleStarSelect(10)
+            return
+        }
+    }
+}
+
+//!getNumericValue
+const getNumericValue = (stringValue) =>{
+
+    let numericValue;
+    if(stringValue == 'first'){
+        numericValue = 1
+    }
+    else if(stringValue == 'second'){
+        numericValue = 2
+    }
+    else if(stringValue == 'third'){
+        numericValue = 3
+    }
+    else if(stringValue == 'fourth'){
+        numericValue = 4
+    }
+    else if(stringValue == 'fifth'){
+        numericValue = 5
+    }
+    else if(stringValue == 'sixth'){
+        numericValue = 6
+    }
+    else if(stringValue == 'seventh'){
+        numericValue = 7
+    }
+    else if(stringValue == 'eighth'){
+        numericValue = 8
+    }
+    else if(stringValue == 'nineth'){
+        numericValue = 9
+    }
+    else if(stringValue == 'tenth'){
+        numericValue = 10
+    }
+    else{
+        numericValue = 0
+    }
+    return numericValue
+}
 
 
 const arr = [one,two,third,fourth,fifth,sixth,seventh,eighth,nineth,tenth]
 
+//!Bura renglemek ucundur sadece mausla uzerinde gezende
 arr.forEach((item)=>{
     item.addEventListener('mouseover',(e)=>{
-        //e.preventDefault()//!burani silede bilersen ehtiyatli ol burda
-        console.log(e.target.id)
+        handleSelect(e.target.id)
+    })
+})
+
+//!Ajax Rated Backend Save
+arr.forEach((item) => {
+    item.addEventListener('click',(e)=>{
+        const val = e.target.id
+        
+        //!click olan vaxti submit ile POST request gonder
+        //!Seyfeni Yenilemeyib dayanmadan ajax atanda addEventListener problem yaradir submit deyeri ile => qarsini almaq ucun isSubmit yazdig
+        //!Hemcinin mu;ltiple ajax calldan qacmaq ucun istifade etdik bunu
+        let isSubmit = false //isSubmit => adindanda oxundugu kimi formun testiq olun olunmamagini yoxlayaciyqiq addEventListener('submit') icinde
+        formRating.addEventListener('submit',(e)=>{
+            e.preventDefault()
+            if(isSubmit==true){
+                return //return olanda temiz funksiyani dayandirir cox dilde beledir yeni
+            }
+            isSubmit=true
+            const id_film = e.target.id//detailinde oldugumuz filmin id deyeri
+            const rate_num = getNumericValue(val)//gonderdiyimiz deyer star olarag yeni
+            //console.log('Rate Url' ,`${homeurl}/ratefilm/`)
+
+            //*ajax part
+            $.ajax({
+                type:'POST',
+                url:`${homeurl}/ratefilm/`,
+                data:{
+                    'csrfmiddlewaretoken':csrf[0].value,
+                    'id_film':id_film,
+                    'rate_num':rate_num
+                },
+                success: function(response){
+                    console.log('Response Value ', response.ugurlu)
+                    messagestatus.innerHTML = 'Successfully Rated'
+                },
+                error:function(err){
+                    console.log('Error ', err.xeta)
+                    messagestatus.innerHTML = 'Error Rated Neyse'
+                }
+            })
+        })
     })
 })

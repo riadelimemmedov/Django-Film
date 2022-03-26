@@ -11,6 +11,6 @@ urlpatterns = [
     path('detailcastcrew/<int:id>',castcrewDetailForApi,name='castcrewDetailForApi'),
     path('movies/',allMoviesListView,name='allMoviesListView'),
     path('addtofavorite/',addToFavoriteListFilm,name='addToFavoriteListFilm'),
-    
+    path('ratefilm/',rateFilmView,name='rateFilmView')
     #path('jsonver',jsonver,name='jsonver'),
 ]

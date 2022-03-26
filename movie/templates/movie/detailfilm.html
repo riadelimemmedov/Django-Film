@@ -34,7 +34,7 @@
 		line-height: 54px !important;
 		text-decoration: none solid rgb(245,181,10) !important;
 		word-spacing: 0px !important;
-		background-color:#040405 !important;
+		background-color:inherit !important;
 		border: none;
 		outline: none;
 		padding: 0;
@@ -148,7 +148,7 @@
 
 					</div>
 					
-		
+					<h1 id="messagestatus" style="color:blue;"></h1>
 
 					<div class="movie-rate">
 						<div class="rate">
@@ -156,22 +156,23 @@
 							<p><span>{{movie.avarage_ibdm}}</span> /10<br>
 								<!-- !<span class="rv">56 Reviews</span> Burani commenti yazandan sonra yazarsan comment sayi kimi -->
 							</p>
-						</div>
+						</div>				
+
 						<div class="rate-star">
 							<!-- !Rate Movie Form Yeni Filme Rating Verme Formu -->
 							
 							<p>Rate This Movie:  </p>
-							<form action="" class="rate-form" method="POST">
+							<form action="" class="rate-form" method="POST" id="{{movie.id}}"><!-- burda id deyerinin verilmesindeki sebeb bilekki hansi forma submit edirik -->
 								{% csrf_token %}
 								<!-- eger form da data gonderirsense ve bu formun method deyeri POST dursa icine mutleq ve mutleq sekilde butonlarin type deyeri submit olmalidir form icinde yazilan butonlari yeni -->
-								<button type="submit" class="ion-ios-star" id="second"></button>
-								<button type="submit" class="ion-ios-star" id="first"></button>
-								<button type="submit" class="ion-ios-star" id="third"></button>
-								<button type="submit" class="ion-ios-star" id="fourth"></button>
-								<button type="submit" class="ion-ios-star" id="fifth"></button>
-								<button type="submit" class="ion-ios-star" id="sixth"></button>
-								<button type="submit" class="ion-ios-star" id="seventh"></button>
-								<button type="submit" class="ion-ios-star" id="eighth"></button>
+								<button type="submit" class="ion-ios-star-outline" id="first"></button>
+								<button type="submit" class="ion-ios-star-outline" id="second"></button>
+								<button type="submit" class="ion-ios-star-outline" id="third"></button>
+								<button type="submit" class="ion-ios-star-outline" id="fourth"></button>
+								<button type="submit" class="ion-ios-star-outline" id="fifth"></button>
+								<button type="submit" class="ion-ios-star-outline" id="sixth"></button>
+								<button type="submit" class="ion-ios-star-outline" id="seventh"></button>
+								<button type="submit" class="ion-ios-star-outline" id="eighth"></button>
 								<button type="submit" class="ion-ios-star-outline" id="nineth"></button>
 								<button type="submit" class="ion-ios-star-outline" id="tenth"></button>
 							</form>

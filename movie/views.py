@@ -10,6 +10,7 @@ from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 import requests
+from ratingmovie.models import *
 from profiles.models import *
 from .models import *
 # Create your views here.
@@ -372,3 +373,20 @@ def addToFavoriteListFilm(request):
             print('Xeta')
         
         return JsonResponse({'workResponse':'Successfully Response Favorite Film List'})
+
+
+def rateFilmView(request):
+    if request.method == 'POST':
+        id_film = request.POST.get('id_film')
+        rate_num = request.POST.get('rate_num')
+        
+        profile_rate = Profile.objects.get(user=request.user)
+        movie_rate = Movie.objects.get(id=id_film)
+
+        #!Burda yoxlama etmelisen cunki user deyerini updatede ede biler ajaxla => insaAllah duzelderik
+        rating_movie_model = RatingMovie(profile=profile_rate,movie=movie_rate,score=rate_num)
+        rating_movie_model.save()
+        print('Isledi Yarandi Rate Deyesen')
+        return JsonResponse({'ugurlu':'true','score':rate_num},safe=False)#safe false olanda list seklinde datalarda gondermek mumkundur,hemise defautl kimi yaza bilersen JsonResponsedan un ikindi parametresi kimi => safe=false deyerini
+    #else
+    return JsonResponse({'xeta':'false'},safe=False)
