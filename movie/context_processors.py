@@ -61,31 +61,33 @@ import requests
 #     #print('En Son Xeber ', result_api_new['results'][-1])
 
 
+# result_api_new = None
+# news_image = []
+# count_page = 1
+# while True:
+#     result_api_new = requests.get(f'https://newsdata.io/api/1/news?apikey=pub_5737d339b2e69bf48a18b40f51fe63b33747&language=en&page={count_page}').json()
+#     print('En sonuncu xeber : ', result_api_new['results'])
+#     for i in result_api_new['results']:
+#         if(i['image_url'] != None) and len(news_image)<4:
+#             news_image.append(i)
+#             print(i['image_url'])
 
-result_api_new = None
+#     if(len(news_image) == 4):#mene 4 dene lazim idi ona gy
+#         print('Sekilli Gelen Datani Uzunlugu 4 BERABERIDR')
+#         break
+#     else:
+#         count_page+=1
+#         print('Isledim Aq')
+#         print(result_api_new['nextPage'])
 
-
-news_image = []
-count_page = 1
-while True:
-    result_api_new = requests.get(f'https://newsdata.io/api/1/news?apikey=pub_5737d339b2e69bf48a18b40f51fe63b33747&language=en&category=science&page={count_page}').json()
-    for i in result_api_new['results']:
-        if(i['image_url'] != None) and len(news_image)<4:
-            news_image.append(i)
-            print(i['image_url'])
-    
-    if(len(news_image) == 4):#mene 4 dene lazim idi ona gy
-        print('Sekilli Gelen Datani Uzunlugu 4 BERABERIDR')
-        break
-    else:
-        count_page+=1
-        print('Isledim Aq')
-    print(result_api_new['nextPage'])
 
 # def getNewsView(request):
+#     result_api_new = None
+#     news_image = []
 #     count_page = 1
 #     while True:
-#         result_api_new = requests.get(f'https://newsdata.io/api/1/news?apikey=pub_5737d339b2e69bf48a18b40f51fe63b33747&language=en&category=science&page={count_page}').json()
+#         result_api_new = requests.get(f'https://newsdata.io/api/1/news?apikey=pub_5737d339b2e69bf48a18b40f51fe63b33747&language=en&page={count_page}').json()
+#         print('En sonuncu xeber : ', result_api_new['results'][-1])
 #         for i in result_api_new['results']:
 #             if(i['image_url'] != None) and len(news_image)<4:
 #                 news_image.append(i)
@@ -93,15 +95,15 @@ while True:
         
 #         if(len(news_image) == 4):#mene 4 dene lazim idi ona gy
 #             print('Sekilli Gelen Datani Uzunlugu 4 BERABERIDR')
-#             return {'news_image':news_image}
+#             return {'news_image': news_image}
 #         else:
 #             count_page+=1
 #             print('Isledim Aq')
-#         print(result_api_new['nextPage'])
+#             print(result_api_new['nextPage'])
 
 
 #?Test Request
 
-# result_api_new = requests.get(f'https://newsdata.io/api/1/news?apikey=pub_5737d339b2e69bf48a18b40f51fe63b33747&language=en&category=science&page={count_page}').json()
+# result_api_new = requests.get(f'https://newsdata.io/api/1/news?apikey=pub_5737d339b2e69bf48a18b40f51fe63b33747&language=en&page={2}').json()
 # for i in result_api_new['results']:
 #     print(i['image_url'])

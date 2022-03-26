@@ -26,6 +26,32 @@
 		transition: color 0.5s !important;
 		font-weight:bold !important;
 	}
+
+	.ion-ios-star, .ion-ios-star-outline{
+		font-family: OpenSans,sans-serif !important;
+		font-size: 36px !important;
+		font-style: italic !important;
+		line-height: 54px !important;
+		text-decoration: none solid rgb(245,181,10) !important;
+		word-spacing: 0px !important;
+		background-color:#040405 !important;
+		border: none;
+		outline: none;
+		padding: 0;
+		border-color: none;
+	}
+
+	.ion-ios-star{
+		color: #F5B50A !important;
+	}
+
+	.ion-ios-star-outline{
+		color: #abb7c4 !important;
+	}
+
+
+
+
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iconify/2.0.0/iconify.min.js" integrity="sha512-lYMiwcB608+RcqJmP93CMe7b4i9G9QK1RbixsNu4PzMRJMsqr/bUrkXUuFzCNsRUo3IXNUr5hz98lINURv5CNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -132,16 +158,25 @@
 							</p>
 						</div>
 						<div class="rate-star">
+							<!-- !Rate Movie Form Yeni Filme Rating Verme Formu -->
+							
 							<p>Rate This Movie:  </p>
-							<i class="ion-ios-star"></i>
-							<i class="ion-ios-star"></i>
-							<i class="ion-ios-star"></i>
-							<i class="ion-ios-star"></i>
-							<i class="ion-ios-star"></i>
-							<i class="ion-ios-star"></i>
-							<i class="ion-ios-star"></i>
-							<i class="ion-ios-star"></i>
-							<i class="ion-ios-star-outline"></i>
+							<form action="" class="rate-form" method="POST">
+								{% csrf_token %}
+								<!-- eger form da data gonderirsense ve bu formun method deyeri POST dursa icine mutleq ve mutleq sekilde butonlarin type deyeri submit olmalidir form icinde yazilan butonlari yeni -->
+								<button type="submit" class="ion-ios-star" id="second"></button>
+								<button type="submit" class="ion-ios-star" id="first"></button>
+								<button type="submit" class="ion-ios-star" id="third"></button>
+								<button type="submit" class="ion-ios-star" id="fourth"></button>
+								<button type="submit" class="ion-ios-star" id="fifth"></button>
+								<button type="submit" class="ion-ios-star" id="sixth"></button>
+								<button type="submit" class="ion-ios-star" id="seventh"></button>
+								<button type="submit" class="ion-ios-star" id="eighth"></button>
+								<button type="submit" class="ion-ios-star-outline" id="nineth"></button>
+								<button type="submit" class="ion-ios-star-outline" id="tenth"></button>
+							</form>
+							
+							<!-- !xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
 						</div>
 					</div>
 					<div class="movie-tabs">

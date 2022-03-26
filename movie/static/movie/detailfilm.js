@@ -224,6 +224,31 @@ addToFavorite.addEventListener('click',(e)=>{
 })
 
 
+//!Rating Movie
+console.log('Rate Film Js File')
+
+//?get all the stars
+const one = document.getElementById('first')
+const two = document.getElementById('second')
+const third = document.getElementById('third')
+const fourth = document.getElementById('fourth')
+const fifth = document.getElementById('fifth')
+const sixth = document.getElementById('sixth')
+const seventh = document.getElementById('seventh')
+const eighth = document.getElementById('eighth')
+const nineth = document.getElementById('nineth')
+const tenth = document.getElementById('tenth')
+
+//?html elements
+//const formRating = document.querySelectorAll('.rate-form')//node listlerde forEach ile gezmek olur
+const formRating = document.querySelector('.rate-form')
 
 
+const arr = [one,two,third,fourth,fifth,sixth,seventh,eighth,nineth,tenth]
 
+arr.forEach((item)=>{
+    item.addEventListener('mouseover',(e)=>{
+        //e.preventDefault()//!burani silede bilersen ehtiyatli ol burda
+        console.log(e.target.id)
+    })
+})

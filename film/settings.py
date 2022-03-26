@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'movie',
     'actor',
     'profiles',
-    'contactadmin'
+    'contactadmin',
+    'ratingmovie'
 ]
 
 MIDDLEWARE = [
@@ -70,7 +71,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
                 'profiles.context_processors.profilePicViewContext',
-                'movie.context_processors.getNewsView'
+                #'movie.context_processors.getNewsView'
             ],
         },
     },
@@ -164,3 +165,7 @@ MESSAGE_TAGS = {
 
 #en son user budur yuxardaki islemir => riadpy,123321 => bu hesab admin hesabidir
 #bu hesab ise adi bir hesabdir giris ucun yoxlayiram => tural,tural123321
+
+
+
+#elect multiple lines in vs code => CTRL+ALT+ARROW KEYS
