@@ -160,7 +160,12 @@
 
 						<div class="rate-star">
 							<!-- !Rate Movie Form Yeni Filme Rating Verme Formu -->
-							
+							{% if ratemovie_id %}
+								<span style="display: none" id="ratedmovieid">{{ratemovie_id}}</span>
+							{% else %}
+								<span style="display: none" id="ratedmovieid"></span>
+							{% endif %}
+
 							<p>Rate This Movie:  </p>
 							<form action="" class="rate-form" method="POST" id="{{movie.id}}"><!-- burda id deyerinin verilmesindeki sebeb bilekki hansi forma submit edirik -->
 								{% csrf_token %}

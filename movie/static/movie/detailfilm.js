@@ -378,17 +378,19 @@ arr.forEach((item) => {
             //console.log('Rate Url' ,`${homeurl}/ratefilm/`)
 
             //*ajax part
+            let rated_film_id = null
+            console.log('rate film null dan id deyerine ', rated_film_id)
             $.ajax({
                 type:'POST',
                 url:`${homeurl}/ratefilm/`,
                 data:{
                     'csrfmiddlewaretoken':csrf[0].value,
                     'id_film':id_film,
-                    'rate_num':rate_num
+                    'rate_num':rate_num,
+                    //'rated_film_id':rated_film_id !== null ? rated_film_id : null
                 },
                 success: function(response){
-                    console.log('Response Value ', response.ugurlu)
-                    messagestatus.innerHTML = 'Successfully Rated'
+                    console.log('ugurlu oldu rate verme')
                 },
                 error:function(err){
                     console.log('Error ', err.xeta)
