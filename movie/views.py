@@ -390,42 +390,20 @@ def rateFilmView(request):
         rate_num = request.POST.get('rate_num')
         ratedfilmid = request.POST.get('rated_film_id')
         
-        print('ID DEYERI', ratedfilmid)
-        
         profile_rate = Profile.objects.get(user=request.user)
         movie_rate = Movie.objects.get(id=id_film)
-        
-        
-        # if(ratedfilmid == ''):
-        #     rating_movie_model = RatingMovie(profile=profile_rate,movie=movie_rate,score=rate_num)
-        #     rating_movie_model.save()
-        #     print('Isledi Yarandi Rate Deyesen')
-        #     return JsonResponse({'ugurlu':'true','score':rate_num,'rated_film_id':rating_movie_model.id},safe=False)#safe false olanda list seklinde datalarda gondermek mumkundur,hemise defautl kimi yaza bilersen JsonResponsedan un ikindi parametresi kimi => safe=false deyerini
-        # else:
-        #     rating_movie_model = RatingMovie.objects.get(id=ratedfilmid)
-        #     rating_movie_model.score = rate_num
-        #     print('noldu amk')
-        #     return JsonResponse({'yenilendi':'yenilendi score deyeri ugurlu bir sekilde'})
 
-        
-        rating_movie_model = None
-        # if(RatingMovie.objects.filter(movie=movie_rate,profile=profile_rate).exists()):
-        #     for i in RatingMovie.objects.filter():
-        #         print(i.movie.id)
-        
-        resultmovie = None
-        #*Burda qalmisig
-        
-        resultmovie = RatingMovie.objects.get(movie=movie_rate,profile=profile_rate)
-        if(resultmovie):
+        try:
+            resultmovie = RatingMovie.objects.get(movie=movie_rate,profile=profile_rate)
             resultmovie.score = rate_num
             resultmovie.save()
             print('yeter amkkk islee')
-        else:
+        except RatingMovie.DoesNotExist:
             rating_movie_model = RatingMovie(profile=profile_rate,movie=movie_rate,score=rate_num)
             rating_movie_model.save()
             print('Isledi Yarandi Rate Deyesen sifirdan yeni olan bir rate ')
             return JsonResponse({'ugurlu':'true','score':rate_num,'rated_film_id':rating_movie_model.id},safe=False)#safe false olanda list seklinde datalarda gondermek mumkundur,hemise defautl kimi yaza bilersen JsonResponsedan un ikindi parametresi kimi => safe=false deyerini
+
         # #!Burda yoxlama etmelisen cunki user deyerini updatede ede biler ajaxla => insaAllah duzelderik
     #else
     return JsonResponse({'xeta':'false'},safe=False)

@@ -249,6 +249,12 @@ const csrf = document.getElementsByName('csrfmiddlewaretoken')
 //!handleSelect function
 const handleStarSelect = (size) =>{
     const ratedataform = formRating.children
+    
+    formRating.addEventListener('mouseleave',(e)=>{
+        for(let i=0;i<ratedataform.length;i++){
+            ratedataform[i].classList.add('ion-ios-star-outline')
+        }
+    })
     for(let i=0;i<ratedataform.length;i++){
         if(i<=size){
             if(ratedataform[i].classList.contains('ion-ios-star-outline')){
@@ -378,8 +384,6 @@ arr.forEach((item) => {
             //console.log('Rate Url' ,`${homeurl}/ratefilm/`)
 
             //*ajax part
-            let rated_film_id = null
-            console.log('rate film null dan id deyerine ', rated_film_id)
             $.ajax({
                 type:'POST',
                 url:`${homeurl}/ratefilm/`,
@@ -387,7 +391,6 @@ arr.forEach((item) => {
                     'csrfmiddlewaretoken':csrf[0].value,
                     'id_film':id_film,
                     'rate_num':rate_num,
-                    //'rated_film_id':rated_film_id !== null ? rated_film_id : null
                 },
                 success: function(response){
                     console.log('ugurlu oldu rate verme')
