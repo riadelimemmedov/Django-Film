@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator,MinValueValidator
+from datetime import datetime,timedelta
+from django.utils import timezone
 from profiles.models import *
 from movie.models import *
 
@@ -12,6 +14,7 @@ class RatingMovie(models.Model):
         MaxValueValidator(10),
         MinValueValidator(0)
     ])
+    created = models.DateTimeField(auto_now_add=True,null=True)
     
     def __str__(self):
-        return f"Rating Movie Pk Value --- {self.pk}"
+        return str(self.score) + str(self.movie)

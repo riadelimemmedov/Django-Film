@@ -30,21 +30,8 @@
                 </div>
         </div>
         
-        <div class="hero user-hero">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="hero-ct">
-                            <h1>{{profile.user.first_name|title}} &nbsp;{{profile.user.last_name|title}} - profile</h1>
-                            <ul class="breadcumb">
-                                <li class="active"><a href="{% url 'movie:home' %}">Home</a></li>
-                                <li> <span class="ion-ios-arrow-right"></span>Profile</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% include 'userfirstlastname.html' %}
+
         <div class="page-single">
             <div class="container">
                 <div class="row ipad-width">

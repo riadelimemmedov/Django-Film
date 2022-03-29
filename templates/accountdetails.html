@@ -5,7 +5,7 @@
     <ul>
         <li class="{% if 'myprofile/' in request.path %} active {% endif %}" ><a href="{% url 'profiles:myProfileView' %}">Profile</a></li>
         <li class="{% if 'myfavorite/' in request.path %} active {% endif %}"><a href="{% url 'profiles:userFavoriteView' %}">Favorite movies</a></li>
-        <li><a href="userrate.html">Rated movies</a></li>
+        <li class="{% if 'myrates/' in request.path %} active {% endif %}"><a href="{% url 'profiles:rateMovieListVie' %}">Rated movies</a></li>
     </ul>
 </div>
 

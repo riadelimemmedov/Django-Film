@@ -2,6 +2,7 @@ from django.db import IntegrityError
 from django.shortcuts import render,redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
+from ratingmovie.models import *
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -213,3 +214,9 @@ def changeImageProfile(request):
         'form':form
     }
     return render(request,'profiles/change_image.html',context)
+
+
+def rateMovieListView(request):
+    qs = RatingMovie.objects.all()#bu sorgunu deyis sonra
+    
+    return render(request,'profiles/my_rates.html')

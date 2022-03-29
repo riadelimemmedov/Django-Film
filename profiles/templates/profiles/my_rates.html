@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} My Rate {% endblock title %}
+
+{% block content %}
+    {% include 'userfirstlastname.html' %}
+    <div class="page-single">
+        <div class="container">
+            <div class="row ipad-width2">
+
+                {% include "userinformation.html" %}
+
+                <div class="col-md-9 col-sm-12 col-xs-12">
+
+                    <!-- !Films  Statusbar -->
+                    <div class="topbar-filter">
+                        <p>Found <span>3 rates</span> in total</p>
+                        <label>Sort by:</label>
+                        <select>
+                            <option value="range">-- Choose option --</option>
+                            <option value="saab">-- Choose option 2--</option>
+                        </select>
+                    </div>
+
+                    <!-- !Films List -->
+                    <div class="movie-item-style-2 userrate">
+                        <img src="{% static 'images/uploads/mv1.jpg' %}" alt="">
+                        <div class="mv-item-infor">
+                            <h6><a href="#">oblivion <span>(2012)</span></a></h6>
+                            <p class="time sm-text">your rate:</p>
+                            <p class="rate"><i class="ion-android-star"></i><span>9.0</span> /10</p>
+                            <p class="time sm-text">date reviews:</p>
+                            <p class="time sm">02 April 2017</p>
+                        </div>
+                    </div>
+
+
+                    <!-- !Pagination -->
+                    <div class="topbar-filter">
+                        <label>Movies per page:</label>
+                        <select>
+                            <option value="range">20 Movies</option>
+                            <option value="saab">10 Movies</option>
+                        </select>
+                        <div class="pagination2">
+                            <span>Page 1 of 1:</span>
+                            <a class="active" href="#">1</a>
+                            <a href="#"><i class="ion-arrow-right-b"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}
