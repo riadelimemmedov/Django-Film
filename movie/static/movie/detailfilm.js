@@ -394,10 +394,25 @@ arr.forEach((item) => {
                 },
                 success: function(response){
                     console.log('ugurlu oldu rate verme')
+                    messagestatus.innerHTML =  `
+                        <div class="alert alert-warning" style="padding: 0; text-align: center;padding: 10px;border: 1px solid gray;border-radius: 3px">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="margin-right: 10px;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <p style="color: #222f3e !important;">The Rate You Gave: <strong style='color:black !important'>${response.score}</strong></p>
+                        </div>
+                    `
                 },
                 error:function(err){
                     console.log('Error ', err.xeta)
-                    messagestatus.innerHTML = 'Error Rated Neyse'
+                    messagestatus.innerHTML = `
+                        <div class="alert alert-danger" style="padding: 0; text-align: center;padding: 10px;border: 1px solid gray;border-radius: 3px">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="margin-right: 10px;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <p style="color: #222f3e !important;">The Rate You Gave: <strong style='color:black !important'>Error Rated</strong></p>
+                        </div>
+                    `
                 }
             })
         })

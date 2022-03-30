@@ -17,4 +17,4 @@ class RatingMovie(models.Model):
     created = models.DateTimeField(auto_now_add=True,null=True)
     
     def __str__(self):
-        return str(self.score) + str(self.movie)
+        return str(self.score) + '-' + str(self.profile) + '-' + str(self.movie)  

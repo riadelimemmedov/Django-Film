@@ -169,3 +169,5 @@ MESSAGE_TAGS = {
 
 
 #elect multiple lines in vs code => CTRL+ALT+ARROW KEYS
+
+#{{ data.0 }} => seklinde indexleye bilersen templatede gelen datani viewden gelen datani yeni

@@ -217,6 +217,17 @@ def changeImageProfile(request):
 
 
 def rateMovieListView(request):
-    qs = RatingMovie.objects.all()#bu sorgunu deyis sonra
+    profile = Profile.objects.get(user=request.user)
+    profile_rated_films = RatingMovie.objects.filter(profile=profile)
     
-    return render(request,'profiles/my_rates.html')
+    paginator = Paginator(profile_rated_films,3)
+    page = request.GET.get('page')
+    paged_rate_films = paginator.get_page(page)
+
+    
+    context = {
+        'profile':profile,
+        'profile_rated_films':paged_rate_films
+    }
+    
+    return render(request,'profiles/my_rates.html',context)

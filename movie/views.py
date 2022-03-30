@@ -398,6 +398,7 @@ def rateFilmView(request):
             resultmovie.score = rate_num
             resultmovie.save()
             print('yeter amkkk islee')
+            return JsonResponse({'score':rate_num})
         except RatingMovie.DoesNotExist:
             rating_movie_model = RatingMovie(profile=profile_rate,movie=movie_rate,score=rate_num)
             rating_movie_model.save()

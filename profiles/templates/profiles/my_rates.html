@@ -15,39 +15,47 @@
 
                     <!-- !Films  Statusbar -->
                     <div class="topbar-filter">
-                        <p>Found <span>3 rates</span> in total</p>
-                        <label>Sort by:</label>
-                        <select>
-                            <option value="range">-- Choose option --</option>
-                            <option value="saab">-- Choose option 2--</option>
-                        </select>
+                        <p>Found <span>{{profile_rated_films|length}} rates</span> in total</p>
                     </div>
 
                     <!-- !Films List -->
-                    <div class="movie-item-style-2 userrate">
-                        <img src="{% static 'images/uploads/mv1.jpg' %}" alt="">
-                        <div class="mv-item-infor">
-                            <h6><a href="#">oblivion <span>(2012)</span></a></h6>
-                            <p class="time sm-text">your rate:</p>
-                            <p class="rate"><i class="ion-android-star"></i><span>9.0</span> /10</p>
-                            <p class="time sm-text">date reviews:</p>
-                            <p class="time sm">02 April 2017</p>
+                    {% for prf in profile_rated_films %}
+                        <div class="movie-item-style-2 userrate">
+                            <img src="{{prf.movie.image_movie.url}}" alt="">
+                            <div class="mv-item-infor">
+                                <h6><a href="{% url 'movie:detailfilm' prf.movie.slug_movie %}">{{prf.movie.title_movie}} <span>({{prf.movie.date_created_movie}})</span></a></h6>
+                                <p class="time sm-text">your rate:</p>
+                                <p class="rate"><i class="ion-android-star"></i><span>{{prf.score}}</span> /10</p>
+                                <p class="time sm-text">date reviews:</p>
+                                <p class="time sm">{{prf.created|date:'F,d,Y'}}</p>
+                            </div>
                         </div>
-                    </div>
-
+                    {% endfor %}
 
                     <!-- !Pagination -->
                     <div class="topbar-filter">
                         <label>Movies per page:</label>
-                        <select>
-                            <option value="range">20 Movies</option>
-                            <option value="saab">10 Movies</option>
-                        </select>
-                        <div class="pagination2">
-                            <span>Page 1 of 1:</span>
-                            <a class="active" href="#">1</a>
-                            <a href="#"><i class="ion-arrow-right-b"></i></a>
-                        </div>
+
+                        {% if profile_rated_films.has_other_pages %}
+                            <div class="pagination2">
+                                {% if profile_rated_films.has_previous %}
+                                    <a href="?page={{profile_rated_films.previous_page_number}}"><i class="ion-arrow-left-b"></i></a>
+                                {% endif %}
+
+                                {% for i in profile_rated_films.paginator.page_range %}
+                                    {% if profile_rated_films.number == i %}
+                                        <a class="active" href="">{{i}}</a>
+                                    {% else %}
+                                        <a href="?page={{i}}">{{i}}</a>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                {% if profile_rated_films.has_next %}
+                                    <a href="?page={{profile_rated_films.next_page_number}}"><i class="ion-arrow-right-b"></i></a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
                     </div>
 
                 </div>
