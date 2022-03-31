@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'actor',
     'profiles',
     'contactadmin',
-    'ratingmovie'
+    'ratingmovie',
+    'post'
 ]
 
 MIDDLEWARE = [
