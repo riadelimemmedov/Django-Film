@@ -30,10 +30,43 @@
 						<img src="images/uploads/blog-detail.jpg" alt="">
                         
                         <!-- !slider movie images part -->
-                        
+						<!-- {% for i in listimage %}
+							<p>{{i}}</p>
+							<img src="{% static 'images/' %}{{i}}" alt="">
+						{% endfor %} -->
                         <!-- !finish slider images part -->
 						
-						<p>
+						<style>
+							.swiper {
+								width: 600px;
+								height: 300px;
+							  }
+						</style>
+
+						<!-- Slider main container -->
+								<div class="swiper">
+									<!-- Additional required wrapper -->
+									<div class="swiper-wrapper">
+									<!-- Slides -->
+									<div class="swiper-slide">
+										<img src="{% static 'images/sekilyox.png' %}" alt="">
+									</div>
+									<div class="swiper-slide">Slide 2</div>
+									<div class="swiper-slide">Slide 3</div>
+									...
+									</div>
+									<!-- If we need pagination -->
+									<div class="swiper-pagination"></div>
+								
+									<!-- If we need navigation buttons -->
+									<div class="swiper-button-prev"></div>
+									<div class="swiper-button-next"></div>
+								
+									<!-- If we need scrollbar -->
+									<div class="swiper-scrollbar"></div>
+								</div>
+
+					
 						Joss Whedon has a little bit of a history with superhero movies, and for creating layered female characters. After his documented frustrations with Wonder Woman, he's getting another chance at the DC Extended Universe and Warner Bros., closing in on a deal to write direct and produce a Batgirl movie.</p>
 
 						<p>It's a somewhat surprising, but welcome move, given that Whedon has taken a long break to write something original, but has now pivoted to focus on developing the Batgirl project. First appearing in 1967 in Gardner Fox and Carmine Infantino's story run The Million Dollar Debut Of Batgirl, she's the superhero alias of Barbara Gordon, daughter of Gotham City Police Commissioner James Gordon. So we can likely expect J.K. Simmons' take on Gordon to appear along with other Bat-related characters.</p>
@@ -243,5 +276,27 @@
 {% endblock content %}
 
 {% block scripts %}
-
+	<script>
+		const swiper = new Swiper('.swiper', {
+			// Optional parameters
+			direction: 'vertical',
+			loop: true,
+		  
+			// If we need pagination
+			pagination: {
+			  el: '.swiper-pagination',
+			},
+		  
+			// Navigation arrows
+			navigation: {
+			  nextEl: '.swiper-button-next',
+			  prevEl: '.swiper-button-prev',
+			},
+		  
+			// And if we need scrollbar
+			scrollbar: {
+			  el: '.swiper-scrollbar',
+			},
+		  });
+	</script>
 {% endblock scripts %}
