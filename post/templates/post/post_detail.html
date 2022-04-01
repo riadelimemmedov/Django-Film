@@ -3,6 +3,8 @@
 
 {% block title %} Blog Detail {% endblock title %}
 
+
+
 {% block content %}
 	<div class="hero common-hero">
 		<div class="container">
@@ -37,34 +39,28 @@
                         <!-- !finish slider images part -->
 						
 						<style>
-							.swiper {
-								width: 600px;
-								height: 300px;
-							  }
+						
+							.blogimageclass{
+								width: 100%;
+								height: 80%;
+							}
 						</style>
 
 						<!-- Slider main container -->
-								<div class="swiper">
-									<!-- Additional required wrapper -->
-									<div class="swiper-wrapper">
-									<!-- Slides -->
-									<div class="swiper-slide">
-										<img src="{% static 'images/sekilyox.png' %}" alt="">
-									</div>
-									<div class="swiper-slide">Slide 2</div>
-									<div class="swiper-slide">Slide 3</div>
-									...
-									</div>
-									<!-- If we need pagination -->
-									<div class="swiper-pagination"></div>
-								
-									<!-- If we need navigation buttons -->
-									<div class="swiper-button-prev"></div>
-									<div class="swiper-button-next"></div>
-								
-									<!-- If we need scrollbar -->
-									<div class="swiper-scrollbar"></div>
-								</div>
+												<!-- Swiper -->
+					<div class="swiper mySwiper" style="width: 848px;height: 458px">
+						<div class="swiper-wrapper">
+
+						{% for i in listimage %}
+							<div class="swiper-slide">
+								<img src="{% static 'images/sekilyox.png' %}" class="blogimageclass" style="width: 100%;height: 80%;" alt="">
+							</div>
+						{% endfor %}
+
+						</div>
+						<div class="swiper-button-next" style="color:#636e72"></div>
+						<div class="swiper-button-prev" style="color:#636e72"></div>
+					</div>
 
 					
 						Joss Whedon has a little bit of a history with superhero movies, and for creating layered female characters. After his documented frustrations with Wonder Woman, he's getting another chance at the DC Extended Universe and Warner Bros., closing in on a deal to write direct and produce a Batgirl movie.</p>
@@ -277,25 +273,10 @@
 
 {% block scripts %}
 	<script>
-		const swiper = new Swiper('.swiper', {
-			// Optional parameters
-			direction: 'vertical',
-			loop: true,
-		  
-			// If we need pagination
-			pagination: {
-			  el: '.swiper-pagination',
-			},
-		  
-			// Navigation arrows
+		var swiper = new Swiper(".mySwiper", {
 			navigation: {
-			  nextEl: '.swiper-button-next',
-			  prevEl: '.swiper-button-prev',
-			},
-		  
-			// And if we need scrollbar
-			scrollbar: {
-			  el: '.swiper-scrollbar',
+			  nextEl: ".swiper-button-next",
+			  prevEl: ".swiper-button-prev",
 			},
 		  });
 	</script>

@@ -8,7 +8,7 @@ class Post(models.Model):
     title_post = models.CharField(max_length=50)
     description_post = models.TextField()
     image_post = models.ImageField(upload_to='postimages')
-    liked_post = models.ManyToManyField(Profile,default=None,blank=True,related_name='likedpost')
+    liked_post = models.ManyToManyField(Profile,default=None,blank=True,related_name='likedpost')#!burani deyisersen ayri model kimi edersen => yadda saxla burani
     update_data_post = models.DateTimeField(auto_now=True)
     created_date_post = models.DateTimeField(auto_now_add=True)
     
