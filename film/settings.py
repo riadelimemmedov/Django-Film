@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'profiles',
     'contactadmin',
     'ratingmovie',
-    'post'
+    'post',
+    'postblog'
 ]
 
 MIDDLEWARE = [
