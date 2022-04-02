@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %} Create Blog {% endblock title %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/plugins.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+<div class="hero user-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hero-ct" style="text-align: center;">
+                    <h1 style="color:#fff;white-space: nowrap;text-align: center;">Contact</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="page-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-sm-12 col-xs-12">
+                <div class="blog-detail-ct">
+                    
+                    <div class="comment-form">
+                        <h4>Leave Form</h4>
+
+                    <!-- !Contact Form -->
+                        <form id="contact-form">
+                            {% csrf_token %}
+                            <div class="row" id="formattributelist">
+                                <span class="col-md-12">
+                                    <input type="text" value="" name="title" placeholder="Title Blog">
+                                </span>
+                                <div class="col-md-12">
+                                    <label for="category"></label>
+                                    <!-- <input type="text" value="" name="" placeholder=""> -->
+                                    <select name="description" id="category">
+                                        
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="email" value="{{profile.user.email}}" name="contact_email">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <textarea name="description" placeholder="Message">
+
+                                    </textarea>
+                                </div>
+                            </div>
+                            <input class="submit" id="contactButtonSend" type="submit" placeholder="submit">
+                        </form>
+                    <!-- !xxxxxxxxxxxxxxxxxxxxx -->
+                    </div>
+                    <!-- comment form -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
