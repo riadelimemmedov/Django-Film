@@ -34,41 +34,46 @@
                         <h4>Leave Form</h4>
 
                     <!-- !Create Blog Form -->
-                        <form id="blog-form" method="POST" enctype="multipart/form">
+                        <form action="{% url 'postblog:postCreateView' %}" id="blog-form" method="POST" enctype="multipart/form">
                             {% csrf_token %}
                             <div class="row" id="formattributelist">
                                 <span class="col-md-12">
-                                    <input type="text" id="title-blog" value="" name="title" placeholder="Title" autofocus>
+                                    {{form.title_post}}
                                 </span>
                                 <div class="col-md-12">
-                                    <input type="text" id="tag-blog" value="" name="tags" placeholder="Tags">
+                                    {{form.tag_post}}
                                 </div>
 
                                 <div class="col-md-12">
                                         <div class="select-box">
-                                              <div class="options-container">
-                                                <div class="option">
-                                                  <input type="radio" class="radio" id="sports" name="category"/>
-                                                  <label for="sports">Sports</label>
+                                                <div class="options-container">
+                                                    {% for ctg in category %}
+                                                        <div class="option">
+                                                            <input type="text" class="radio" value="{{ctg.title_category}}"  name="category"/>
+                                                            <label for="sports">{{ctg.title_category}}</label>
+                                                        </div>
+                                                    {% endfor %}
                                                 </div>
-                                              </div>
 
-                                              <div class="selected">
-                                                  Select Video Category
-                                              </div>
+                                                <div class="selected">
+                                                    Select Blog Category
+                                                </div>
+
+                                            <input type="text" style="display: none;" id="categoryblog" name="categoryblogpost"><!-- ?return selected category value -->
+                                            <!-- <span id="categoryblog" style="color:red">defaultdayam</span> -->
+
                                         </div>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <textarea id="description-blog" name="description" placeholder="Description">
-
-                                    </textarea>
+                                    {{form.description_post}}
                                 </div>
                             </div>
 
-                            <input type="file" style="border: none;outline: none;display: none;" id="blog-input-file">
+
+                            {{form.image_post}}
                             <button class="ui grey button" id="select-image-button" style="background-color: #233A50 !important;padding: 10px;font-size: 12px;">Select Image</button><br><br>
                             <input class="submit col-md-12" id="contactButtonSend" type="submit" placeholder="submit">
                         </form>

@@ -89,3 +89,11 @@ h2 {
 .select-box .option .radio {
   display: none;
 }
+
+
+
+#blog-input-file{
+  border:none;
+  outline:none;
+  display:none;
+}
