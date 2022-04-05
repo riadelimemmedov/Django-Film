@@ -33,7 +33,9 @@ def postCreateView(request):
                 x = form.save(commit=False)
                 x.author_post = profile
                 x.save()
-                    
+                
+                #!eger birden cox tag gelerse bu taglari split ile vergule gore ayiirb for loopda save etmek lazimdir bunu yazmag lazimdir
+                
                 if(Tag.objects.filter(title_tag=request.POST.get('tag_post'))):
                         if(x):
                             tag_value = Tag.objects.get(title_tag=request.POST.get('tag_post'))
@@ -60,7 +62,6 @@ def postCreateView(request):
 
                 # print(request.POST.get('category'))
                 # categoryblogpost = request.POST.get('categoryblogpost')#burdaki deyeri save etmek ucun commit den istifade ederik
-           
                 # if x:
                 #     print('Yaranan Postun Title Deyeri ', x.title_post)
                 #     print('Yaranan Postun Category Deyeri ', x.category_post)
