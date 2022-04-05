@@ -1,7 +1,18 @@
+from random import choices
 from django import forms
+from django.forms import fields,widgets
 from .models import *
 
 class PostFilmForms(forms.ModelForm):
+    
+    numbers = (#burda [] yazma hec baxt ic ice yaz ele bil tupleleari  amma list yazma choices de
+    ('1','1 Yildiz'),
+    ('2','2 Yildiz'),
+    ('3','3 Yildiz'),
+    ('4','4 Yildiz'),
+    ('5','5 Yildiz'),
+    )
+    
     title_post = forms.CharField(widget=forms.TextInput(attrs={
         'type':'text',
         'id':'title-blog',
@@ -23,14 +34,25 @@ class PostFilmForms(forms.ModelForm):
         'id':'description-blog',
         'name':'description',
         'placeholder':'Description'
-    })),
+    }))
     
+    
+    #category_post = forms.ChoiceField(widget = forms.Select(attrs={'class':'radio','class':'categoryclass'}))
+    
+    class Meta:
+        model = PostFilm
+        fields = ['title_post','tag_post','description_post','category_post']
+        
+
+class ImagePostForm(forms.ModelForm):
     image_post = forms.CharField(widget=forms.TextInput(attrs={
         'type':'file',
         'name':'images',
-        'id':'blog-input-file'
+        'id':'blog-input-file',
+        'multiple':'True'
     }))
+    
     class Meta:
-        model = PostFilm
-        fields = ['title_post','tag_post','description_post','image_post']
+        model = ImagePost
+        fields = ['image_post']
     

@@ -34,7 +34,7 @@
                         <h4>Leave Form</h4>
 
                     <!-- !Create Blog Form -->
-                        <form action="{% url 'postblog:postCreateView' %}" id="blog-form" method="POST" enctype="multipart/form">
+                        <form action="{% url 'postblog:postCreateView' %}" id="blog-form" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="row" id="formattributelist">
                                 <span class="col-md-12">
@@ -47,12 +47,11 @@
                                 <div class="col-md-12">
                                         <div class="select-box">
                                                 <div class="options-container">
-                                                    {% for ctg in category %}
                                                         <div class="option">
-                                                            <input type="text" class="radio" value="{{ctg.title_category}}"  name="category"/>
-                                                            <label for="sports">{{ctg.title_category}}</label>
+                                                                {{form.category_post}}
+                                                            <!-- <input type="text" class="radio" value="{{ctg.title_category}}"  name="category"/> -->
+                                                            <!-- <label for="sports">{{ctg.title_category}}</label> -->
                                                         </div>
-                                                    {% endfor %}
                                                 </div>
 
                                                 <div class="selected">
@@ -73,7 +72,7 @@
                             </div>
 
 
-                            {{form.image_post}}
+                            {{imageform.image_post}}
                             <button class="ui grey button" id="select-image-button" style="background-color: #233A50 !important;padding: 10px;font-size: 12px;">Select Image</button><br><br>
                             <input class="submit col-md-12" id="contactButtonSend" type="submit" placeholder="submit">
                         </form>

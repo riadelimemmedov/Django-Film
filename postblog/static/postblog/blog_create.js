@@ -28,6 +28,14 @@ const tagBlog = document.getElementById('tag-blog')
 const descriptionBlog = document.getElementById('description-blog')
 const blogInputFile = document.getElementById('blog-input-file')
 const selectImageButton = document.getElementById('select-image-button')
+//const id_category_post = document.getElementById('id_category_post')
+const id_category_post = document.getElementById('id_category_post') 
+
+id_category_post.addEventListener('change',(e)=>{
+    console.log(e.target.value)
+})
+
+console.log(id_category_post)
 
 selectImageButton.addEventListener('click', (e)=>{
     e.preventDefault()
