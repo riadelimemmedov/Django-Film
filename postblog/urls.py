@@ -4,6 +4,7 @@ from .views import *
 app_name = 'postblog'
 
 urlpatterns = [
-    path('bloglist/',postDetailView,name='postDetailView'),
-    path('blogcreate/',postCreateView,name='postCreateView')
+    path('blogdetail/',postDetailView,name='postDetailView'),
+    path('blogcreate/',postCreateView,name='postCreateView'),
+    path('bloglist/',postListView,name='postListView'),
 ]

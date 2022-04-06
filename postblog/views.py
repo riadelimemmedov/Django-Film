@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from multiprocessing import context
+from django.shortcuts import redirect, render
 from .forms import *
 
 # Create your views here.
@@ -14,6 +15,7 @@ def postDetailView(request):
     
     return render(request,'postblog/blog_detail.html',context)
 
+#!postCreateView
 def postCreateView(request):
     profile = Profile.objects.get(user=request.user)
     form = PostFilmForms(request.POST or None,request.FILES or None)
@@ -28,6 +30,9 @@ def postCreateView(request):
                 print('Requestden gelen sekil deyeri', request.FILES.getlist('image_post'))
                 
                 images_post = request.FILES.getlist('image_post')
+                tag_post = request.POST.get('tag_post').split(',')
+                
+                print('Get tag value ', tag_post)
     
                 tag_value = None
                 x = form.save(commit=False)
@@ -36,20 +41,38 @@ def postCreateView(request):
                 
                 #!eger birden cox tag gelerse bu taglari split ile vergule gore ayiirb for loopda save etmek lazimdir bunu yazmag lazimdir
                 
-                if(Tag.objects.filter(title_tag=request.POST.get('tag_post'))):
+                for tp in tag_post:
+                    if(Tag.objects.filter(title_tag=tp)):
                         if(x):
-                            tag_value = Tag.objects.get(title_tag=request.POST.get('tag_post'))
+                            tag_value = Tag.objects.get(title_tag=tp)
                             x.tag_post.add(tag_value)
                         print('POST YARANDI kohne tagli')
                         # addtag = Tag.objects.get(title_tag=request.POST.get('tag_post'))
                         # x.tag_post.add(addtag) 
-                else:
-                    tag_value = request.POST.get('tag_post')
-                    new_tag = Tag.objects.create(title_tag=tag_value)
-                    new_tag.save()
-                    if(x):
-                        x.tag_post.add(new_tag)
-                    print('yeni tagli bir post yarandi')
+                    else:
+                        #tag_value = request.POST.get('tag_post')
+                        new_tag = Tag.objects.create(title_tag=tp)
+                        new_tag.save()
+                        if(x):
+                            x.tag_post.add(new_tag)
+                        print('yeni tagli bir post yarandi')
+                    
+                    
+                
+                # if(Tag.objects.filter(title_tag=request.POST.get('tag_post'))):
+                #         if(x):
+                #             tag_value = Tag.objects.get(title_tag=request.POST.get('tag_post'))
+                #             x.tag_post.add(tag_value)
+                #         print('POST YARANDI kohne tagli')
+                #         # addtag = Tag.objects.get(title_tag=request.POST.get('tag_post'))
+                #         # x.tag_post.add(addtag) 
+                # else:
+                #     tag_value = request.POST.get('tag_post')
+                #     new_tag = Tag.objects.create(title_tag=tag_value)
+                #     new_tag.save()
+                #     if(x):
+                #         x.tag_post.add(new_tag)
+                #     print('yeni tagli bir post yarandi')
                     
                 for i in images_post:
                     print('nah isleyerem')
@@ -57,6 +80,7 @@ def postCreateView(request):
                         postfilm_fk = x,
                         image_post = i
                     )
+                return redirect('postblog:postListView')
                     #imagepost.save()
                     
 
@@ -75,3 +99,24 @@ def postCreateView(request):
     }
     
     return render(request,'postblog/blog_create.html',context)
+
+
+def postListView(request):
+    postsList = PostFilm.objects.all()
+    postImageLists = []
+    postTitleList = []
+    
+    for pl in postsList:
+        postImages = ImagePost.objects.filter(postfilm_fk=pl)
+        #print('PostFilm for Image List ', postImages)
+        neticeforloop = [i for i in postImages]
+        #print('Dovr dongu ve netice ', neticeforloop)
+        print('Slice olandan sonra Post Basliq',[f"{j.postfilm_fk}\n - {j.image_post}" for j in neticeforloop])
+        #print('Slice olandan sonra Postun Sifirinci Sekil Deyeri',neti)
+        postImageLists.append(postImages)
+    
+    context = {
+        'postImageLists':postImageLists,
+    }
+    
+    return render(request,'postblog/blog_list.html',context)

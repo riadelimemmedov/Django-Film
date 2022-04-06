@@ -48,7 +48,7 @@
                             news <i class="fa fa-angle-down" aria-hidden="true"></i>
                         </a>
                         <ul class="dropdown-menu level1">
-                            <li><a href="">blog List</a></li>
+                            <li><a href="{% url 'postblog:postListView' %}">blog List</a></li>
                             <li class="it-last"><a href="{% url 'postblog:postDetailView' %}">blog Detail</a></li>
                             <li><a href="{% url 'postblog:postCreateView' %}">blog create</a></li>
                         </ul>
