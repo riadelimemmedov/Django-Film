@@ -22,15 +22,6 @@
     </div>
 </div>
 
-
-{% for pil in postImageLists %}
-    {% for i in pil %}
-        <!-- <strong>{{i.postfilm_fk.author_post}}</strong><br> bu formada goturulur djangoda basqa modelden datalar -->
-        <strong>{{i.postfilm_fk}}</strong><br>
-        <!-- <img src="{{i.image_post.url}}" alt=""> -->
-        <p style="color:red">{{i}}</p>
-    {% endfor %}
-{% endfor %}
 <!-- End of Title Page -->
 
 <!-- blog list section-->
@@ -38,15 +29,25 @@
     <div class="container">
         <div class="row">
             <div class="col-md-9 col-sm-12 col-xs-12">
-                <div class="blog-item-style-1 blog-item-style-3">
-                    <img src="images/uploads/bloglist-it1.jpg" alt="">
-                    <div class="blog-it-infor">
-                        <h3><a href="blogdetail.html">Godzilla: King Of The Monsters Adds O’Shea Jackson Jr</a></h3>
-                        <span class="time">27 Mar 2017</span>
-                        <p>Africa's burgeoning animation scene got a boost this week with the announcement of an
-                            ambitious new partnership that will pair rising talents from across the continent ...</p>
+                
+                <!-- !Post List -->
+                {% for pli in postImageLists %}
+                    <div class="blog-item-style-1 blog-item-style-3">
+                        {% if pli.image_post %}
+                            <img src="{{pli.image_post.url}}" alt="">
+                        {% else %}
+                            <img src="{% static 'images/sekiltapilmadi.jpg' %}" alt="">
+                        {% endif %}
+                        <div class="blog-it-infor">
+                            <h3><a href="blogdetail.html">{{pli.postfilm_fk.title_post}}</a></h3>
+                            <span class="time">27 Mar 2017</span>
+                            <p>Africa's burgeoning animation scene got a boost this week with the announcement of an
+                                ambitious new partnership that will pair rising talents from across the continent ...</p>
+                        </div>
                     </div>
-                </div>
+                {% endfor %}
+                <!-- !xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Sidebar Page -->
+
                 <ul class="pagination">
                     <li class="icon-prev"><a href="#"><i class="ion-ios-arrow-left"></i></a></li>
                     <li class="active"><a href="#">1</a></li>

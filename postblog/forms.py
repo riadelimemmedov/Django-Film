@@ -49,7 +49,7 @@ class ImagePostForm(forms.ModelForm):
         'type':'file',
         'name':'images',
         'id':'blog-input-file',
-        'multiple':'True'
+        'multiple':'True',
     }))
     
     class Meta:

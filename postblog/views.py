@@ -109,14 +109,27 @@ def postListView(request):
     for pl in postsList:
         postImages = ImagePost.objects.filter(postfilm_fk=pl)
         #print('PostFilm for Image List ', postImages)
-        neticeforloop = [i for i in postImages]
+        print(postImages[0])
+        print(postImages)
+        #neticeforloop = [i for i in postImages]
         #print('Dovr dongu ve netice ', neticeforloop)
-        print('Slice olandan sonra Post Basliq',[f"{j.postfilm_fk}\n - {j.image_post}" for j in neticeforloop])
+        #print('Slice olandan sonra Post Basliq',[f"{j.postfilm_fk}\n - {j.image_post}" for j in neticeforloop])
         #print('Slice olandan sonra Postun Sifirinci Sekil Deyeri',neti)
-        postImageLists.append(postImages)
+        postImageLists.append(postImages[0])
+        
+    
+    # firstImageList = []
+    # for i in postImageLists:
+    #     for j in i:
+    #         if(j.image_post):
+    #             print(j.image_post)
+    #             firstImageList.append(j.image_post)   
+    
+    # print('First Image List Listesi ', firstImageList)
     
     context = {
         'postImageLists':postImageLists,
+        #'firstImageList':firstImageList,
     }
     
     return render(request,'postblog/blog_list.html',context)

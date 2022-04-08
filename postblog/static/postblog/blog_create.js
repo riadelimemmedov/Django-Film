@@ -42,6 +42,7 @@ selectImageButton.addEventListener('click', (e)=>{
     blogInputFile.click()//click metodu avtomatik olarag click eleyir her hansi basqa bir event hadisesi bas verende
 })
 
+
 blogInputFile.addEventListener('change',(e)=>{
     let a = e.target.files[0]
     let urlssekil = URL.createObjectURL(a)
