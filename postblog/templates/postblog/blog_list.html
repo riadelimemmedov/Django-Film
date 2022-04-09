@@ -36,7 +36,7 @@
                         {% if pli.image_post %}
                             <img src="{{pli.image_post.url}}" alt="">
                         {% else %}
-                            <img src="{% static 'images/sekiltapilmadi.jpg' %}" alt="">
+                            <img src="{% static 'images/notfoundimages.jpg' %}" style="width: 300px;height: 190px;"  alt="">
                         {% endif %}
                         <div class="blog-it-infor">
                             <h3><a href="blogdetail.html">{{pli.postfilm_fk.title_post}}</a></h3>

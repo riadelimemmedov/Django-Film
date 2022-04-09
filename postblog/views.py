@@ -73,14 +73,19 @@ def postCreateView(request):
                 #     if(x):
                 #         x.tag_post.add(new_tag)
                 #     print('yeni tagli bir post yarandi')
-                    
-                for i in images_post:
-                    print('nah isleyerem')
-                    imagepost = ImagePost.objects.create(
-                        postfilm_fk = x,
-                        image_post = i
-                    )
-                return redirect('postblog:postListView')
+                
+                if(images_post):
+                    for i in images_post:
+                        print('nah isleyerem')
+                        imagepost = ImagePost.objects.create(
+                            postfilm_fk = x,
+                            image_post = i
+                        )
+                else:
+                    imagepost = ImagePost.objects.create(postfilm_fk=x)
+                
+                #?Burda bug var sonra qaytararsan evvelki halina
+                #return redirect('postblog:postListView')
                     #imagepost.save()
                     
 
@@ -111,11 +116,13 @@ def postListView(request):
         #print('PostFilm for Image List ', postImages)
         print(postImages[0])
         print(postImages)
+        postImageLists.append(postImages[0])
+
         #neticeforloop = [i for i in postImages]
         #print('Dovr dongu ve netice ', neticeforloop)
         #print('Slice olandan sonra Post Basliq',[f"{j.postfilm_fk}\n - {j.image_post}" for j in neticeforloop])
         #print('Slice olandan sonra Postun Sifirinci Sekil Deyeri',neti)
-        postImageLists.append(postImages[0])
+        
         
     
     # firstImageList = []

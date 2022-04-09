@@ -45,7 +45,7 @@ class PostFilmForms(forms.ModelForm):
         
 
 class ImagePostForm(forms.ModelForm):
-    image_post = forms.CharField(widget=forms.TextInput(attrs={
+    image_post = forms.CharField(required=False,widget=forms.TextInput(attrs={
         'type':'file',
         'name':'images',
         'id':'blog-input-file',

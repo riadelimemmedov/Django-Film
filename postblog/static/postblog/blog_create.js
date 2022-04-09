@@ -39,7 +39,13 @@ console.log(id_category_post)
 
 selectImageButton.addEventListener('click', (e)=>{
     e.preventDefault()
-    blogInputFile.click()//click metodu avtomatik olarag click eleyir her hansi basqa bir event hadisesi bas verende
+    try{
+        blogInputFile.click()//click metodu avtomatik olarag click eleyir her hansi basqa bir event hadisesi bas verende
+        console.log('Tiklandi')
+    }
+    catch{
+        new Error('Xeta')
+    }
 })
 
 
