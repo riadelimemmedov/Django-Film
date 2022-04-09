@@ -13,7 +13,7 @@
                 <div class="hero-ct">
                     <h1> blog listing - list</h1>
                     <ul class="breadcumb">
-                        <li class="active"><a href="#">Home</a></li>
+                        <li class="active"><a href="{% url 'movie:home' %}">Home</a></li>
                         <li> <span class="ion-ios-arrow-right"></span> blog listing</li>
                     </ul>
                 </div>
@@ -34,31 +34,42 @@
                 {% for pli in postImageLists %}
                     <div class="blog-item-style-1 blog-item-style-3">
                         {% if pli.image_post %}
-                            <img src="{{pli.image_post.url}}" alt="">
+                            <img src="{{pli.image_post.url}}" alt=""><!-- detail post link here -->
                         {% else %}
-                            <img src="{% static 'images/notfoundimages.jpg' %}" style="width: 300px;height: 190px;"  alt="">
+                            <img src="{% static 'images/notfoundimages.jpg' %}" style="width: 300px;height: 190px;"  alt=""><!-- detail post link here -->
                         {% endif %}
                         <div class="blog-it-infor">
-                            <h3><a href="blogdetail.html">{{pli.postfilm_fk.title_post}}</a></h3>
-                            <span class="time">27 Mar 2017</span>
-                            <p>Africa's burgeoning animation scene got a boost this week with the announcement of an
-                                ambitious new partnership that will pair rising talents from across the continent ...</p>
+                            <div>
+                                <h3><a href="blogdetail.html">{{pli.postfilm_fk.title_post}}</a><!-- detail post link here -->
+                                    <span class="time" style="font-size: 16px;color:#ecf0f1 !important">{{pli.postfilm_fk.created_date_post|date:'d,M,Y'}}</span>
+                                </h3>
+                            </div>
+                            
+                            <p>{{pli.postfilm_fk.description_post|truncatechars:160}}</p>
                         </div>
                     </div>
                 {% endfor %}
                 <!-- !xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Sidebar Page -->
 
-                <ul class="pagination">
-                    <li class="icon-prev"><a href="#"><i class="ion-ios-arrow-left"></i></a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">...</a></li>
-                    <li><a href="#">21</a></li>
-                    <li><a href="#">22</a></li>
-                    <li class="icon-next"><a href="#"><i class="ion-ios-arrow-right"></i></a></li>
-                </ul>
+                {% if postImageLists.has_other_pages %}
+                    <ul class="pagination">
+                        {% if postImageLists.has_previous %}
+                            <li class="icon-prev"><a href="?page={{postImageLists.previous_page_number}}"><i class="ion-ios-arrow-left"></i></a></li>
+                        {% endif %}
+
+                        {% for i in postImageLists.paginator.page_range %}
+                            {% if i == postImageLists.number %}
+                                <li class="active"><a>{{i}}</a></li>
+                            {% else %}
+                                <li><a href="?page={{i}}">{{i}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if postImageLists.has_next %}
+                            <li class="icon-next"><a href="?page={{postImageLists.next_page_number}}"><i class="ion-ios-arrow-right"></i></a></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
             </div>
             <!-- !Include Sidebar Page -->
                 {% include 'sidebar_bloglist.html' %}

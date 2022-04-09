@@ -1,5 +1,6 @@
 from multiprocessing import context
 from django.shortcuts import redirect, render
+from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 from .forms import *
 
 # Create your views here.
@@ -85,7 +86,7 @@ def postCreateView(request):
                     imagepost = ImagePost.objects.create(postfilm_fk=x)
                 
                 #?Burda bug var sonra qaytararsan evvelki halina
-                #return redirect('postblog:postListView')
+                return redirect('postblog:postListView')
                     #imagepost.save()
                     
 
@@ -117,25 +118,14 @@ def postListView(request):
         print(postImages[0])
         print(postImages)
         postImageLists.append(postImages[0])
-
-        #neticeforloop = [i for i in postImages]
-        #print('Dovr dongu ve netice ', neticeforloop)
-        #print('Slice olandan sonra Post Basliq',[f"{j.postfilm_fk}\n - {j.image_post}" for j in neticeforloop])
-        #print('Slice olandan sonra Postun Sifirinci Sekil Deyeri',neti)
-        
-        
     
-    # firstImageList = []
-    # for i in postImageLists:
-    #     for j in i:
-    #         if(j.image_post):
-    #             print(j.image_post)
-    #             firstImageList.append(j.image_post)   
+    postsListPagination = Paginator(postImageLists,4)
+    page = request.GET.get('page')
+    paged_post = postsListPagination.get_page(page)
     
-    # print('First Image List Listesi ', firstImageList)
     
     context = {
-        'postImageLists':postImageLists,
+        'postImageLists':paged_post,
         #'firstImageList':firstImageList,
     }
     
