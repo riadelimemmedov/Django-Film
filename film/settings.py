@@ -74,7 +74,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
                 'profiles.context_processors.profilePicViewContext',
-                #'movie.context_processors.getNewsView'
+                #'movie.context_processors.getNewsView',
+                'postblog.context_processors.blogFilm'
             ],
         },
     },
