@@ -3,15 +3,24 @@ from .models import *
 def blogFilm(request):
     category = Category.objects.all()
     blogfilms = PostFilm.objects.all()
-    categoryFilmsList = []
+    popularBlogFilms = PostFilm.objects.order_by('-created_date_post')[:3]
+    popularTagFilms = Tag.objects.all().order_by()[:10]
     
-    for j in category:
-        # categoryfilms = i.category_post
-        # say = Category.objects.filter(title_category=categoryfilms)
-            categoryneyse = j.title_category
-            netice = PostFilm.objects.filter(category_post__title_category=categoryneyse).distinct()
-            categoryFilmsList.append(netice)
-        
+    
+    print(popularTagFilms)
+    
+    
+    tagFilms = None
+    if(len(popularTagFilms) <= 7):
+        tagFilms = popularTagFilms
+        print('Tag Film 7 den kicikdir')
+    else:
+        tagFilms = popularTagFilms
+        print('Tag Film 7 den boyukdur')
+
+    
     return{
-        'category': category
+        'category': category,
+        'popularBlogFilms':popularBlogFilms,
+        'tagFilms':tagFilms
     }
