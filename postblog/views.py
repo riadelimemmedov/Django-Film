@@ -115,13 +115,17 @@ def postListView(request):
     for pl in postsList:
         postImages = ImagePost.objects.filter(postfilm_fk=pl)
         #print('PostFilm for Image List ', postImages)
-        print(postImages[0])
-        print(postImages)
+        #print(postImages[0])
+        #print(postImages)
         postImageLists.append(postImages[0])
     
     postsListPagination = Paginator(postImageLists,4)
     page = request.GET.get('page')
     paged_post = postsListPagination.get_page(page)
+    
+    
+    if request.method == 'POST':
+        print('Request send searh blog films for')
     
     
     context = {

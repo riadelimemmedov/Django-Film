@@ -7,16 +7,16 @@ def blogFilm(request):
     popularTagFilms = Tag.objects.all().order_by()[:10]
     
     
-    print(popularTagFilms)
+    #print(popularTagFilms)
     
     
     tagFilms = None
     if(len(popularTagFilms) <= 7):
         tagFilms = popularTagFilms
-        print('Tag Film 7 den kicikdir')
+        #print('Tag Film 7 den kicikdir')
     else:
         tagFilms = popularTagFilms
-        print('Tag Film 7 den boyukdur')
+        #print('Tag Film 7 den boyukdur')
 
     
     return{

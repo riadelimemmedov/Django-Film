@@ -59,7 +59,7 @@
 
                         {% for i in postImageLists.paginator.page_range %}
                             {% if i == postImageLists.number %}
-                                <li class="active"><a>{{i}}</a></li>
+                                <li class="active"><a href="">{{i}}</a></li>
                             {% else %}
                                 <li><a href="?page={{i}}">{{i}}</a></li>
                             {% endif %}
@@ -78,7 +78,8 @@
     </div>
 </div>
 <!--end of blog list section-->
-
-
-
 {% endblock content %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'postblog/blos_list.js' %}" defer></script>
+{% endblock scripts %}
