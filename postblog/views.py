@@ -1,5 +1,5 @@
 from multiprocessing import context
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 from django.db.models import Q
 from .forms import *
@@ -7,11 +7,25 @@ from .forms import *
 # Create your views here.
 
 #!postDetailView
-def postDetailView(request):
+def postDetailView(request,id):
+    postfilm = get_object_or_404(PostFilm,id=id)
+    imagepostlists = ImagePost.objects.filter(postfilm_fk=postfilm)
+    tagpostslists = postfilm.tag_post.all()
+    
+    print(tagpostslists)
+    
+    print('################################################################')
+    print(imagepostlists)
+    print('################################################################')
+    
+    
     listimage = ['logo1.png','fancybox_sprite.png','sekilyox.png']#buunu slider gonderib yoxlamalisas duz isleyir slider ya yox
     #!note => slider tapmasam gerek gedib sadik turandakini goturum movieapp daki
     
     context = {
+        'postfilm':postfilm,
+        'imagepostlists':imagepostlists,
+        'tagpostslists':tagpostslists,
         'listimage': listimage
     }
     
@@ -120,9 +134,6 @@ def postListView(request):
     
     for pl in postsList:
         postImages = ImagePost.objects.filter(postfilm_fk=pl)
-        #print('PostFilm for Image List ', postImages)
-        #print(postImages[0])
-        #print(postImages)
         postImageLists.append(postImages[0])
     
     postsListPagination = Paginator(postImageLists,4)

@@ -40,7 +40,7 @@
                             {% endif %}
                             <div class="blog-it-infor">
                                 <div>
-                                    <h3><a href="blogdetail.html">{{i.title_post}}</a><!-- detail post link here -->
+                                    <h3><a href="{% url 'postblog:postDetailView' id=i.id %}">{{i.title_post}}</a><!-- detail post link here -->
                                         <span class="time" style="font-size: 16px;color:#ecf0f1 !important">{{i.created_date_post|date:'d,M,Y'}}</span>
                                     </h3>
                                 </div>
@@ -48,7 +48,6 @@
                             </div>
                         </div>
                     {% endfor %}
-                
                 {% else %}
                     <!-- !Post List -->
                     {% for pli in postImageLists %}
@@ -60,7 +59,7 @@
                             {% endif %}
                             <div class="blog-it-infor">
                                 <div>
-                                    <h3><a href="blogdetail.html">{{pli.postfilm_fk.title_post}}</a><!-- detail post link here -->
+                                    <h3><a href="{% url 'postblog:postDetailView' id=pli.postfilm_fk.id %}">{{pli.postfilm_fk.title_post}}</a><!-- detail post link here -->
                                         <span class="time" style="font-size: 16px;color:#ecf0f1 !important">{{pli.postfilm_fk.created_date_post|date:'d,M,Y'}}</span>
                                     </h3>
                                 </div>
