@@ -40,7 +40,7 @@ class PostFilm(models.Model):
     description_post = models.TextField()
     #image_post = models.ImageField(upload_to='postimages',blank=True)
     #liked_post = models.ManyToManyField(Profile,default=None,blank=True,related_name='likedpost')#!burani deyisersen ayri model kimi edersen => yadda saxla burani
-    slug_post = models.SlugField(unique=True,db_index=True,blank=True)
+    slug_post = models.SlugField(db_index=True,blank=True)
     category_post = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='categorypost',blank=True,null=True)
     tag_post = models.ManyToManyField(Tag,related_name='tagmovie',blank=True)
     update_data_post = models.DateTimeField(auto_now=True)
