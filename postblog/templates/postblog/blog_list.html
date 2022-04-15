@@ -29,46 +29,89 @@
     <div class="container">
         <div class="row">
             <div class="col-md-9 col-sm-12 col-xs-12">
-                
-                <!-- !Post List -->
-                {% for pli in postImageLists %}
-                    <div class="blog-item-style-1 blog-item-style-3">
-                        {% if pli.image_post %}
-                            <img src="{{pli.image_post.url}}" alt=""><!-- detail post link here -->
-                        {% else %}
-                            <img src="{% static 'images/notfoundimages.jpg' %}" style="width: 300px;height: 190px;"  alt=""><!-- detail post link here -->
-                        {% endif %}
-                        <div class="blog-it-infor">
-                            <div>
-                                <h3><a href="blogdetail.html">{{pli.postfilm_fk.title_post}}</a><!-- detail post link here -->
-                                    <span class="time" style="font-size: 16px;color:#ecf0f1 !important">{{pli.postfilm_fk.created_date_post|date:'d,M,Y'}}</span>
-                                </h3>
-                            </div>
-                            
-                            <p>{{pli.postfilm_fk.description_post|truncatechars:160}}</p>
-                        </div>
-                    </div>
-                {% endfor %}
-                <!-- !xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Sidebar Page -->
 
-                {% if postImageLists.has_other_pages %}
-                    <ul class="pagination">
-                        {% if postImageLists.has_previous %}
-                            <li class="icon-prev"><a href="?page={{postImageLists.previous_page_number}}"><i class="ion-ios-arrow-left"></i></a></li>
-                        {% endif %}
-
-                        {% for i in postImageLists.paginator.page_range %}
-                            {% if i == postImageLists.number %}
-                                <li class="active"><a href="">{{i}}</a></li>
+                {% if postSearchResult %}
+                    {% for i in postSearchResult %}
+                        <div class="blog-item-style-1 blog-item-style-3">
+                            {% if pli.image_post %}
+                                <img src="{{pli.image_post.url}}" alt=""><!-- detail post link here -->
                             {% else %}
-                                <li><a href="?page={{i}}">{{i}}</a></li>
+                                <img src="{% static 'images/notfoundimages.jpg' %}" style="width: 300px;height: 190px;"  alt=""><!-- detail post link here -->
                             {% endif %}
-                        {% endfor %}
+                            <div class="blog-it-infor">
+                                <div>
+                                    <h3><a href="blogdetail.html">{{i.title_post}}</a><!-- detail post link here -->
+                                        <span class="time" style="font-size: 16px;color:#ecf0f1 !important">{{i.created_date_post|date:'d,M,Y'}}</span>
+                                    </h3>
+                                </div>
+                                <p>{{i.description_post|truncatechars:160}}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                {% else %}
+                    <!-- !Post List -->
+                    {% for pli in postImageLists %}
+                        <div class="blog-item-style-1 blog-item-style-3">
+                            {% if pli.image_post %}
+                                <img src="{{pli.image_post.url}}" alt=""><!-- detail post link here -->
+                            {% else %}
+                                <img src="{% static 'images/notfoundimages.jpg' %}" style="width: 300px;height: 190px;"  alt=""><!-- detail post link here -->
+                            {% endif %}
+                            <div class="blog-it-infor">
+                                <div>
+                                    <h3><a href="blogdetail.html">{{pli.postfilm_fk.title_post}}</a><!-- detail post link here -->
+                                        <span class="time" style="font-size: 16px;color:#ecf0f1 !important">{{pli.postfilm_fk.created_date_post|date:'d,M,Y'}}</span>
+                                    </h3>
+                                </div>
+                                
+                                <p>{{pli.postfilm_fk.description_post|truncatechars:160}}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <!-- !xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Sidebar Page -->
+                {% endif %}
+                
+                {% if postImageLists %}
+                    {% if postImageLists.has_other_pages %}
+                        <ul class="pagination">
+                            {% if postImageLists.has_previous %}
+                                <li class="icon-prev"><a href="?page={{postImageLists.previous_page_number}}"><i class="ion-ios-arrow-left"></i></a></li>
+                            {% endif %}
 
-                        {% if postImageLists.has_next %}
-                            <li class="icon-next"><a href="?page={{postImageLists.next_page_number}}"><i class="ion-ios-arrow-right"></i></a></li>
+                            {% for i in postImageLists.paginator.page_range %}
+                                {% if i == postImageLists.number %}
+                                    <li class="active"><a href="">{{i}}</a></li>
+                                {% else %}
+                                    <li><a href="?page={{i}}">{{i}}</a></li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if postImageLists.has_next %}
+                                <li class="icon-next"><a href="?page={{postImageLists.next_page_number}}"><i class="ion-ios-arrow-right"></i></a></li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+                {% elif postSearchResult %}
+                    {% if postSearchResult.has_other_pages %}
+                            <ul class="pagination">
+                                {% if postSearchResult.has_previous %}
+                                    <li class="icon-prev"><a href="?page={{postSearchResult.previous_page_number}}"><i class="ion-ios-arrow-left"></i></a></li>
+                                {% endif %}
+
+                                {% for i in postSearchResult.paginator.page_range %}
+                                    {% if i == postSearchResult.number %}
+                                        <li class="active"><a href="">{{i}}</a></li>
+                                    {% else %}
+                                        <li><a href="?page={{i}}">{{i}}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if postSearchResult.has_next %}
+                                    <li class="icon-next"><a href="?page={{postSearchResult.next_page_number}}"><i class="ion-ios-arrow-right"></i></a></li>
+                                {% endif %}
+                            </ul>
                         {% endif %}
-                    </ul>
                 {% endif %}
             </div>
             <!-- !Include Sidebar Page -->

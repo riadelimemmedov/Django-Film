@@ -1,6 +1,7 @@
 from multiprocessing import context
 from django.shortcuts import redirect, render
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
+from django.db.models import Q
 from .forms import *
 
 # Create your views here.
@@ -110,7 +111,12 @@ def postCreateView(request):
 def postListView(request):
     postsList = PostFilm.objects.all()
     postImageLists = []
-    postTitleList = []
+    postSearchResult = []
+    
+    
+    postsListPagination = None
+    page = None
+    paged_post = None
     
     for pl in postsList:
         postImages = ImagePost.objects.filter(postfilm_fk=pl)
@@ -123,13 +129,26 @@ def postListView(request):
     page = request.GET.get('page')
     paged_post = postsListPagination.get_page(page)
     
+    print('Pagination Axtarisdan Evvel ', postsListPagination)
+    
     
     if request.method == 'POST':
-        print('Request send searh blog films for')
-    
+        print('Blog Axtaris Isledi')
+        searchedTextBlogFilms = request.POST.get('searchedTextBlogFilms')
+        if searchedTextBlogFilms:
+            resultsFilms = PostFilm.objects.filter(Q(title_post__icontains=searchedTextBlogFilms)).distinct()
+            postsListPagination = Paginator(resultsFilms,4)
+            page = request.GET.get('page')
+            paged_post = postsListPagination.get_page(page)
+            for i in paged_post:
+                postSearchResult.append(i)
+            print('Axtarisdan Sonra Pagination ', paged_post)
+            
+            
     
     context = {
         'postImageLists':paged_post,
+        'postSearchResult':postSearchResult
         #'firstImageList':firstImageList,
     }
     

@@ -4,9 +4,13 @@
     <div class="sidebar">
         <div class="sb-search sb-it">
             <h4 class="sb-title">Search</h4>
-            <form id="searchFormBlogFilm" autocomplete="off">
+            <form action="{% url 'postblog:postListView' %}" id="searchFormBlogFilm" method="POST" autocomplete="off">
                 {% csrf_token %}
-                <input id="searchedInputBlogFilm" type="text" placeholder="Enter keywords">
+                <input id="searchedInputBlogFilm" name="searchedTextBlogFilms" type="text" placeholder="Enter keywords">
+                <button class="ui grey button" type="submit" id="select-image-button" style="background-color: #e74c3c !important;padding: 10px;font-size: 12px;margin-top:5px;width: 100%;"><!-- eger form icinde button yazirsansa ve bu formun method deyeri post dursa bu form icinde yazilan butonun type deyeri submit olmalidir -->
+                    Search
+                </button><br><br>
+                
             </form>
         </div>
         <div class="sb-cate sb-it">
