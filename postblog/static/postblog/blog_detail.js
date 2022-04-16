@@ -18,7 +18,7 @@ for(let i=0;i<commentLikeFormClass.length;i++){
             type: 'POST',
             url:e.target.action,
             data:{
-                'csrfmiddlewaretoken':csrf,//hemise birinci bunu gonder sonra digerlerini,amma templatedede ehtiyat ucujn => {% csrf_token %} yaz
+                'csrfmiddlewaretoken':csrf[0].value,//hemise birinci bunu gonder sonra digerlerini,amma templatedede ehtiyat ucujn => {% csrf_token %} yaz
                 'commentId':e.target.id
             },
             success:function(response){//burda response yazmalisan cunki gonderilen sorgudan url e ordan bize cavab geri donur yeni response geri donur

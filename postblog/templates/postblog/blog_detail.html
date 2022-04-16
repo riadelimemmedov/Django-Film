@@ -104,7 +104,7 @@
                                         </div>
                                         <p>{{commentblog.body}}</p>
 
-                                        <form action="{% url 'postblog:likeUnlikeCommentView' %}" class="comment-like-form-class" id="{{commentblog.id}}">
+                                        <form action="{% url 'postblog:likeUnlikeCommentView' %}" method="POST" class="comment-like-form-class" id="{{commentblog.id}}">
                                             {% csrf_token %}
                                             {% if likeprofile not in commentblog.liked_comment.all %}
                                                 <button type="submit" like-id="{{commentblog.id}}" style="background-color: #071829 !important;outline: none;border: none;"><!-- eger form ile POST request atirsansa  bu formu gondermek ucun lazim olan butonun type deyeri submit olmalidir yadda saxla => type='submit' </input></input> -->
