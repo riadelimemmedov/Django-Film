@@ -23,7 +23,12 @@ for(let i=0;i<commentLikeFormClass.length;i++){
             },
             success:function(response){//burda response yazmalisan cunki gonderilen sorgudan url e ordan bize cavab geri donur yeni response geri donur
                 console.log('Success Send Like And Unlike Comment Url')
-                console.log(response)
+                console.log(response.liked)
+                const like_unlike_btn =  e.target.firstElementChild.nextElementSibling
+
+                let imagelikebtn = like_unlike_btn.firstElementChild.getAttribute('src')
+                imagelikebtn = 'images/thumb-down.png'
+                like_unlike_btn.innerHTML = imagelikebtn
             },
             error:function(err){
                 console.log('Hata')
