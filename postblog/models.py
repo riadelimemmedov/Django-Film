@@ -1,3 +1,4 @@
+from this import d
 from django.db import models
 from django.utils.text import slugify
 from profiles.models import *
@@ -70,10 +71,29 @@ class LikePostFilm(models.Model):
     
     def __str__(self):
         return str(self.post_liked)
-    
+
+#!ImagePost Model
 class ImagePost(models.Model):
     postfilm_fk = models.ForeignKey(PostFilm,on_delete=models.CASCADE)
     image_post = models.ImageField(upload_to='imagepostfk')#default='sekiltapilmadi.jpg'  
     
     def __str__(self):
         return str(self.postfilm_fk) + ' ' + str(self.image_post)
+
+
+#!Comment Model
+class Comment(models.Model):
+    user = models.ForeignKey(Profile,on_delete=models.CASCADE)
+    post_film = models.ForeignKey(PostFilm,on_delete=models.CASCADE,related_name='commentsblogfilm')
+    liked_comment = models.ManyToManyField(Profile,related_name='likedcomment',blank=True)
+    body = models.TextField(max_length=400)
+    created = models.DateTimeField(auto_now_add=True)
+    
+    def like_comment_count(self):
+        return self.liked_comment.count()
+    
+    def __str__(self):
+        return f"Comment Writing Post Film --- {self.post_film}"
+    
+    class Meta:
+        ordering = ['-created']

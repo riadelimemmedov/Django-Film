@@ -3,6 +3,7 @@ from django import forms
 from django.forms import fields,widgets
 from .models import *
 
+#!PostFilmForms
 class PostFilmForms(forms.ModelForm):
     
     numbers = (#burda [] yazma hec baxt ic ice yaz ele bil tupleleari  amma list yazma choices de
@@ -44,6 +45,7 @@ class PostFilmForms(forms.ModelForm):
         fields = ['title_post','tag_post','description_post','category_post']
         
 
+#!ImagePostForm
 class ImagePostForm(forms.ModelForm):
     image_post = forms.CharField(required=False,widget=forms.TextInput(attrs={
         'type':'file',
@@ -55,4 +57,13 @@ class ImagePostForm(forms.ModelForm):
     class Meta:
         model = ImagePost
         fields = ['image_post']
-    
+
+class CommentForm(forms.ModelForm):
+    body = forms.CharField(required=True,label='',label_suffix='',widget=forms.Textarea(attrs={
+        'name':'message',
+        'id':'',
+        'placeholder':'Message',
+    }))
+    class Meta:
+        model = Comment
+        fields = ['body']

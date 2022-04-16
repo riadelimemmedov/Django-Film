@@ -31,7 +31,7 @@
                     <span class="time">{{postfilm.created_date_post|date:'d.M.Y'}}</span>
                     
                     <!-- !slider movie images part -->
-                    <!-- {% for i in listimage aaa %}
+                    <!-- {% for i in listimage  %}
 							<p>{{i}}</p>
 							<img src="{% static 'images/' %}{{i}}" alt="">
 						{% endfor %} -->
@@ -89,72 +89,61 @@
                     <!-- comment items -->
                     <div class="comments">
                         <h4>04 Comments</h4>
-                        <div class="cmt-item flex-it">
-                            <img src="images/uploads/author.png" alt="">
-                            <div class="author-infor">
-                                <div class="flex-it2">
-                                    <h6><a href="#">Steve Perry</a></h6> <span class="time"> - 27 Mar 2017</span>
+                        
+                        {% if postfilm.commentsblogfilm.all %}
+                            {% for commentblog in postfilm.commentsblogfilm.all %}
+                                <div class="cmt-item" style="text-align: left;">
+                                    {% if commentblog.user.avatar %}
+                                        <img src="{{commentblog.user.avatar.url}}" style="border-radius: 50%;width: 70px;height: 70px;" alt="">
+                                    {% else %}
+                                        <img src="{% static 'images/sekilyox.png' %}" style="border-radius: 50%;width: 70px;height: 70px;" alt="">
+                                    {% endif %}
+                                    <div class="author-infor" style="margin-top: -50px;">
+                                        <div class="flex-it2">
+                                            <h6><a href="#">{{commentblog.user}}</a></h6> <span class="time">{{commentblog.created|date:'d.M.Y'}}</span><!-- !user detail seyfesini hazirlayanda elave edersen bura link insaAllah -->
+                                        </div>
+                                        <p>{{commentblog.body}}</p>
+
+                                        <form action="{% url 'postblog:likeUnlikeCommentView' %}" class="comment-like-form-class" id="{{commentblog.id}}">
+                                            {% csrf_token %}
+                                            {% if likeprofile not in commentblog.liked_comment.all %}
+                                                <button type="submit" like-id="{{commentblog.id}}" style="background-color: #071829 !important;outline: none;border: none;"><!-- eger form ile POST request atirsansa  bu formu gondermek ucun lazim olan butonun type deyeri submit olmalidir yadda saxla => type='submit' </input></input> -->
+                                                        <img src="{% static 'images/thumb-up.png' %}" style="width: 20px;margin-top: -5px;" alt=""><br>
+                                                        like ele
+                                                </button>
+                                            {% else %}
+                                                <button type="submit" unlike-id="{{commentblog.id}}" style="background-color: #071829 !important;outline: none;border: none;"><!-- eger form ile POST request atirsansa  bu formu gondermek ucun lazim olan butonun type deyeri submit olmalidir yadda saxla => type='submit' </input></input> -->
+                                                    <img src="{% static 'images/thumb-down.png' %}" style="width: 20px;margin-top: -5px;margin-left:-22px;" alt=""><br>
+                                                    unlike ele
+                                                </button>
+                                            {% endif %}
+
+                                            <hr style="height:2px;background-color:grey">
+                                            <a class="rep-btn" href="#"><strong>Likes : {{commentblog.like_comment_count}}</strong>
+                                                
+                                            </a>
+                                        </form>
+                                        
+                                        
+                                        
+                                    </div>
                                 </div>
-                                <p>Even though Journey's classic vocalist Steve Perry didn’t reunite with the band
-                                    during their Rock Hall performance (to the dismay of hopeful fans), he did offer up
-                                    a touching speech.</p>
-                                <p><a class="rep-btn" href="#">+ Reply</a></p>
-                            </div>
-                        </div>
-                        <div class="cmt-item flex-it reply">
-                            <img src="images/uploads/author2.png" alt="">
-                            <div class="author-infor">
-                                <div class="flex-it2">
-                                    <h6><a href="#">Joss Whedon</a></h6> <span class="time"> - 27 Mar 2017</span>
-                                </div>
-                                <p>Prince died not long after the 2016 Rock Hall ceremony, so this year's edition
-                                    featured Lenny Kravitz and a full gospel choir performing a swamp-funk take on When
-                                    Doves Cry.</p>
-                            </div>
-                        </div>
-                        <div class="cmt-item flex-it reply">
-                            <img src="images/uploads/author3.png" alt="">
-                            <div class="author-infor">
-                                <div class="flex-it2">
-                                    <h6><a href="#">Dave McNary</a></h6> <span class="time"> - 27 Mar 2017</span>
-                                </div>
-                                <p>Blue Sky Studios is one of the world’s leading digital animation movie studios and we
-                                    are proud of their commitment to stay and grow in Connecticut.</p>
-                            </div>
-                        </div>
-                        <div class="cmt-item flex-it">
-                            <img src="images/uploads/author4.png" alt="">
-                            <div class="author-infor">
-                                <div class="flex-it2">
-                                    <h6><a href="#">Margot Robbie</a></h6> <span class="time"> - 27 Mar 2017</span>
-                                </div>
-                                <p>Joan Baez was the sharpest of the Rock Hall inductees, singing about deportees and
-                                    talking social activism as well as joking about her age and the likelihood that a
-                                    good portion of the Barclays. </p>
-                                <p><a class="rep-btn" href="#">+ Reply</a></p>
-                            </div>
-                        </div>
+                            {% endfor %}
+                        {% else %}
+                            <strong style="color:red">Hecne Yoxdu</strong>
+                        {% endif %}
+                            
                     </div>
                     <div class="comment-form">
                         <h4>Leave a comment</h4>
-                        <form action="#">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <input type="text" placeholder="Your name">
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="text" placeholder="Your email">
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="text" placeholder="Website">
+                        <form action="" method="POST" autocomplete="off">
+                            {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{form}}
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <textarea name="message" id="" placeholder="Message"></textarea>
-                                </div>
-                            </div>
-                            <input class="submit" type="submit" placeholder="submit">
+                            <input class="submit" type="submit" placeholder="submit"><!-- eger form ile POST request atirsansa  bu formu gondermek ucun lazim olan butonun type deyeri submit olmalidir yadda saxla => type='submit' </input></input>-->
                         </form>
                     </div>
                     <!-- comment form -->
@@ -166,12 +155,13 @@
 {% endblock content %}
 
 {% block scripts %}
-<script>
-    var swiper = new Swiper(".mySwiper", {
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-    });
-</script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+    <script src="{% static 'postblog/blog_detail.js' %}" defer></script>
 {% endblock scripts %}

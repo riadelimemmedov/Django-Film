@@ -1,5 +1,5 @@
 from multiprocessing import context
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect, render,reverse,HttpResponse
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 from django.db.models import Q
 from .forms import *
@@ -11,22 +11,24 @@ def postDetailView(request,id):
     postfilm = get_object_or_404(PostFilm,id=id)
     imagepostlists = ImagePost.objects.filter(postfilm_fk=postfilm)
     tagpostslists = postfilm.tag_post.all()
+    profile = Profile.objects.get(user=request.user)
+
+    form = CommentForm(request.POST or None)
     
-    print(tagpostslists)
-    
-    print('################################################################')
-    print(imagepostlists)
-    print('################################################################')
-    
-    
-    listimage = ['logo1.png','fancybox_sprite.png','sekilyox.png']#buunu slider gonderib yoxlamalisas duz isleyir slider ya yox
-    #!note => slider tapmasam gerek gedib sadik turandakini goturum movieapp daki
-    
+    if request.method == 'POST':
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = profile
+            instance.post_film = postfilm
+            instance.body = form.cleaned_data.get('body')
+            form.save()
+            return redirect(reverse('postblog:postDetailView',kwargs={'id':id}))#yeni postun ozune qayit ele
     context = {
         'postfilm':postfilm,
         'imagepostlists':imagepostlists,
         'tagpostslists':tagpostslists,
-        'listimage': listimage
+        'likeprofile':profile,
+        'form':form,
     }
     
     return render(request,'postblog/blog_detail.html',context)
@@ -164,3 +166,10 @@ def postListView(request):
     }
     
     return render(request,'postblog/blog_list.html',context)
+
+
+def likeunlikeCommentView(request):
+    if request.method == 'POST':
+        print('Like Unlike Viuew Request AtildI Ajax Ile')
+        
+    return HttpResponse('like unlike')
