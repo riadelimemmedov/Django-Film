@@ -107,19 +107,21 @@
                                         <form action="{% url 'postblog:likeUnlikeCommentView' %}" method="POST" class="comment-like-form-class" id="{{commentblog.id}}">
                                             {% csrf_token %}
                                             {% if likeprofile not in commentblog.liked_comment.all %}
-                                                <button type="submit" like-id="{{commentblog.id}}" style="background-color: #071829 !important;outline: none;border: none;"><!-- eger form ile POST request atirsansa  bu formu gondermek ucun lazim olan butonun type deyeri submit olmalidir yadda saxla => type='submit' </input></input> -->
+                                                <button type="submit" class="likeunlike" likeunlike-id="{{commentblog.id}}" style="background-color: #071829 !important;outline: none;border: none;"><!-- eger form ile POST request atirsansa  bu formu gondermek ucun lazim olan butonun type deyeri submit olmalidir yadda saxla => type='submit' </input></input> -->
                                                         <img src="{% static 'images/thumb-up.png' %}" style="width: 20px;margin-top: -5px;" alt=""><br>
                                                         like ele
                                                 </button>
                                             {% else %}
-                                                <button type="submit" unlike-id="{{commentblog.id}}" style="background-color: #071829 !important;outline: none;border: none;"><!-- eger form ile POST request atirsansa  bu formu gondermek ucun lazim olan butonun type deyeri submit olmalidir yadda saxla => type='submit' </input></input> -->
+                                                <button type="submit" class="likeunlike" likeunlike-id="{{commentblog.id}}" style="background-color: #071829 !important;outline: none;border: none;"><!-- eger form ile POST request atirsansa  bu formu gondermek ucun lazim olan butonun type deyeri submit olmalidir yadda saxla => type='submit' </input></input> -->
                                                     <img src="{% static 'images/thumb-down.png' %}" style="width: 20px;margin-top: -5px;margin-left:-22px;" alt=""><br>
                                                     unlike ele
                                                 </button>
                                             {% endif %}
 
                                             <hr style="height:2px;background-color:grey">
-                                            <a class="rep-btn" href="#"><strong>Likes : {{commentblog.like_comment_count}}</strong>
+                                            <a class="rep-btn" href="">
+                                                Likes :
+                                                <strong id="commentlikeunlikecount"> {{commentblog.like_comment_count}}</strong>
                                                 
                                             </a>
                                         </form>
