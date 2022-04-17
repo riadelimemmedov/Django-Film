@@ -8,4 +8,5 @@ urlpatterns = [
     path('blogcreate/',postCreateView,name='postCreateView'),
     path('bloglist/',postListView,name='postListView'),
     path('like-unlike-comment/',likeunlikeCommentView,name='likeUnlikeCommentView'),
+    path('update-comment/<pk>/',CommentUpdateView.as_view(),name='commentUpdateView'),
 ]

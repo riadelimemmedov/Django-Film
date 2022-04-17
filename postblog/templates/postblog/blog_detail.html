@@ -122,12 +122,16 @@
                                             <a class="rep-btn" href="">
                                                 Likes :
                                                 <strong id="commentlikeunlikecount"> {{commentblog.like_comment_count}}</strong>
-                                                
                                             </a>
+                                            <span style="margin-left: 596px;">
+                                                {% if request.user.is_authenticated %}
+                                                    {% if request.user == commentblog.user.user %}
+                                                        <a href="{% url 'postblog:commentUpdateView' commentblog.pk %}" class="ui inverted standard button">Update</a>
+                                                        <a class="ui inverted red button">Delete</a>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </span>
                                         </form>
-                                        
-                                        
-                                        
                                     </div>
                                 </div>
                             {% endfor %}
@@ -137,8 +141,12 @@
                                 <strong style="color:#2c3e50">Not Having Comment Yet</strong>
                             </div>
                         {% endif %}
-                            
                     </div>
+
+                    <!-- !Load More Comments -->
+                    <!-- Write your comments here -->
+
+
                     <div class="comment-form">
                         <h4>Leave a comment</h4>
                         <form action="" method="POST" autocomplete="off">

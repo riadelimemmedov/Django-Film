@@ -1,8 +1,10 @@
 from multiprocessing import context
 from django.shortcuts import get_object_or_404, redirect, render,reverse,HttpResponse
+from django.urls import reverse_lazy
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 from django.db.models import Q
 from django.http import JsonResponse
+from django.views.generic import UpdateView
 from .forms import *
 
 # Create your views here.
@@ -185,3 +187,16 @@ def likeunlikeCommentView(request):
             return JsonResponse({'liked':'false','likecommentcount':comment.liked_comment.all().count()})
         
     return HttpResponse('like unlike')
+
+
+class CommentUpdateView(UpdateView):
+    model = Comment
+    form_class = CommentUpdateForm
+    context_object_name = 'updatecomment'
+    template_name = 'postblog/update_comment.html'
+    
+    def get_success_url(self,**kwargs):
+        postfilm = Comment.objects.get(pk=self.object.pk)
+        print(postfilm.post_film.pk)
+        return reverse_lazy('postblog:postDetailView',args=(postfilm.post_film.pk,))
+    

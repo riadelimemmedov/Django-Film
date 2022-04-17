@@ -67,3 +67,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['body']
+        
+class CommentUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['body']
+    

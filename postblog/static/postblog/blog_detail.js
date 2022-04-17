@@ -6,7 +6,7 @@ let commentlikeunlikecount = document.getElementById('commentlikeunlikecount')
 const currentUrl = window.location.href
 const csrf = document.getElementsByName('csrfmiddlewaretoken')
 
-
+//!Comment Like and Unlike
 for(let i=0;i<commentLikeFormClass.length;i++){
     commentLikeFormClass[i].addEventListener('submit',(e)=>{
         e.preventDefault()
@@ -49,3 +49,5 @@ for(let i=0;i<commentLikeFormClass.length;i++){
         })
     })
 }
+
+//!Load More Comment
