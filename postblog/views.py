@@ -174,15 +174,14 @@ def likeunlikeCommentView(request):
         print('Like Unlike Viuew Request AtildI Ajax Ile')
         profile = Profile.objects.get(user=request.user)
         commentId = request.POST.get('commentId')
-        
+    
         comment = Comment.objects.get(id=commentId)
-        result = comment.liked_comment.all()
         
         if profile not in comment.liked_comment.all():
             comment.liked_comment.add(profile)
-            return JsonResponse({'liked':'true'})
+            return JsonResponse({'liked':'true','likecommentcount':comment.liked_comment.all().count() })
         else:
             comment.liked_comment.remove(profile)
-            return JsonResponse({'liked':'false'})
+            return JsonResponse({'liked':'false','likecommentcount':comment.liked_comment.all().count()})
         
     return HttpResponse('like unlike')

@@ -76,19 +76,21 @@
                             <a href="#"><i class="ion-social-linkedin"></i></a>
                         </div>
                         <div class="right-it">
-                            <h4>Tags : </h4>
-                            {% for tagpostslist in tagpostslists %}
-                                {% if tagpostslist.title_tag|first == '#' %}
-                                    <a href="#"> {{tagpostslist.title_tag|add:','}} </a>
-                                {% else %}
-                                    <a href="#"> #{{tagpostslist.title_tag|add:','}}</a>
-                                {% endif %}
-                            {% endfor %}
+                            {% if tagpostslists %}
+                                <h4>Tags : </h4>
+                                {% for tagpostslist in tagpostslists %}
+                                    {% if tagpostslist.title_tag|first == '#' %}
+                                        <a href="#"> {{tagpostslist.title_tag|add:','}} </a>
+                                    {% else %}
+                                        <a href="#"> #{{tagpostslist.title_tag|add:','}}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                     <!-- comment items -->
                     <div class="comments">
-                        <h4>04 Comments</h4>
+                        <h4>{{postfilm.commentsblogfilm.all.count}} Comments</h4>
                         
                         {% if postfilm.commentsblogfilm.all %}
                             {% for commentblog in postfilm.commentsblogfilm.all %}
@@ -108,13 +110,11 @@
                                             {% csrf_token %}
                                             {% if likeprofile not in commentblog.liked_comment.all %}
                                                 <button type="submit" class="likeunlike" likeunlike-id="{{commentblog.id}}" style="background-color: #071829 !important;outline: none;border: none;"><!-- eger form ile POST request atirsansa  bu formu gondermek ucun lazim olan butonun type deyeri submit olmalidir yadda saxla => type='submit' </input></input> -->
-                                                        <img src="{% static 'images/thumb-up.png' %}" style="width: 20px;margin-top: -5px;" alt=""><br>
-                                                        like ele
+                                                        <img src="{% static 'images/thumb-up.png' %}" style="width: 20px;margin-top: -5px;" alt="">
                                                 </button>
                                             {% else %}
                                                 <button type="submit" class="likeunlike" likeunlike-id="{{commentblog.id}}" style="background-color: #071829 !important;outline: none;border: none;"><!-- eger form ile POST request atirsansa  bu formu gondermek ucun lazim olan butonun type deyeri submit olmalidir yadda saxla => type='submit' </input></input> -->
-                                                    <img src="{% static 'images/thumb-down.png' %}" style="width: 20px;margin-top: -5px;margin-left:-22px;" alt=""><br>
-                                                    unlike ele
+                                                    <img src="{% static 'images/thumb-down.png' %}" style="width: 20px;margin-top:-5px" alt="">
                                                 </button>
                                             {% endif %}
 
@@ -132,7 +132,10 @@
                                 </div>
                             {% endfor %}
                         {% else %}
-                            <strong style="color:red">Hecne Yoxdu</strong>
+                            <br>
+                            <div class="alert alert-danger border rounded">
+                                <strong style="color:#2c3e50">Not Having Comment Yet</strong>
+                            </div>
                         {% endif %}
                             
                     </div>
