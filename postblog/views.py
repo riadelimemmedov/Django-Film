@@ -191,9 +191,15 @@ def likeunlikeCommentView(request):
 
 class CommentUpdateView(UpdateView):
     model = Comment
-    form_class = CommentUpdateForm
+    #form_class = CommentUpdateForm
     context_object_name = 'updatecomment'
-    template_name = 'postblog/update_comment.html'
+    #template_name = 'postblog/update_comment.html'
+    
+    def get(self,request,pk):
+        comment = Comment.objects.get(pk=pk)
+        print(comment)
+        form = CommentUpdateForm()
+        return render(request,'postblog/update_comment.html',{'form':form,'comment':comment.body.strip()})
     
     def get_success_url(self,**kwargs):
         postfilm = Comment.objects.get(pk=self.object.pk)
