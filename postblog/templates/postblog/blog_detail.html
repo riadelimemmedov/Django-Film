@@ -127,7 +127,7 @@
                                                 {% if request.user.is_authenticated %}
                                                     {% if request.user == commentblog.user.user %}
                                                         <a href="{% url 'postblog:commentUpdateView' commentblog.pk %}" class="ui inverted standard button">Update</a>
-                                                        <a class="ui inverted red button">Delete</a>
+                                                        <a href="{% url 'postblog:commentDeleteView' commentblog.pk %}" class="ui inverted red button">Delete</a>
                                                     {% endif %}
                                                 {% endif %}
                                             </span>

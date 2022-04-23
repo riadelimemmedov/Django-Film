@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 from django.db.models import Q
 from django.http import JsonResponse
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView,DeleteView
 from .forms import *
 
 # Create your views here.
@@ -189,20 +189,37 @@ def likeunlikeCommentView(request):
     return HttpResponse('like unlike')
 
 
+#!CommentUpdateView
 class CommentUpdateView(UpdateView):
     model = Comment
-    #form_class = CommentUpdateForm
+    form_class = CommentUpdateForm
     context_object_name = 'updatecomment'
-    #template_name = 'postblog/update_comment.html'
-    
-    def get(self,request,pk):
-        comment = Comment.objects.get(pk=pk)
-        print(comment)
-        form = CommentUpdateForm()
-        return render(request,'postblog/update_comment.html',{'form':form,'comment':comment.body.strip()})
+    template_name = 'postblog/update_comment.html'
     
     def get_success_url(self,**kwargs):
         postfilm = Comment.objects.get(pk=self.object.pk)
         print(postfilm.post_film.pk)
         return reverse_lazy('postblog:postDetailView',args=(postfilm.post_film.pk,))
+
+#!DeleteCommentView
+class DeleteCommentView(DeleteView):
+    model = Comment
+    template_name = 'postblog/delete_comment.html'
     
+    def get_object(self,*args,**kwargs):
+        comment_obj = super(DeleteCommentView,self).get_object(*args,**kwargs)
+        if not comment_obj.user.user == self.request.user:
+            raise ValueError('You have to be the owner of this comment to delete it')
+        return comment_obj
+    
+    def get_success_url(self,*args,**kwargs):
+        postfilm = Comment.objects.get(pk=self.object.pk)#self.object.pk yeni secili olan deletede olan objectin pk deyeri yeni id deyerini getir => self.object.pk seklinde
+        return reverse_lazy('postblog:postDetailView',args=(postfilm.post_film.pk,))
+    
+def categoryListPostFilmView(request,slug):
+    categorys_blog = PostFilm.objects.filter(category_post__slug_category__icontains=slug)
+    context = {
+        'slug':slug,
+        'categorys_blog':categorys_blog
+    }
+    return render(request,'postblog/category_post.html',context)

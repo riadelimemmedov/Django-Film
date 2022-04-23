@@ -18,7 +18,7 @@
             <ul>
                 {% for ctg in category %}
                     <li>
-                        <a href="">{{ctg.title_category}} ({{ctg.categorypost.all.count}})</a>
+                        <a href="{% url 'postblog:categoryListPostFilmView' ctg.slug_category %}">{{ctg.title_category}} ({{ctg.categorypost.all.count}})</a>
                     </li>
                 {% endfor %}
             </ul>
@@ -31,7 +31,7 @@
                             <span>
                                 <li style="text-align: left;">
                                     <div style="margin-top: 5px;padding: 0;white-space:nowrap">
-                                        <h6><a href="#">{{i.title_post}}</a></h6>
+                                        <h6><a href="{% url 'postblog:postDetailView' i.id %}">{{i.title_post}}</a></h6>
                                     </div>
                                 </li>
                             </span>
@@ -44,11 +44,12 @@
             <ul class="tag-items">
                 {% for tf in tagFilms %}
                     {% if tf.title_tag|first == '#' %}
-                        <li><a href="">{{tf.title_tag}}</a></li>
+                        <li><a href="{}">{{tf.title_tag}}</a></li>
                     {% else %}
                         <li><a href="">#{{tf.title_tag}}</a></li>
-                    {% endif %}
+                    {% endif %} 
                 {% endfor %}
+                
             </ul>
         </div>
         <div class="ads">

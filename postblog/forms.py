@@ -58,6 +58,7 @@ class ImagePostForm(forms.ModelForm):
         model = ImagePost
         fields = ['image_post']
 
+#!CommentForm
 class CommentForm(forms.ModelForm):
     body = forms.CharField(required=True,label='',label_suffix='',widget=forms.Textarea(attrs={
         'name':'message',
@@ -67,8 +68,10 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['body']
-        
+
+#!CommentUpdateForm
 class CommentUpdateForm(forms.ModelForm):
+    body = forms.CharField(required=True,label='',widget=forms.Textarea)
     class Meta:
         model = Comment
         fields = ['body']

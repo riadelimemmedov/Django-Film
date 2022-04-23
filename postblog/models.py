@@ -40,7 +40,7 @@ class PostFilm(models.Model):
     title_post = models.CharField(max_length=50)
     description_post = models.TextField()
     #image_post = models.ImageField(upload_to='postimages',blank=True)
-    #liked_post = models.ManyToManyField(Profile,default=None,blank=True,related_name='likedpost')#!burani deyisersen ayri model kimi edersen => yadda saxla burani
+    #liked_post = models.ManyToManyField(Profile,blank=True,null=True,related_name='likedpost')#!burani deyisersen ayri model kimi edersen => yadda saxla burani
     slug_post = models.SlugField(db_index=True,blank=True)
     category_post = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='categorypost',blank=True,null=True)
     tag_post = models.ManyToManyField(Tag,related_name='tagmovie',blank=True)
@@ -74,7 +74,7 @@ class LikePostFilm(models.Model):
 
 #!ImagePost Model
 class ImagePost(models.Model):
-    postfilm_fk = models.ForeignKey(PostFilm,on_delete=models.CASCADE)
+    postfilm_fk = models.ForeignKey(PostFilm,related_name='imagepostfilmfk',on_delete=models.CASCADE)
     image_post = models.ImageField(upload_to='imagepostfk')#default='sekiltapilmadi.jpg'  
     
     def __str__(self):

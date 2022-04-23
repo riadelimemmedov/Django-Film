@@ -2,6 +2,7 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+{% block title %} Update Template {% endblock title %}
 
 {% block content %}
 
@@ -35,17 +36,11 @@
                         <h4>Leave Form</h4>
 
                         <!-- !Contact Form -->
-                        <form id="contact-form">
+                        <form id="contact-form" method="POST">
                             {% csrf_token %}
                             <div class="row" id="formattributelist">
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <textarea name="contact_message" placeholder="Message" style="text-align: left;" autofocus>
-                                        {{comment}}
-                                    </textarea>
-                                </div>
-                            </div>
+                            {{form.as_p}}
                             <input class="submit" id="contactButtonSend" style="width: 100%;" type="submit" placeholder="submit">
                         </form>
                         <!-- !xxxxxxxxxxxxxxxxxxxxx -->
@@ -60,5 +55,9 @@
 {% endblock content %}
 
 {% block scripts %}
-
+    <script type="text/javascript">
+        const textAreaComment = document.getElementById('comment-text')
+        //textAreaComment.value = textAreaComment.value.replace(/^\s*|\s*$/g,"")
+        textAreaComment.value = textAreaComment.textContent.trim()
+    </script>
 {% endblock scripts %}
