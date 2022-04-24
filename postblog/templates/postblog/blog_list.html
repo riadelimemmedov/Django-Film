@@ -53,7 +53,7 @@
                     {% for pli in postImageLists %}
                         <div class="blog-item-style-1 blog-item-style-3">
                             {% if pli.image_post %}
-                                <img src="{{pli.image_post.url}}" alt=""><!-- detail post link here -->
+                                <img src="{{pli.image_post.url}}" style="width:298px;height:187px;" alt=""><!-- detail post link here -->
                             {% else %}
                                 <img src="{% static 'images/notfoundimages.jpg' %}" style="width: 300px;height: 190px;"  alt=""><!-- detail post link here -->
                             {% endif %}
@@ -63,8 +63,13 @@
                                         <span class="time" style="font-size: 16px;color:#ecf0f1 !important">{{pli.postfilm_fk.created_date_post|date:'d,M,Y'}}</span>
                                     </h3>
                                 </div>
-                                
                                 <p>{{pli.postfilm_fk.description_post|truncatechars:160}}</p>
+                                <div style="text-align: right;">
+                                    {% if pli.postfilm_fk.author_post.user == request.user %}
+                                        <a href="{% url 'postblog:postFilmUpdateView' pli.postfilm_fk.id %}" class="ui white button">Update</a>
+                                        <a href="{% url 'postblog:postFilmDeleteView' pli.postfilm_fk.id %}" class="ui red button">Delete</a>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     {% endfor %}

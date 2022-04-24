@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Post Film Update {% endblock title %}<!-- bura gelen filmin pk deyerini yazarsan -->
+{% block content %}
+
+<div class="hero user-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hero-ct" style="text-align: center;">
+                    <h1 style="color:#fff;white-space: nowrap;text-align: center;">Uptade Post Film</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-sm-12 col-xs-12">
+                <div class="blog-detail-ct">
+                    <div class="comment-form">
+                        <h4>Leave Form</h4>
+                        <!-- !Contact Form -->
+                        <form id="contact-form" method="POST">
+                            {% csrf_token %}
+                            <div class="row" id="formattributelist">
+                            </div>
+                            {{form.as_p}}
+                            <input class="submit" id="contactButtonSend" style="width: 100%;" type="submit" placeholder="submit">
+                        </form>
+                        <!-- !xxxxxxxxxxxxxxxxxxxxx -->
+                    </div>
+                    <!-- comment form -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -45,7 +45,6 @@ def postCreateView(request):
     
     if request.method == 'POST':
         if form.is_valid():
-
                 print('Requestden gelen butun deyer ', request.POST.getlist('image_post'))
                 print('Requestden gelen sekil deyeri', request.FILES.getlist('images'))
                 print('Requestden gelen sekil deyeri', request.FILES.getlist('image_post'))
@@ -77,23 +76,6 @@ def postCreateView(request):
                         if(x):
                             x.tag_post.add(new_tag)
                         print('yeni tagli bir post yarandi')
-                    
-                    
-                
-                # if(Tag.objects.filter(title_tag=request.POST.get('tag_post'))):
-                #         if(x):
-                #             tag_value = Tag.objects.get(title_tag=request.POST.get('tag_post'))
-                #             x.tag_post.add(tag_value)
-                #         print('POST YARANDI kohne tagli')
-                #         # addtag = Tag.objects.get(title_tag=request.POST.get('tag_post'))
-                #         # x.tag_post.add(addtag) 
-                # else:
-                #     tag_value = request.POST.get('tag_post')
-                #     new_tag = Tag.objects.create(title_tag=tag_value)
-                #     new_tag.save()
-                #     if(x):
-                #         x.tag_post.add(new_tag)
-                #     print('yeni tagli bir post yarandi')
                 
                 if(images_post):
                     for i in images_post:
@@ -107,14 +89,6 @@ def postCreateView(request):
                 
                 #?Burda bug var sonra qaytararsan evvelki halina
                 return redirect('postblog:postListView')
-                    #imagepost.save()
-                    
-
-                # print(request.POST.get('category'))
-                # categoryblogpost = request.POST.get('categoryblogpost')#burdaki deyeri save etmek ucun commit den istifade ederik
-                # if x:
-                #     print('Yaranan Postun Title Deyeri ', x.title_post)
-                #     print('Yaranan Postun Category Deyeri ', x.category_post)
         else:
             print('Xeta')
         
@@ -146,7 +120,6 @@ def postListView(request):
     paged_post = postsListPagination.get_page(page)
     
     print('Pagination Axtarisdan Evvel ', postsListPagination)
-    
     
     if request.method == 'POST':
         print('Blog Axtaris Isledi')
@@ -215,11 +188,36 @@ class DeleteCommentView(DeleteView):
     def get_success_url(self,*args,**kwargs):
         postfilm = Comment.objects.get(pk=self.object.pk)#self.object.pk yeni secili olan deletede olan objectin pk deyeri yeni id deyerini getir => self.object.pk seklinde
         return reverse_lazy('postblog:postDetailView',args=(postfilm.post_film.pk,))
-    
+
+#!categoryListPostFilmView
 def categoryListPostFilmView(request,slug):
+    postImageListsCategory = []
     categorys_blog = PostFilm.objects.filter(category_post__slug_category__icontains=slug)
+    for pl in categorys_blog:
+        postImages = ImagePost.objects.filter(postfilm_fk=pl)
+        postImageListsCategory.append(postImages[0])
     context = {
         'slug':slug,
-        'categorys_blog':categorys_blog
+        'categorys_blog':categorys_blog,
+        'postImageListsCategory':postImageListsCategory
     }
     return render(request,'postblog/category_post.html',context)
+
+#!postFilmUpdateView
+def postFilmUpdateView(request,id):
+    post_film = PostFilm.objects.get(id=id)#sag terefdeki id deyeri url den gelen id deyeridir
+    form = UpdatePostFilm(request.POST or None,request.FILES or None,instance=post_film)
+    
+    if request.method == 'POST':
+        if form.is_valid():
+            postfilm = form.save(commit=False)
+            postfilm.author_post.user = request.user
+            postfilm.save()
+            return redirect('postblog:postListView')
+    
+    return render(request,'postblog/update_post_film.html',{'form':form})
+
+def postFilmDeleteView(request,id):
+    post_film = get_object_or_404(PostFilm,id=id)
+    post_film.delete()
+    return redirect('postblog:postListView')
