@@ -36,6 +36,20 @@
                     <!-- !Create Blog Form -->
                         <form action="{% url 'postblog:postCreateView' %}" id="blog-form" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
+                            
+                            {% if form.errors %}
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                    <div class="alert alert-danger" style="padding: 10px; text-align: center;border: 1px solid gray;border-radius: 3px">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="margin-right: 10px;">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <strong>{{error}}</strong>
+                                    </div>
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endif %}
+
                             <div class="row" id="formattributelist">
                                 <span class="col-md-12">
                                     {{form.title_post}}

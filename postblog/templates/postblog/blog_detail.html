@@ -49,12 +49,21 @@
                     <div class="swiper mySwiper" style="width: 848px;height: 458px">
                         <div class="swiper-wrapper">
 
-                            {% for imagepostlist in imagepostlists %}
+                            {% if imagepostlists %}
+                                {% for imagepostlist in imagepostlists %}
+                                        <div class="swiper-slide">
+                                                <img src="{{imagepostlist.image_post.url}}" class="blogimageclass"
+                                                style="width: 100%;height: 80%;" alt="">
+                                        </div>
+                                {% endfor %}
+                            {% else %}
                                 <div class="swiper-slide">
-                                        <img src="{{imagepostlist.image_post.url}}" class="blogimageclass"
+                                    <div class="swiper-slide">
+                                        <img src="{% static 'images/notfoundimages.jpg' %}" class="blogimageclass"
                                         style="width: 100%;height: 80%;" alt="">
+                                    </div>
                                 </div>
-                            {% endfor %}
+                            {% endif %}
                         </div>
                         <div class="swiper-button-next" style="color:#636e72"></div>
                         <div class="swiper-button-prev" style="color:#636e72"></div>

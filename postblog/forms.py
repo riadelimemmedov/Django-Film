@@ -15,7 +15,7 @@ class PostFilmForms(forms.ModelForm):
     ('5','5 Yildiz'),
     )
     
-    title_post = forms.CharField(widget=forms.TextInput(attrs={
+    title_post = forms.CharField(label='',widget=forms.TextInput(attrs={
         'type':'text',
         'id':'title-blog',
         'value':'',
@@ -48,14 +48,14 @@ class PostFilmForms(forms.ModelForm):
     def clean_title_post(self):
         titlepost = self.cleaned_data.get('title_post')
         if(len(titlepost)>50):
-            raise forms.ValidationError(mark_safe('<strong style="color:#c0392b">Titlt Is Long</strong>'))
+            raise forms.ValidationError(mark_safe('<strong style="color:#000000">Title Is Long</strong>'))
         #else
         return titlepost
 
     def clean_description_post(self):
         descriptionpost = self.cleaned_data.get('description_post')
         if(len(descriptionpost)<100):
-            raise forms.ValidationError(mark_safe('<strong style="color:#c0392b">Short Description</strong>'))
+            raise forms.ValidationError(mark_safe('<strong style="color:#000000">Short Description</strong>'))
         #else
         return descriptionpost
 

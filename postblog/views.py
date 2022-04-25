@@ -12,7 +12,10 @@ from .forms import *
 #!postDetailView
 def postDetailView(request,id):
     postfilm = get_object_or_404(PostFilm,id=id)
-    imagepostlists = ImagePost.objects.filter(postfilm_fk=postfilm)
+    imagepostlists = ImagePost.objects.filter(postfilm_fk=postfilm) 
+    
+    print(len(imagepostlists))
+    
     tagpostslists = postfilm.tag_post.all()
     profile = Profile.objects.get(user=request.user)
 

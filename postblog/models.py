@@ -75,7 +75,7 @@ class LikePostFilm(models.Model):
 #!ImagePost Model
 class ImagePost(models.Model):
     postfilm_fk = models.ForeignKey(PostFilm,related_name='imagepostfilmfk',on_delete=models.CASCADE)
-    image_post = models.ImageField(upload_to='imagepostfk')#default='sekiltapilmadi.jpg'  
+    image_post = models.ImageField(upload_to='imagepostfk',default='notfoundimages.jpg')#default='notfoundimages.jpg'  
     
     def __str__(self):
         return str(self.postfilm_fk) + ' ' + str(self.image_post)
