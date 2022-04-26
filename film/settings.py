@@ -37,9 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'crispy_forms',
     'django_cleanup',
     
+    #Django All Auth:
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    
+    #myapp
     'movie',
     'actor',
     'profiles',
@@ -48,6 +55,9 @@ INSTALLED_APPS = [
     'post',
     'postblog'
 ]
+
+SITE_ID = 1
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -79,6 +89,11 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'film.wsgi.application'
