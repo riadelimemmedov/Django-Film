@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-02kjm)$ve@ym6f&1r0^k3lq%$3)gy2@krsm*hpci9gmu+1oixr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -45,6 +45,10 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    
+    #Providers Allauth
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
     
     #myapp
     'movie',
@@ -166,6 +170,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+LOGIN_REDIRECT_URL = 'movie:home'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
