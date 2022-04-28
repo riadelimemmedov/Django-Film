@@ -21,3 +21,18 @@ class ChangeImageForm(forms.ModelForm):
         super().__init__(*args,**kwargs)
         self.fields['avatar'].label = False
         #self.fields['user'].queryset = Profile.objects.get(user=self.request.user)
+        
+        
+class LoginForm(forms.Form):#forms.Form yazilanda sifirdan biz yazirig formdaki rowlari ele bil,amma forms.ModelForm yazanda databasedeki rowlara uygun html formu cixardir avtomatik olarag
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'type':'text',
+        'name':'username',
+        'id':'username',
+        'placeholder':'Input Username'
+    }))
+    
+    #password
+    #remember_me 
+    #elave et
+    
+    

@@ -1,4 +1,6 @@
+from .forms import *
 from .models import *
+
 
 #!profilePicViewContext function
 def profilePicViewContext(request):
@@ -8,3 +10,8 @@ def profilePicViewContext(request):
         return {'pic_user_navbar':pic_user_navbar}
     #else well => return{} = else yeni 
     return{}
+
+def loginView(request):
+    form = LoginForm()
+    return{'loginform':form}
+
