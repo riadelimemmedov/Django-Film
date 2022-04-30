@@ -1,51 +1,43 @@
 {% load static %}
-{% load socialaccount %}
-{% providers_media_js %}
-
 <div class="login-wrapper" id="login-content">
     <div class="login-content">
         <a href="#" class="close">x</a>
         <h3>Login</h3>
-        <form action="{% url 'profiles:loginView' %}" method="POST">
+        <form method="POST" autocomplete="off">
             {% csrf_token %}
-            {% for error in loginform.non_field_errors %}
-                {{error}}
-            {% endfor %}
             <div class="row">
                 <label for="username">
                     Username:
-                    {{loginform.username.errors}}
-                    {{loginform.username}}
+                    <input type="text" name="username" id="username" placeholder="Username" required/>
                 </label>
             </div>
 
             <div class="row">
                 <label for="password">
                     Password:
-                    {{loginform.password.errors}}
-                    {{loginform.password}}
+                    <input type="password" name="password" id="password" placeholder="Password" required/>
                 </label>
             </div>
             <div class="row">
                 <div class="remember">
                     <div>
-                        {{loginform.remember_me.errors}}
-                        {{loginform.remember_me}}
-                        <span>Remember me</span>
+                        <input id="checkrememberme" type="checkbox" name="remember" value="notchecked"><span>Remember me</span>
                     </div>
-                    <a href="#">Change Password</a>
                 </div>
             </div>
             <div class="row">
-                <button type="submit">Login</button><!-- eger form icinde button yazirsansa ve bu butona tiklayanda post request atilirsa bu butonun type deyeri submit olmalidir -->
+                <button id="login" type="submit">Login</button>
             </div>
         </form>
         <div class="row">
             <p>Or via social</p>
             <div class="social-btn-2">
-                <a class="fb" href="{% provider_login_url 'facebook' method='oauth2' %}"><i class="ion-social-facebook"></i>Facebook</a>
+                <a class="fb" href="#"><i class="ion-social-facebook"></i>Facebook</a>
                 <a class="tw" href="#"><i class="ion-social-twitter"></i>twitter</a>
             </div>
         </div>
     </div>
 </div>
+
+<!-- ?Login Js File -->
+<script type="text/javascript" src="{% static 'js/login.js' %}"></script>
