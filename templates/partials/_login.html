@@ -1,9 +1,13 @@
 {% load static %}
 <div class="login-wrapper" id="login-content">
     <div class="login-content">
-        <a href="#" class="close">x</a>
         <h3>Login</h3>
-        <form method="POST" autocomplete="off">
+        
+        <div id="login-error">
+            
+        </div>
+
+        <form method="POST" autocomplete="on">
             {% csrf_token %}
             <div class="row">
                 <label for="username">
@@ -40,4 +44,5 @@
 </div>
 
 <!-- ?Login Js File -->
-<script type="text/javascript" src="{% static 'js/login.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/login.js' %}" defer></script>
+

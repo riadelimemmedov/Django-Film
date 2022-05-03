@@ -1,6 +1,7 @@
 from django.shortcuts import redirect,HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from .forms import *
 from .models import *
 
@@ -39,6 +40,7 @@ def profilePicViewContext(request):
 #             return redirect('movie:home')
 #     return{'loginform':form}
 
+@csrf_exempt
 def loginView(request):
     if request.method == 'POST':
         print('post requesst atildi login url e giris etmek ucun')
@@ -47,13 +49,14 @@ def loginView(request):
         password = request.POST.get('password')
         remember = request.POST.get('checkrememberme')#burdan gelen check deyerine gore session qoyub ve ya qoymamagi sececiyik
         
-        print('Remember Me ', remember)
-        
         user=authenticate(request,username=username,password=password)
         if user is not None:
             login(request,user)
             if remember == 'true':
-                pass
+                request.session.set_expiry(24*3)
+                request.session.modified = True
+            return JsonResponse({'success': 'Succeseed Login'})
+        else:
+            return JsonResponse({'error':'Error Login'})
         
-        return JsonResponse({'success':'ugurlu login'},safe=False)
     return{'error':'error login'} 
