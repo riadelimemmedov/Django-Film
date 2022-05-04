@@ -215,7 +215,6 @@ def changeImageProfile(request):
     }
     return render(request,'profiles/change_image.html',context)
 
-
 def rateMovieListView(request):
     profile = Profile.objects.get(user=request.user)
     profile_rated_films = RatingMovie.objects.filter(profile=profile)

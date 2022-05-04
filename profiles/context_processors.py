@@ -60,3 +60,17 @@ def loginView(request):
             return JsonResponse({'error':'Error Login'})
         
     return{'error':'error login'} 
+
+@csrf_exempt
+def registerView(request):
+    if request.method == 'POST':
+        usernameRegister = request.POST.get('usernameRegister')
+        emailRegister = request.POST.get('emailRegister')
+        passwordRegister = request.POST.get('passwordRegister')
+        repasswordRegister = request.POST.get('repasswordRegister')
+        print('Username' , usernameRegister)
+        print('Email ', emailRegister)
+        print('Password ', passwordRegister)
+        print('Email ', repasswordRegister)
+        return JsonResponse({'success':'register successfully'})
+    return{'error':'error register'}
