@@ -2,6 +2,8 @@ from django.shortcuts import redirect,HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
+import re
 from .forms import *
 from .models import *
 
@@ -68,9 +70,22 @@ def registerView(request):
         emailRegister = request.POST.get('emailRegister')
         passwordRegister = request.POST.get('passwordRegister')
         repasswordRegister = request.POST.get('repasswordRegister')
-        print('Username' , usernameRegister)
-        print('Email ', emailRegister)
-        print('Password ', passwordRegister)
-        print('Email ', repasswordRegister)
-        return JsonResponse({'success':'register successfully'})
+        
+        regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')#yeni biz bura deyer verende onu regex kimi scan edir,amma normal bir deyeri geri donderir verilen list ve ya objectde tapilan deyeri yeni
+        if re.fullmatch(regex,emailRegister) and passwordRegister==repasswordRegister and len(passwordRegister) >= 8:
+            if(User.objects.filter(username=usernameRegister).exists()):
+                print('bele bir user databasede var')
+                return JsonResponse({'already_user_declared':'Username already exists'})
+            else:
+                if(User.objects.filter(email=emailRegister).exists()):
+                    print('bele bir email artiq movcuddur')
+                    return JsonResponse({'already_email_declared':'Email already exists'})
+                else:
+                    user = User.objects.create_user(username=usernameRegister,email=emailRegister,password=repasswordRegister)
+                    print('User yaradi ugurlu bir sekilde')
+                    login(request,user)
+                return JsonResponse({'success_register':'register successfully'})
+        else:
+            print('xeta bas verdi register user zamani')
+            return JsonResponse({'error_register':'register error'})
     return{'error':'error register'}

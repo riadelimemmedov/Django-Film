@@ -22,8 +22,15 @@ registerButton.addEventListener('click',(e)=>{
             'repasswordRegister':repasswordRegister.value,
         },
         success:function(response){
-            console.log(response)
-            console.log('successfully Send Request Register Url')
+            if(response.success_register){
+                console.log(response.success_register)
+            }
+            else if(response.error_register){
+                console.log(response.error_register)
+            }
+            else{
+                console.log('Response Error Backend')
+            }
         },
         error:function(err){
             console.log(err)
