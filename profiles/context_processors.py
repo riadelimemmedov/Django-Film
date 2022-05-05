@@ -72,20 +72,20 @@ def registerView(request):
         repasswordRegister = request.POST.get('repasswordRegister')
         
         regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')#yeni biz bura deyer verende onu regex kimi scan edir,amma normal bir deyeri geri donderir verilen list ve ya objectde tapilan deyeri yeni
-        if re.fullmatch(regex,emailRegister) and passwordRegister==repasswordRegister and len(passwordRegister) >= 8:
+        if re.fullmatch(regex,emailRegister) and passwordRegister==repasswordRegister:
             if(User.objects.filter(username=usernameRegister).exists()):
-                print('bele bir user databasede var')
-                return JsonResponse({'already_user_declared':'Username already exists'})
+                print('This username already exists')
+                return JsonResponse({'error_register':'Username already exists'})
             else:
                 if(User.objects.filter(email=emailRegister).exists()):
-                    print('bele bir email artiq movcuddur')
-                    return JsonResponse({'already_email_declared':'Email already exists'})
+                    print('Thie email already exists')
+                    return JsonResponse({'error_register':'Email already exists'})
                 else:
                     user = User.objects.create_user(username=usernameRegister,email=emailRegister,password=repasswordRegister)
-                    print('User yaradi ugurlu bir sekilde')
-                    login(request,user)
-                return JsonResponse({'success_register':'register successfully'})
+                    print('Created user successfully')
+                    login(request,user,backend='django.contrib.auth.backends.ModelBackend')
+                    return JsonResponse({'success_register':'register successfully'})
         else:
-            print('xeta bas verdi register user zamani')
-            return JsonResponse({'error_register':'register error'})
+            print('Error email format')
+            return JsonResponse({'error_register':'Please enter valid email format'})
     return{'error':'error register'}

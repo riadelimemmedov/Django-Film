@@ -26,6 +26,5 @@ urlpatterns = [
     path('profile/',include('profiles.urls',namespace='profiles')),
     path('contact/',include('contactadmin.urls',namespace='contact')),
     path('blog/',include('postblog.urls',namespace='postblog')),
-    path('socialaccounts/',include('allauth.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -101,6 +101,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+
 WSGI_APPLICATION = 'film.wsgi.application'
 
 

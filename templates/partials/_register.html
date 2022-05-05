@@ -3,6 +3,13 @@
 <div class="login-wrapper" id="signup-content">
     <div class="login-content">
         <h3>sign up</h3>
+
+        <div id="register-error">
+            <!-- <div class="alert alert-danger text-center text-capitalize" style="text-transform: capitalize">
+                <strong>username or password is wrong</strong>
+            </div> -->
+        </div>
+
         <form method="POST" autocomplete="on">
             {% csrf_token %}
             <div class="row">
