@@ -1,0 +1,25 @@
+.search-result{
+    width: 100%;
+    border: 1px solid red;
+    color: #fff;
+    background-color: #222f3e;
+    border-color: transparent;
+    padding: 5px;
+    margin: 2px;
+}
+
+.searh-image{
+    width: 50px;
+    height: 30px;
+    border: 1px solid transparent;
+    border-radius:50%;
+    margin-left: 20px;
+}
+
+#films-title{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: -12px;
+}
+

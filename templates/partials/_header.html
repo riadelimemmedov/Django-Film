@@ -1,5 +1,7 @@
 {% load static %}
 
+<link rel="stylesheet" type="text/css" href="{% static 'css/search-card.css' %}">
+
 <header class="ht-header">
     <div class="container">
         <nav class="navbar navbar-default navbar-custom">
@@ -90,11 +92,26 @@
 
         <!-- top search form -->
         <div class="top-search">
-            <select>
-                <option value="united">TV show</option>
-                <option value="saab">Others</option>
-            </select>
             <input type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
         </div>
+        
+        <div>
+            <div class="search-result">
+                <a href="" class="item text-primary">
+                    <div class="row mt-2 mb-2">
+                        <div class="col-2">
+                            <img src="{% static 'images/sekilyox.png' %}" class="searh-image" alt="">
+                        </div>
+                        <div class="col-10" id="films-title">
+                            <h5>Films</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="search-result">
+                aaa
+            </div>
+        </div>
+
     </div>
 </header>
