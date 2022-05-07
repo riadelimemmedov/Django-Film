@@ -10,16 +10,23 @@
 
 .searh-image{
     width: 50px;
-    height: 30px;
+    height: 50px;
     border: 1px solid transparent;
     border-radius:50%;
     margin-left: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: cover;
 }
 
 #films-title{
-    display: flex;
-    justify-content: center;
     position: relative;
-    top: -12px;
+    top: -30px;
+    margin-left: 80px;
 }
+
+.hide{
+    display: none;
+}
+
 

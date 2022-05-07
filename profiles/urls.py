@@ -13,5 +13,6 @@ urlpatterns = [
     path('change-image-profile/',changeImageProfile,name='changeImageProfile'),
     path('myrates/',rateMovieListView,name='rateMovieListVie'),
     path('login/',loginView,name='loginView'),
-    path('register/',registerView,name='registerView')
+    path('register/',registerView,name='registerView'),
+    path('search/',searchFilmView,name='searchView')
 ]
