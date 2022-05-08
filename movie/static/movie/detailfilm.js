@@ -23,6 +23,7 @@ const homeurl = window.location.href.substring(0,window.location.href.lastIndexO
 const imageurl = `${homeurl}/media`
 const slugurlfield = currenturl.substring(currenturl.lastIndexOf('/')+1)
 
+
 //!xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // const similargetir = document.getElementById('similargetir')
 // similargetir.addEventListener('click',(e)=>{

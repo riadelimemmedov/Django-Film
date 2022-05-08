@@ -98,19 +98,22 @@ def searchFilmView(request):
     if request.method == 'POST':
         res = None
         filmName = request.POST.get('filmName')
+        print(filmName)
         films = Movie.objects.filter(title_movie__icontains=filmName).distinct()
+        print(films)
         if len(films) > 0 and len(filmName) > 0:
             data = []
             for film in films:
                 item = {
                     'pk':film.pk,
                     'title':film.title_movie,
-                    'imagemovie':str(film.image_movie.url)
+                    'imagemovie':str(film.image_movie.url),
+                    'slugmovie':film.slug_movie
                 }#her loop dan yarat bir object her bir filme gore,yeni her tiklanada request atilacag bura ve hemin girilen deyerin olub olmamagi yoxlanacag databasede
                 data.append(item)#json formatina cevirdi bu formada bir list yaradib icine object olanda json formati olur
             res = data
         else:
             res = 'No found films...'
         return JsonResponse({'data':res})
-    return JsonResponse({})
+    return{'error':'error search enter'}
 

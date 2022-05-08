@@ -36,22 +36,10 @@
                     </li>
                     <li class="dropdown first">
                         <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                            celebrities <i class="fa fa-angle-down" aria-hidden="true"></i>
-                        </a>
-                        <ul class="dropdown-menu level1">
-                            <li><a href="celebritygrid01.html">celebrity grid 01</a></li>
-                            <li><a href="celebritygrid02.html">celebrity grid 02 </a></li>
-                            <li><a href="celebritylist.html">celebrity list</a></li>
-                            <li class="it-last"><a href="celebritysingle.html">celebrity single</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown first">
-                        <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                            news <i class="fa fa-angle-down" aria-hidden="true"></i>
+                            Blogs <i class="fa fa-angle-down" aria-hidden="true"></i>
                         </a>
                         <ul class="dropdown-menu level1">
                             <li><a href="{% url 'postblog:postListView' %}">blog List</a></li>
-                            <li class="it-last"><a href="#">blog Detail</a></li>
                             <li><a href="{% url 'postblog:postCreateView' %}">blog create</a></li>
                         </ul>
                     </li>
@@ -100,6 +88,10 @@
         
         
         <div id="search-films-list" class="hide">
+            
+        </div>
+
+        <div id="search-alert">
             
         </div>
 
