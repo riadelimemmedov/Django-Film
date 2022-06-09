@@ -55,7 +55,7 @@ input.addEventListener('change',()=>{
     var cropper = $image.data('cropper')
 
     confirmBtn.addEventListener('click',()=>{
-        cropper.getCroppedCanvas().toBlob((blob)=>{//blob = kesilen sekilin deyeri
+        cropper.getCroppedCanvas().toBlob((blob)=>{
             const fd = new FormData()
             fd.append('csrfmiddlewaretoken',csrftoken)
             fd.append('avatar',blob,'my-image.png')
@@ -66,14 +66,12 @@ input.addEventListener('change',()=>{
             $.ajax({
                 type: 'POST',
                 url:imageForm.action,
-                enctype:'multipart/form-data',//yeni enctype:'multipart/form-data' => verilmesindeki sebeb html ile formdan sekil gonderirrikse bu sekili kodlayib gondermeliyik
+                enctype:'multipart/form-data',
                 data:fd,
                 success:function(response){
-                    console.log('Sekil Yuklendi Deyesen Databaseye')
-                    console.log('BackEnd Den Gelen Cavab => ', response.message)
+                    console.log(response.message)
                 },
                 error:function(err){
-                    console.log('Xeta Var')
                     console.log(err)
                 },
                 cache:false,
@@ -85,7 +83,6 @@ input.addEventListener('change',()=>{
     })
 
 })
-
 
 
 var $image = $('#image');

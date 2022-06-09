@@ -28,7 +28,7 @@ def postDetailView(request,id):
             instance.post_film = postfilm
             instance.body = form.cleaned_data.get('body')
             form.save()
-            return redirect(reverse('postblog:postDetailView',kwargs={'id':id}))#yeni postun ozune qayit ele
+            return redirect(reverse('postblog:postDetailView',kwargs={'id':id}))
     context = {
         'postfilm':postfilm,
         'imagepostlists':imagepostlists,
@@ -48,41 +48,29 @@ def postCreateView(request):
     
     if request.method == 'POST':
         if form.is_valid():
-                print('Requestden gelen butun deyer ', request.POST.getlist('image_post'))
-                print('Requestden gelen sekil deyeri', request.FILES.getlist('images'))
-                print('Requestden gelen sekil deyeri', request.FILES.getlist('image_post'))
                 
                 images_post = request.FILES.getlist('image_post')
                 tag_post = request.POST.get('tag_post').split(',')
                 
-                print('Get tag value ', tag_post)
-    
                 tag_value = None
                 x = form.save(commit=False)
                 x.author_post = profile
                 x.save()
                 
-                #!eger birden cox tag gelerse bu taglari split ile vergule gore ayiirb for loopda save etmek lazimdir bunu yazmag lazimdir
                 
                 for tp in tag_post:
                     if(Tag.objects.filter(title_tag=tp)):
                         if(x):
                             tag_value = Tag.objects.get(title_tag=tp)
                             x.tag_post.add(tag_value)
-                        print('POST YARANDI kohne tagli')
-                        # addtag = Tag.objects.get(title_tag=request.POST.get('tag_post'))
-                        # x.tag_post.add(addtag) 
                     else:
                         #tag_value = request.POST.get('tag_post')
                         new_tag = Tag.objects.create(title_tag=tp)
                         new_tag.save()
                         if(x):
-                            x.tag_post.add(new_tag)
-                        print('yeni tagli bir post yarandi')
-                
+                            x.tag_post.add(new_tag)                
                 if(images_post):
                     for i in images_post:
-                        print('nah isleyerem')
                         imagepost = ImagePost.objects.create(
                             postfilm_fk = x,
                             image_post = i
@@ -90,7 +78,6 @@ def postCreateView(request):
                 else:
                     imagepost = ImagePost.objects.create(postfilm_fk=x)
                 
-                #?Burda bug var sonra qaytararsan evvelki halina
                 return redirect('postblog:postListView')
         else:
             print('Xeta')
@@ -109,7 +96,6 @@ def postListView(request):
     postImageLists = []
     postSearchResult = []
     
-    
     postsListPagination = None
     page = None
     paged_post = None
@@ -122,10 +108,7 @@ def postListView(request):
     page = request.GET.get('page')
     paged_post = postsListPagination.get_page(page)
     
-    print('Pagination Axtarisdan Evvel ', postsListPagination)
-    
     if request.method == 'POST':
-        print('Blog Axtaris Isledi')
         searchedTextBlogFilms = request.POST.get('searchedTextBlogFilms')
         if searchedTextBlogFilms:
             resultsFilms = PostFilm.objects.filter(Q(title_post__icontains=searchedTextBlogFilms)).distinct()
@@ -134,9 +117,6 @@ def postListView(request):
             paged_post = postsListPagination.get_page(page)
             for i in paged_post:
                 postSearchResult.append(i)
-            print('Axtarisdan Sonra Pagination ', paged_post)
-            
-            
     
     context = {
         'postImageLists':paged_post,
@@ -146,10 +126,8 @@ def postListView(request):
     
     return render(request,'postblog/blog_list.html',context)
 
-#bura login_required qeyt etmeyi unutma yeni yadindan cixmasin bura login required qeyd etmek
 def likeunlikeCommentView(request):
     if request.method == 'POST':
-        print('Like Unlike Viuew Request AtildI Ajax Ile')
         profile = Profile.objects.get(user=request.user)
         commentId = request.POST.get('commentId')
     
@@ -161,7 +139,6 @@ def likeunlikeCommentView(request):
         else:
             comment.liked_comment.remove(profile)
             return JsonResponse({'liked':'false','likecommentcount':comment.liked_comment.all().count()})
-        
     return HttpResponse('like unlike')
 
 
@@ -189,7 +166,7 @@ class DeleteCommentView(DeleteView):
         return comment_obj
     
     def get_success_url(self,*args,**kwargs):
-        postfilm = Comment.objects.get(pk=self.object.pk)#self.object.pk yeni secili olan deletede olan objectin pk deyeri yeni id deyerini getir => self.object.pk seklinde
+        postfilm = Comment.objects.get(pk=self.object.pk)
         return reverse_lazy('postblog:postDetailView',args=(postfilm.post_film.pk,))
 
 #!categoryListPostFilmView
@@ -208,7 +185,7 @@ def categoryListPostFilmView(request,slug):
 
 #!postFilmUpdateView
 def postFilmUpdateView(request,id):
-    post_film = PostFilm.objects.get(id=id)#sag terefdeki id deyeri url den gelen id deyeridir
+    post_film = PostFilm.objects.get(id=id)
     form = UpdatePostFilm(request.POST or None,request.FILES or None,instance=post_film)
     
     if request.method == 'POST':

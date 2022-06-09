@@ -8,5 +8,3 @@ urlpatterns = [
     path('<slug>',actorDetailView,name='actorDetailView'),
 ]
 
-
-#enter the places that are empty => xetani gostermek ucun text kimi bunu yazaram

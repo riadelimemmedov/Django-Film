@@ -114,7 +114,6 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <input class="submit" type="submit" value="save">
-                                        <!-- <button class="ui loading button">Loading</button> bu butona css yazmlasan ele css yazmalisanki ozde yuxardaju inputun formasini alsin -->
                                     </div>
                                 </div>	
                             </form>
@@ -123,15 +122,6 @@
                             <!-- !Change Password Form -->
                             <form action="{% url 'profiles:myProfileView' %}" method="POST" id="changePasswordId" class="password" autocomplete="off">
                                 {% csrf_token %}
-
-                                <!-- {% if form.errors %}
-                                    {% for error in form.non_field_errors %}
-                                        <div class="alert alert-danger">
-                                            <strong>{{error}}</strong>
-                                        </div>
-                                    {% endfor %}
-                                {% endif %} -->
-
                                 <h4> Change password</h4>
 
                                 {% if messages %}

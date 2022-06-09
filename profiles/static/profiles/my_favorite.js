@@ -33,9 +33,6 @@ for(let i=0;i<removeFavariteListForm.length;i++){
         e.preventDefault()
         const dataFavFilmId = removeFavariteListForm[i].lastElementChild.children[1].getAttribute('data-favfilmId') 
         const hideFilm = removeFavariteListForm[i].parentElement.parentElement
-        
-        // console.log('DataFilmId Value', dataFavFilmId)
-        //console.log(removeFavariteListForm[i].parentElement.parentElement)
         $.ajax({
             type: 'POST',
             url:currentUrl,

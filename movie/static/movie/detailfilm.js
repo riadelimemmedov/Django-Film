@@ -6,7 +6,6 @@ console.log('Hello Film Detail')
 const moviedate = document.getElementsByClassName('moviedate')
 
 //!Sort By Film With Ajax
-//!Loader atmag istesen ager => https://semantic-ui.com/elements/loader.html burdan gotur belke
 
 const currenturl = window.location.href
 
@@ -22,20 +21,6 @@ const loadingrelatedfilmloader2 = document.getElementById('loadingrelatedfilmloa
 const homeurl = window.location.href.substring(0,window.location.href.lastIndexOf('/'))
 const imageurl = `${homeurl}/media`
 const slugurlfield = currenturl.substring(currenturl.lastIndexOf('/')+1)
-
-
-//!xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-// const similargetir = document.getElementById('similargetir')
-// similargetir.addEventListener('click',(e)=>{
-//     console.log(window.location.href);
-//     e.preventDefault()
-//     $.ajax({
-//         type:'GET',
-//     })
-// })
-//!xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-
 
 
 function getCookie(name) {
@@ -67,10 +52,9 @@ const handleGetData = () => sortlaformagore.addEventListener('change',(e)=>{
             'targetvalueselect':e.target.value,
         },
         success:function(response){
-            const jsondataratingdesc = response.ratingdesc //Burda sortlamag lazimdir gelen imdb deyerlerini azdan coxa dogru
+            const jsondataratingdesc = response.ratingdesc
             const jsondataratingasc = response.ratingasc
             const jsondatadatedesc = response.datedesc
-            //console.log(Object.keys(response)); //!bu onemlidir eger dictionary tiplerde keyleri ve ya valueleri secmek isteyirsense
 
             const targetvalueselect = response.targetvalueselect
             const dataDescId = document.getElementById('data-desc')
@@ -117,7 +101,6 @@ const handleGetData = () => sortlaformagore.addEventListener('change',(e)=>{
             var isActive = true
             if(returnDataHandleBackData){
                 if(isActive == true){   
-                    console.log('TimeOut EVVEL IsActive',isActive);
                     setTimeout(()=>{
                             loadingrelatedfilmloader.style.display = 'none'
 
@@ -242,8 +225,7 @@ const tenth = document.getElementById('tenth')
 const messagestatus = document.getElementById('messagestatus')
 
 //?html elements
-//const formRating = document.querySelectorAll('.rate-form')//node listlerde forEach ile gezmek olur
-const formRating = document.querySelector('.rate-form')//quertSelector ise htmlcollection geri donur
+const formRating = document.querySelector('.rate-form')
 const csrf = document.getElementsByName('csrfmiddlewaretoken')
 
 
@@ -274,7 +256,7 @@ const handleSelect = (selection) =>{
     switch(selection){
         case 'first':{
             handleStarSelect(1)
-            return//dayandirmaq ucun kodu yeni asagidaki kodlar islemesin artiq eger bu sert dogrudursa
+            return
         }
         case 'second':{
             handleStarSelect(2)
@@ -369,20 +351,16 @@ arr.forEach((item)=>{
 arr.forEach((item) => {
     item.addEventListener('click',(e)=>{
         const val = e.target.id
-        
-        //!click olan vaxti submit ile POST request gonder
-        //!Seyfeni Yenilemeyib dayanmadan ajax atanda addEventListener problem yaradir submit deyeri ile => qarsini almaq ucun isSubmit yazdig
-        //!Hemcinin mu;ltiple ajax calldan qacmaq ucun istifade etdik bunu
-        let isSubmit = false //isSubmit => adindanda oxundugu kimi formun testiq olun olunmamagini yoxlayaciyqiq addEventListener('submit') icinde
+        let isSubmit = false 
         formRating.addEventListener('submit',(e)=>{
             e.preventDefault()
             if(isSubmit==true){
-                return //return olanda temiz funksiyani dayandirir cox dilde beledir yeni
+                return 
             }
             isSubmit=true
-            const id_film = e.target.id//detailinde oldugumuz filmin id deyeri
-            const rate_num = getNumericValue(val)//gonderdiyimiz deyer star olarag yeni
-            //console.log('Rate Url' ,`${homeurl}/ratefilm/`)
+            const id_film = e.target.id
+            const rate_num = getNumericValue(val)
+        
 
             //*ajax part
             $.ajax({
@@ -394,7 +372,6 @@ arr.forEach((item) => {
                     'rate_num':rate_num,
                 },
                 success: function(response){
-                    console.log('ugurlu oldu rate verme')
                     messagestatus.innerHTML =  `
                         <div class="alert alert-warning" style="padding: 0; text-align: center;padding: 10px;border: 1px solid gray;border-radius: 3px">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="margin-right: 10px;">
@@ -405,7 +382,6 @@ arr.forEach((item) => {
                     `
                 },
                 error:function(err){
-                    console.log('Error ', err.xeta)
                     messagestatus.innerHTML = `
                         <div class="alert alert-danger" style="padding: 0; text-align: center;padding: 10px;border: 1px solid gray;border-radius: 3px">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="margin-right: 10px;">

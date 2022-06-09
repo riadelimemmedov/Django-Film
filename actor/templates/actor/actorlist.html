@@ -44,7 +44,7 @@
                             </div>
                             <div class="row">
 
-                                <div id="notfounddata" style="display: none;"><!-- bura xeta mesajini yazacam eger aktyor tapilmayibsa -->
+                                <div id="notfounddata" style="display: none;">
                                     
                                 </div>
                                 
@@ -93,7 +93,7 @@
                                         {% endif %}
                                         
                                         {% for i in paginator.page_range %}
-                                            {% if pages_actors.number == i %}<!-- Burdaki number deyeri request.GET.get('page') den gelen deyerdir -->
+                                            {% if pages_actors.number == i %}
                                                 <a class="active" href="#">{{i}}</a>
                                             {% else %}
                                                 <a href="?page={{i}}">{{i}}</a>
@@ -118,23 +118,20 @@
                                     <h4 class="sb-title">Search celebrity</h4>
                                     <small style="color:#d63031 !important;font-size: 14.5px !important;display:none" id="emptyvalueoferr">Enter the places that are empty</small>
                                     <!-- !Search Actor With Ajax => this is search form -->
-                                    <form class="form-style-1 celebrity-form" id="searchSubmitForm"><!-- ?burda ne action na nedeki formun methood deyerine ehtiyac var cunki biz bunlari insaAllah jquery ajax ile yazaciyig -->
+                                    <form class="form-style-1 celebrity-form" id="searchSubmitForm">
                                         <div class="row">
 
-                                            <!-- Bura actyorun adi hissedir -->
                                             <div class="col-md-12 form-it">
                                                 <label style="margin-top: 10px;">Celebrity Name</label>
                                                 <input type="text" id="first_name_actor" name="first_name_actor" placeholder="Enter Name">
                                             </div>
 
-                                            <!-- Bura actyorun soyad hissedir -->
                                             <div class="col-md-12 form-it">
                                                 <label>Celebrity Surname</label>
                                                 <input type="text" id="last_name_actor" name="last_name_actor" placeholder="Enter Surname">
                                             </div>
 
-                                            <!-- Bura actyorun gender secme hissesidir select olacag burda -->
-                                            <div class="col-md-12 form-it"><!-- genderactor bura -->
+                                            <div class="col-md-12 form-it">
                                                 <label>Celebrity Gender</label>
                                                 <select id="select_gender">
                                                     <option value="M">Men</option>
@@ -144,7 +141,7 @@
 
 
                                             <div class="col-md-12 ">
-                                                <input class="submit" type="submit" value="submit"><!-- eger form icinde buton varsa ve hemin buton backende ve ya basqa bir yere sorgu atirsa ve ya data gonderirse bu zaman mutleq sekilde butonun type deyeri submit olmalidir mutleq ve mutleq sekilde butonun type deyeri submit olmalidir hemcinin inputdada beledir -->
+                                                <input class="submit" type="submit" value="submit">
                                             </div>
 
                                         </div>

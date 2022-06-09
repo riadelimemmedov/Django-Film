@@ -51,7 +51,7 @@
                 </ul>
 
                 <ul class="nav navbar-nav flex-child-menu menu-right">
-                    {% if request.user.is_authenticated %}<!-- eger user giris edibse yeni authetication olubsa if e girsin olmasa else girsin -->
+                    {% if request.user.is_authenticated %}
                             <li><a href="{% url 'contact:contactView' %}">contact</a></li>
                             {% if pic_user_navbar %}
                                 <li class="dropdown first">
@@ -70,8 +70,6 @@
                         <li class="loginLink"><a href="#">LOG In</a></li>
                         <li class="btn signupLink"><a href="#">sign up</a></li>
                     {% endif %}
-                    <!-- !User profile directed and user profile puicture,bura if yaz cunki istifadenin sekili olub ve ya olmama ehtimali vardir -->
-                    <!-- !xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
                 </ul>
 
             </div>

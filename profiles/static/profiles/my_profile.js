@@ -59,20 +59,6 @@ const url = currentUrl.replace('myprofile/','updateprofiledata/')
 const alertBoxUsername = document.getElementById('alert-box-username')
 const alertBoxUsername2 = document.getElementById('alert-box-username2')
 
-// const handleAlerts = function(type,text){
-//     alertBoxUsername.innerHTML = `
-//         <div class="alert alert-${type} text-center text-capitalize">
-//             <strong style="color:black">${text}</strong>
-//         </div>
-//     `
-//     setTimeout(()=>{
-//         alertBoxUsername.style.display = 'none'
-//         alertBoxUsername.innerHTML = ''
-//     },4000)
-// }
-
-
-
 
 //?Profile Update Data Form
 profileDetailForm.addEventListener('submit',(e)=>{
@@ -109,10 +95,8 @@ profileDetailForm.addEventListener('submit',(e)=>{
                     'profileCountry':profileCountry.value,
                     'profileState':profileState.value
                 },
-                success:function(response){//funksiya cavab geri donuyr yeni response o responsi tutmag ucun yazdig biz bu funksiyani
+                success:function(response){
                     console.log('Successfully response url')
-                    // console.log(response.profileUsername.length)
-                    //response.errorUsernameFind
     
                     if(response.errorUsernameFind){
                         alertBoxUsername.innerHTML = `
@@ -123,11 +107,6 @@ profileDetailForm.addEventListener('submit',(e)=>{
                                 </button>
                             </div>
                         `
-    
-                        // setTimeout(()=>{
-                        //     alertBoxUsername.style.display = 'none'
-                        // },4000)
-                        //handleAlerts('info',response.errorUsernameFind)
                     }
     
                     else if(response.errorEmailFind){
@@ -143,7 +122,6 @@ profileDetailForm.addEventListener('submit',(e)=>{
         
     
                     else{
-                        //profileUsername.value = response.username
                         console.log('worked successfully response from backend')
                         alertBoxUsername2.innerHTML = `
                             <div class="alert alert-success text-center text-capitalize" style="text-transform: capitalize">
@@ -153,14 +131,11 @@ profileDetailForm.addEventListener('submit',(e)=>{
                                 </button>
                             </div>
                         `
-                        //alertBoxUsername.style.display = 'block'
-    
-                        //handleAlerts('success','Your profile data has been successfully updated')
                     }
     
                 },
                 error:function(err){
-                    console.log('Hata',err)
+                    console.log(err)
                 }
             })
         }
@@ -173,9 +148,3 @@ const changePasswordForm = document.getElementById('changePasswordId')
 // changePasswordForm.addEventListener('submit',(e)=>{
 //     $('html,body').animate({scrollTop:4800},200)
 // })
-
-
-
-
-
-//hem displaylik noneden cixmalidir hemde modal classi elave olunmalidiri click olunan zaman

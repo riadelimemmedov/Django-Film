@@ -8,7 +8,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 class UserPasswordChange(PasswordChangeForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)#Base class inheritance
-        self.fields['old_password'].widget = widgets.PasswordInput(attrs={'type':'password','placeholder':'Old Password','required':True})#required,disabled,ve s kimi htm5 de gelenm attributlar boolean tipinde olurlar yeni ya true yadaki false
+        self.fields['old_password'].widget = widgets.PasswordInput(attrs={'type':'password','placeholder':'Old Password','required':True})
         self.fields['new_password1'].widget = widgets.PasswordInput(attrs={'type':'password','placeholder':'New Password','required':True})
         self.fields['new_password2'].widget = widgets.PasswordInput(attrs={'type':'password','placeholder':'Repeat New Password','required':True})
 
@@ -24,7 +24,7 @@ class ChangeImageForm(forms.ModelForm):
         #self.fields['user'].queryset = Profile.objects.get(user=self.request.user)
         
         
-class LoginForm(forms.Form):#forms.Form yazilanda sifirdan biz yazirig formdaki rowlari ele bil,amma forms.ModelForm yazanda databasedeki rowlara uygun html formu cixardir avtomatik olarag
+class LoginForm(forms.Form):
     username = forms.CharField(label='',required=True,widget=forms.TextInput(attrs={
         'type':'text',
         'name':'username',

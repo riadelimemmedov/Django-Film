@@ -60,7 +60,6 @@
 						<div class="rate">
 							<i class="ion-android-star"></i>
 							<p><span>{{movieimdb}}</span> /10<br>
-								<!-- !<span class="rv">56 Reviews</span> Burani commenti yazandan sonra yazarsan comment sayi kimi -->
 							</p>
 						</div>
 						<div class="rate-star">
@@ -155,7 +154,7 @@
 													<h6>Director: </h6>
 													{% for dl in director_list %}
                                                         <p style="margin-bottom:0px;">
-                                                            <a href="{% url 'movie:castcrewDetailForApi' dl.1 %}">{{dl.0}}</a><!-- !Burani duzeltmeye calis neyse fikirles -->
+                                                            <a href="{% url 'movie:castcrewDetailForApi' dl.1 %}">{{dl.0}}</a>
                                                         </p>
 													{% endfor %}
 												</div>

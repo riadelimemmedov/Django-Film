@@ -1,28 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
 
-
-
-<!--!Header hissesi buraya ayri bir header.html seyfesi duzeldib ora qoy sonra include edersen base.html ya qoyarsan burani -->
-
 <!--end of header-->
 {% block title %}Home Page{% endblock title %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
-
-<!--!Login ve ya basqa isler-->
 <body>
 	
 	<!--?Preloader Page-->
 
-
-	<!--!login form popup buranida navbar hissesine elave edersen-->
-
 	<!--end of login form popup-->
 	
-	<!-- !signup form popup buranida navbar hissesine elave edersen -->
-
 	<!--end of signup form popup-->
 
 
@@ -80,16 +69,8 @@
 									
 
 									{% for category in sm.category_movie.all %}
-										<span class="categorycard"><a href="#" class="categorylist">{{category}}</a></span><!--?bura baxarsan-->
+										<span class="categorycard"><a href="#" class="categorylist">{{category}}</a></span>
 									{% endfor %}
-						
-									
-									<!--
-										scifi=>blue
-										action=>yell
-										comedy=>green
-										adventure=>orange
-									-->
 
 								</div>
 								<h6 class="text-capitalize"><a href="{% url 'movie:detailfilm' sm.slug_movie %}">{{sm.title_movie}}</a></h6>
@@ -104,7 +85,6 @@
 	<!-- End Slider Movie -->
 
 
-	<!--!In Theater Databaseden Filterlenib Getirilmlei Lazim Olan Data -->
 	<div class="movie-items">
 		<div class="container">
 			<div class="row ipad-width">
@@ -134,7 +114,7 @@
 													</div>
 												</div>
 											</div>
-										{% endfor %}<!-- Burda endfor yazilmasa xeta verer,endfor o demekdriki yeni  pythondaki dovrler kimi bitibse cixsin yeni break olsun burdada bele break=endfor kimi dusunmek olar-->
+										{% endfor %}
 									</div>
 								</div>
 							</div>
@@ -187,7 +167,7 @@
 										<div class="celeb-author">
 											<h6><a href="{% url 'actor:actorDetailView' actor.slug_actor %}">{{actor.first_name_actor}} {{actor.last_name_actor}}</a></h6>
 												{% if actor.duty_type_actor == 'Actorisa' %}
-													<span style="display: inline-block;margin-top: 4px;">{{actor.duty_type_actor}}</span><!-- !Bir seyi yadda saxlaki yuxaridan ve asagidan margin vermek olmur inline elementlere eger etmek lazimdirsasa display:inline-block ede bilersen -->
+													<span style="display: inline-block;margin-top: 4px;">{{actor.duty_type_actor}}</span>
 													<strong style="display:block;color:#718093 !important;">Rank :{{actor.actor_imbd}}/10</strong>
 												{% endif %}
 										</div>
@@ -200,115 +180,6 @@
 			</div>
 		</div>
 	</div>
-
-
-	<!--!Trailer Film-->
-	<!-- <div class="trailers">
-		<div class="container">
-			<div class="row ipad-width">
-				<div class="col-md-12">
-					<div class="title-hd">
-						<h2>in theater</h2>
-						<a href="#" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
-					</div>
-					<div class="videos">
-						<div class="slider-for-2 video-ft">
-							<div>
-								<iframe class="item-video" src="#"
-									data-src="https://www.youtube.com/embed/1Q8fG0TtVAY"></iframe>
-							</div>
-							<div>
-								<iframe class="item-video" src="#"
-									data-src="https://www.youtube.com/embed/w0qQkSuWOS8"></iframe>
-							</div>
-							<div>
-								<iframe class="item-video" src="#"
-									data-src="https://www.youtube.com/embed/44LdLqgOpjo"></iframe>
-							</div>
-							<div>
-								<iframe class="item-video" src="#"
-									data-src="https://www.youtube.com/embed/gbug3zTm3Ws"></iframe>
-							</div>
-							<div>
-								<iframe class="item-video" src="#"
-									data-src="https://www.youtube.com/embed/e3Nl_TCQXuw"></iframe>
-							</div>
-							<div>
-								<iframe class="item-video" src="#"
-									data-src="https://www.youtube.com/embed/NxhEZG0k9_w"></iframe>
-							</div>
-
-
-						</div>
-						<div class="slider-nav-2 thumb-ft">
-							<div class="item">
-								<div class="trailer-img">
-									<img src="{% static 'images/uploads/trailer7.jpg' %}" alt="photo by Barn Images" width="4096"
-										height="2737">
-								</div>
-								<div class="trailer-infor">
-									<h4 class="desc">Wonder Woman</h4>
-									<p>2:30</p>
-								</div>
-							</div>
-							<div class="item">
-								<div class="trailer-img">
-									<img src="{% static 'images/uploads/trailer2.jpg' %}" alt="photo by Barn Images" width="350"
-										height="200">
-								</div>
-								<div class="trailer-infor">
-									<h4 class="desc">Oblivion: Official Teaser Trailer</h4>
-									<p>2:37</p>
-								</div>
-							</div>
-							<div class="item">
-								<div class="trailer-img">
-									<img src="{% static 'images/uploads/trailer6.jpg' %}" alt="photo by Joshua Earle">
-								</div>
-								<div class="trailer-infor">
-									<h4 class="desc">Exclusive Interview: Skull Island</h4>
-									<p>2:44</p>
-								</div>
-							</div>
-							<div class="item">
-								<div class="trailer-img">
-									<img src="{% static 'images/uploads/trailer3.png' %}" alt="photo by Alexander Dimitrov" width="100"
-										height="56">
-								</div>
-								<div class="trailer-infor">
-									<h4 class="desc">Logan: Director James Mangold Interview</h4>
-									<p>2:43</p>
-								</div>
-							</div>
-							<div class="item">
-								<div class="trailer-img">
-									<img src="{% static 'images/uploads/trailer4.png' %}" alt="photo by Wojciech Szaturski" width="100"
-										height="56">
-								</div>
-								<div class="trailer-infor">
-									<h4 class="desc">Beauty and the Beast: Official Teaser Trailer 2</h4>
-									<p>2: 32</p>
-								</div>
-							</div>
-							<div class="item">
-								<div class="trailer-img">
-									<img src="{% static 'images/uploads/trailer5.jpg' %}" alt="photo by Wojciech Szaturski" width="360"
-										height="189">
-								</div>
-								<div class="trailer-infor">
-									<h4 class="desc">Fast&Furious 8</h4>
-									<p>3:11</p>
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
-
-	<!--!Burda en axirinci bloglari listeleyersen -->
 	
 	<div class="latestnew">
 		<div class="container">

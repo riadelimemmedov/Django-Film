@@ -44,7 +44,7 @@ class FavoriteFilms(models.Model):
 def create_user_profile(sender,instance,created,**kwargs):
     if created:
         Profile.objects.create(user=instance)
-post_save.connect(create_user_profile,sender=settings.AUTH_USER_MODEL)#yeni yaradilan User modeli gelsin avtomatitk sekilde bura User yaradilen vaxti ve bir profile yaransin
+post_save.connect(create_user_profile,sender=settings.AUTH_USER_MODEL)
 
 
 

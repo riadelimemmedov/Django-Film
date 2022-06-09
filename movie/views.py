@@ -90,8 +90,6 @@ def detailView(request,slug):
         #favoriteFilmProfile.films.all()
     else:
         print('Giris Yap')
-    #print('User Profile Film List',favoriteFilmProfile.films.all(),'Lenght FIlm List',len(favoriteFilmProfile.films.all()))
-    #print('Favorite films id list')
     isFavorite = None
     
     
@@ -105,7 +103,7 @@ def detailView(request,slug):
     for k in movie.category_movie.all():
         oddmoviecategorys.append(k)
 
-    for category in list(dict.fromkeys(allmoviecategoryies)):#fromkeys ile dublicatlari cixartdim
+    for category in list(dict.fromkeys(allmoviecategoryies)):
         if category in oddmoviecategorys:
             relatedmovie = Movie.objects.filter(Q(category_movie=category)).distinct()
             relatedcategorymovie += relatedmovie
@@ -123,8 +121,7 @@ def detailView(request,slug):
     #!Post request Ajax
     if request.method == 'POST':
         targetvalueselect = request.POST.get('targetvalueselect')
-        if targetvalueselect == 'ratingdesc':#desc yeni coxdan => aza dogru
-            #ratingdesc = list(relatedmovie.exclude(slug_movie=slug).order_by('-avarage_ibdm').values())
+        if targetvalueselect == 'ratingdesc':
             ratingdesc = serializers.serialize('json',set(relatedcategorymovie))
             returnajaxvalue = ratingdesc
             dolumurating_desc = False
@@ -168,10 +165,9 @@ def movieDetailForApi(request,id):
     responsemovie = requests.get(f"https://api.themoviedb.org/3/movie/{id}?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US")
     returndatapifilm =  responsemovie.json()
     
-    #Bunlar ucun bir model yarat databasede ayri bir model qarismasin digerlerine
     movieimage = returndatapifilm['backdrop_path']
     moviebudget = returndatapifilm['budget']
-    moviecategory = returndatapifilm['genres']#for isletdin belke burda yada template uzerinde isledersen ferq etmir
+    moviecategory = returndatapifilm['genres']
     homepage = returndatapifilm['homepage']
     movielanguage = returndatapifilm['original_language']
     movietitle = returndatapifilm['original_title']
@@ -197,40 +193,27 @@ def movieDetailForApi(request,id):
     
     
     
-    #!Bura Director,Writer,Producter olacag, oyuncular ucun cast dictionarysinden istifade edeciyik apidan
     director_list = []
     writer_list = []
     producer_list = []
     for i in returndatapiactor['crew']:
         if(i['job']=='Director'):
-            #print('Film Directors ',i['original_name'])
             director_list.append((i['original_name'],i['id']))
         elif(i['job']=='Writer'):
-            #print('Film Writer ', i['original_name'])
             writer_list.append((i['original_name'],i['id']))
         elif(i['job']=='Producer'):
-            #print('Film Producer', i['original_name'])
             producer_list.append((i['original_name'],i['id'])) 
-            
-    ###################################################################################################################################################################################
-    
-    #profile_path = '/2qhIDp44cAqP2clOgt2afQI07X8.jpg'
-    #urlrrot = 'https://image.tmdb.org/t/p/w500/2qhIDp44cAqP2clOgt2afQI07X8.jpg'
     
     
     #*SimilarMovieApi
-    responsesimilarmovie = requests.get(f"https://api.themoviedb.org/3/movie/634649/similar?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US&page=1")#yeni her bir filme uygun gelir bu
+    responsesimilarmovie = requests.get(f"https://api.themoviedb.org/3/movie/634649/similar?api_key=6eb08bbd168a23902ff08b4d31a3c687&language=en-US&page=1")
     returnapisimilarmovie =  responsesimilarmovie.json()
     
-    #?Burda qalmisig ve bax gorum detailfilmlde related film hissesinde hansi datalar yerlesib html icinde ele olara uygun olanlari apiden cek ele bil butun datalari yazmiyag birde
     similarmovieslist = []
     similarcastlist = []
     sayac = 0
     for j in returnapisimilarmovie['results']:    
         similarmovieslist.append(j)
-
-    #!Pagination Elave ele
-    
     
     context = {
         #FilmData
@@ -261,10 +244,6 @@ def movieDetailForApi(request,id):
         'similarmovieslist':similarmovieslist,
         'similarmovieslistlenght':len(similarmovieslist),
     }
-    
-    
-    #print('Gelen filmiin id deyeri', id)
-    
     return render(request,'movie/detailApiFilm.html',context)
 
 
@@ -286,14 +265,10 @@ def allMoviesListView(request):
     page = request.GET.get('page')
     paged_movie = paginator.get_page(page)
     
-    
-    #print(paginator.num_pages)
-    
     if request.method == 'POST':
         if request.POST.get('datareconginizeid'):
             paged_movie = paginator.get_page(page)
             inputSearchText = request.POST.get('inputSearchText')
-            print('Url deyeri',request.POST.get('urlvalue'))
             a = request.POST.get('urlvalue')
             homeUrl = a.replace(f"movies/?page={page}",'')
             
@@ -301,8 +276,6 @@ def allMoviesListView(request):
                 findMovies = Movie.objects.filter(Q(title_movie__icontains=inputSearchText))
                 print(len(findMovies))
                 serilazersFindMovie = serializers.serialize('json',findMovies)
-                #print('Gelen filmin datasi',serilazersFindMovie)
-                print('Bura isleyir')
                 return JsonResponse({'serilazersFindMovie':serilazersFindMovie,'findCountMovie':len(findMovies),'page':page,'homeUrl':homeUrl},safe=False)
     context = {
         'movies':paged_movie,
@@ -320,17 +293,7 @@ def addToFavoriteListFilm(request):
         isActive = request.POST.get('isActive')
         addedFilm = Movie.objects.get(slug_movie=slugurlfield)
         currentProfile = Profile.objects.get(user=request.user)
-        
-        print(Profile.objects.all())
-        
-        # favorite_added_film = FavoriteFilms(profile=currentProfile)
-        # favorite_added_film.save()
-        # favorite_added_film.films.add(addedFilm)
-        
-        print('Hal hazirdaki profil',currentProfile)
-        #burda basqa bir sey fikirles cunki toggle prosesi bas verir fikrim varki succses olanda true ve ya false donderib burda if else salib save ve ya remove dan istfiade ederek yazim yeni istifadeci hem elave ede biler filmi favorite listine hemde cixarda biler favorite listinden burani biraz dusun ona gore
-        
-        #!Bu hisseni eger user ilk defe yox diger filmlerin uzeride ADD etmek isteyirnse istifade edek
+    
         if(FavoriteFilms.objects.filter(profile=currentProfile).exists()):
             favorite_added_film = FavoriteFilms.objects.get(profile=currentProfile)
             favorite_added_film.films.add(addedFilm)
@@ -340,28 +303,18 @@ def addToFavoriteListFilm(request):
             favorite_added_film = FavoriteFilms(profile=currentProfile)
             favorite_added_film.save()
             favorite_added_film.films.add(addedFilm)
-            print('Listem yox amkkk')
-        #!#############################################################################################
-        
-        #!After request
-        #print(favorite_added_film.films.all())
-        
         
         if(isActive == 'false'):
             if(FavoriteFilms.objects.filter(profile=currentProfile).exists()):
                 favorite_added_film = FavoriteFilms.objects.get(profile=currentProfile)
                 favorite_added_film.films.add(addedFilm)
                 favorite_added_film.save()
-                return JsonResponse({'isAdd':'false'})#false olubsa demeli databaseye save olub bu
-                #print('Evvelceden var idi listem')
+                return JsonResponse({'isAdd':'false'})
             else:
                 favorite_added_film = FavoriteFilms(profile=currentProfile)
                 favorite_added_film.save()
                 favorite_added_film.films.add(addedFilm)
                 return JsonResponse({'isAdd':'false'})
-                #print('Listem yox amkkk')
-        
-            #print('Film databaseye ELAVE olundu')#ve hemin elave olunan vaxti geri respobse ati html yaza bilek hal hazirdaki vezittei
             
         elif(isActive == 'true'):
             if(FavoriteFilms.objects.filter(profile=currentProfile).exists()):
@@ -369,15 +322,10 @@ def addToFavoriteListFilm(request):
                 favorite_added_film.films.remove(addedFilm)
                 favorite_added_film.save()
                 print('Film Silindi')
-                return JsonResponse({'isAdd':'true'})#true olubsa demeli databaseden silirik
-                #print('Evvelceden var idi listem')
+                return JsonResponse({'isAdd':'true'})
             else:
                 print('Xeta var')
-                
-            # favorite_added_film = FavoriteFilms(profile=currentProfile)
-            # favorite_added_film.save()
-            # favorite_added_film.films.remove(addedFilm)
-            print('Film elave olunan listesen cixarildi yeni filmler listesinden')#hemcinin burdada if deki kimi
+            
         else:
             print('Xeta')
         
@@ -397,14 +345,10 @@ def rateFilmView(request):
             resultmovie = RatingMovie.objects.get(movie=movie_rate,profile=profile_rate)
             resultmovie.score = rate_num
             resultmovie.save()
-            print('yeter amkkk islee')
             return JsonResponse({'score':rate_num})
         except RatingMovie.DoesNotExist:
             rating_movie_model = RatingMovie(profile=profile_rate,movie=movie_rate,score=rate_num)
             rating_movie_model.save()
-            print('Isledi Yarandi Rate Deyesen sifirdan yeni olan bir rate ')
-            return JsonResponse({'ugurlu':'true','score':rate_num,'rated_film_id':rating_movie_model.id},safe=False)#safe false olanda list seklinde datalarda gondermek mumkundur,hemise defautl kimi yaza bilersen JsonResponsedan un ikindi parametresi kimi => safe=false deyerini
-
-        # #!Burda yoxlama etmelisen cunki user deyerini updatede ede biler ajaxla => insaAllah duzelderik
+            return JsonResponse({'ugurlu':'true','score':rate_num,'rated_film_id':rating_movie_model.id},safe=False)
     #else
     return JsonResponse({'xeta':'false'},safe=False)

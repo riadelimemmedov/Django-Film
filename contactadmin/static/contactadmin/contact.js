@@ -20,7 +20,6 @@ function getCookie(name) {
 }
 const csrftoken = getCookie('csrftoken');
 
-////////////////////////////////
 
 //!Send Post Request and Create Contact Data In With Ajax
 const contactForm = document.getElementById('contact-form')
@@ -34,13 +33,8 @@ const currentUrl = window.location.href
 
 const contactErrorShow = document.getElementById('contact-error-show')
 
-console.log(contact_message[0].value.length)//41 default
-//?inputlardaki plaholder deyeri yalniz id ile secilende isleyir name olanda kecersizidi yeni islemir placeholder
-// const fsname = document.getElementById('fsname')
-// console.log(fsname.placeholder)
 
-
-contactForm.addEventListener('submit',(e)=>{//butonu secmeye ehtiyac yoxdur burda cunki butonun type deyeri submit verende ele form tagi beraber olur butonun ozune yeni bir sozle submit edende butonu secmeye ehtiyac yoxdur,sadece addEventListener('submit') yazmag kifayet edir
+contactForm.addEventListener('submit',(e)=>{
     e.preventDefault()
 
     if(contact_message[0].value.length > 41){
@@ -53,8 +47,6 @@ contactForm.addEventListener('submit',(e)=>{//butonu secmeye ehtiyac yoxdur burd
                 'contact_message':contact_message[0].value.trim()
             },
             success:function(response){
-                console.log('Successfully Send POST CONTACT view')
-                console.log(contact_message[0].value.length)
                 contactErrorShow.innerHTML = `
                 <div class="alert alert-success text-center text-capitalize" style="text-transform: capitalize;border-radius:3px;outline:none;">
                     <strong style="color:black">Sucessfully Sent Request</strong>
@@ -66,7 +58,6 @@ contactForm.addEventListener('submit',(e)=>{//butonu secmeye ehtiyac yoxdur burd
                 contactForm.reset()
             },
             error:function(err){
-                console.log('Error Have Send Contact')
                 console.log(err)
             }
         })

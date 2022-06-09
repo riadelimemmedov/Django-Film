@@ -28,9 +28,7 @@
                 <div class="modal-body text-capitalize">
                     Are You Sure You Want To Logout?
                 </div>
-                <div class="modal-footer">
-                    <!-- !Burda bidene form tagi icine yazki logout yazaciyig ona gore -->
-                    
+                <div class="modal-footer">                    
                     <form action="{% url 'profiles:userLogoutView' %}" method="POST" autocomplete="off">
                         {% csrf_token %}
                         <button class="ui inverted blue button">Logout</button>

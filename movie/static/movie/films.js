@@ -23,7 +23,6 @@ const csrftoken = getCookie('csrftoken');
 //*showHideLoader
 function showHideLoader(loaderId){
     window.addEventListener('load',function(){
-        //console.log('reload')
         const blockloader = document.getElementById(loaderId)
         this.setTimeout(function(){
             blockloader.style.display = 'none'
@@ -33,10 +32,7 @@ function showHideLoader(loaderId){
 showHideLoader('blockloader')
 
 function findMovieAjax(){
-    //Window Elements mean browser window 
     const currentUrl = window.location.href
-    console.log(currentUrl);
-
     //Html Elements
     const searchFormId = document.getElementById('searchFormId')
     const inputSearchText = document.getElementById('inputSearchText')
@@ -53,7 +49,6 @@ function findMovieAjax(){
                 'datareconginizeid':678910
             },
             success:function(response){
-                console.log('Ugurlu bir sekilde post request atildi');
 
                 //BackData From Response
                 const serilazersFindMovie = [...JSON.parse(response.serilazersFindMovie)]
@@ -125,49 +120,14 @@ function findMovieAjax(){
                     }
 
                 },2500)
-            //alert('Islede amk') => debuglamag ucun burani istifade ede bilersen 
             },
             error:function(err){
                 console.log(err)
-                console.log('Hata')
             }
         })
     })
 }
 findMovieAjax()
-
-
-// const paginationmovievalueForm = document.getElementById('paginationmovievalueForm')
-// paginationmovievalueForm.addEventListener('submit',(e)=>{
-//     //e.preventDefault()
-//     const perpagepaginationcounturl = document.getElementById('allmovies').getAttribute('href')
-//     console.log(perpagepaginationcounturl)
-
-//     const dataFivePage = paginationmovievalueForm.firstElementChild.getAttribute('dataFivePage')
-//     const dataTenPage = paginationmovievalueForm.lastElementChild.getAttribute('dataTenPage')
-    
-//     console.log(dataFivePage)
-//     console.log(dataTenPage)
-
-    
-//     $.ajax({
-//         type: 'POST',
-//         url : perpagepaginationcounturl,
-//         data:{
-//             "csrfmiddlewaretoken":csrftoken,
-//             "perpagemovieFive":dataFivePage,
-//             'perpagemovieTen':dataTenPage,
-//             "ididentification":12345
-//         },
-//         success:function(response){
-//             console.log('ugurlu respose oldu selected movie per pageden');
-//         },
-//         error:function(err){
-//             console.log('per page secerken xeta bas verdi');
-//         }
-        
-//     })
-// })
 
 
 

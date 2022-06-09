@@ -29,14 +29,6 @@
                 <div class="blog-detail-ct">
                     <h1>{{postfilm.title_post}}</h1>
                     <span class="time">{{postfilm.created_date_post|date:'d.M.Y'}}</span>
-                    
-                    <!-- !slider movie images part -->
-                    <!-- {% for i in listimage  %}
-							<p>{{i}}</p>
-							<img src="{% static 'images/' %}{{i}}" alt="">
-						{% endfor %} -->
-                    <!-- !finish slider images part -->
-
                     <style>
                         .blogimageclass {
                             width: 100%;
@@ -111,18 +103,18 @@
                                     {% endif %}
                                     <div class="author-infor" style="margin-top: -50px;">
                                         <div class="flex-it2">
-                                            <h6><a href="#">{{commentblog.user}}</a></h6> <span class="time">{{commentblog.created|date:'d.M.Y'}}</span><!-- !user detail seyfesini hazirlayanda elave edersen bura link insaAllah -->
+                                            <h6><a href="#">{{commentblog.user}}</a></h6> <span class="time">{{commentblog.created|date:'d.M.Y'}}</span>
                                         </div>
                                         <p>{{commentblog.body}}</p>
 
                                         <form action="{% url 'postblog:likeUnlikeCommentView' %}" method="POST" class="comment-like-form-class" id="{{commentblog.id}}">
                                             {% csrf_token %}
                                             {% if likeprofile not in commentblog.liked_comment.all %}
-                                                <button type="submit" class="likeunlike" likeunlike-id="{{commentblog.id}}" style="background-color: #071829 !important;outline: none;border: none;"><!-- eger form ile POST request atirsansa  bu formu gondermek ucun lazim olan butonun type deyeri submit olmalidir yadda saxla => type='submit' </input></input> -->
+                                                <button type="submit" class="likeunlike" likeunlike-id="{{commentblog.id}}" style="background-color: #071829 !important;outline: none;border: none;">
                                                         <img src="{% static 'images/thumb-up.png' %}" style="width: 20px;margin-top: -5px;" alt="">
                                                 </button>
                                             {% else %}
-                                                <button type="submit" class="likeunlike" likeunlike-id="{{commentblog.id}}" style="background-color: #071829 !important;outline: none;border: none;"><!-- eger form ile POST request atirsansa  bu formu gondermek ucun lazim olan butonun type deyeri submit olmalidir yadda saxla => type='submit' </input></input> -->
+                                                <button type="submit" class="likeunlike" likeunlike-id="{{commentblog.id}}" style="background-color: #071829 !important;outline: none;border: none;">
                                                     <img src="{% static 'images/thumb-down.png' %}" style="width: 20px;margin-top:-5px" alt="">
                                                 </button>
                                             {% endif %}
@@ -165,7 +157,7 @@
                                         {{form}}
                                 </div>
                             </div>
-                            <input class="submit" type="submit" placeholder="submit"><!-- eger form ile POST request atirsansa  bu formu gondermek ucun lazim olan butonun type deyeri submit olmalidir yadda saxla => type='submit' </input></input>-->
+                            <input class="submit" type="submit" placeholder="submit">
                         </form>
                     </div>
                     <!-- comment form -->

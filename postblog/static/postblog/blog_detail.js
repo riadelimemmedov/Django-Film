@@ -15,10 +15,10 @@ for(let i=0;i<commentLikeFormClass.length;i++){
             type: 'POST',
             url:e.target.action,
             data:{
-                'csrfmiddlewaretoken':csrf[0].value,//hemise birinci bunu gonder sonra digerlerini,amma templatedede ehtiyat ucujn => {% csrf_token %} yaz
+                'csrfmiddlewaretoken':csrf[0].value,
                 'commentId':e.target.id
             },
-            success:function(response){//burda response yazmalisan cunki gonderilen sorgudan url e ordan bize cavab geri donur yeni response geri donur
+            success:function(response){
                 console.log('Success Send Like And Unlike Comment Url')
                 console.log(response.liked)
                 const like_unlike_btn = e.target
@@ -43,7 +43,6 @@ for(let i=0;i<commentLikeFormClass.length;i++){
                 }
             },
             error:function(err){
-                console.log('Hata')
                 console.log(err)
             }
         })

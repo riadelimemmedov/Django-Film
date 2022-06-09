@@ -126,7 +126,3 @@ class RelatedMovieModel(models.Model):
     
     def __str__(self):
         return self.title_relatedmovie
-    
-    
-#  <button id="fivePageId" dataFivePage="5">5 Movies</button><!-- eger form icersinde button yazirigsa ve butonun type deyeri mutleq sekilde submit olmalidir yeni => type="submit" -->
-#                                 <button id="tenPageId" dataTenPage="10">10 Movies</button>

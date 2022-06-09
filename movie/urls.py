@@ -12,5 +12,4 @@ urlpatterns = [
     path('movies/',allMoviesListView,name='allMoviesListView'),
     path('addtofavorite/',addToFavoriteListFilm,name='addToFavoriteListFilm'),
     path('ratefilm/',rateFilmView,name='rateFilmView')
-    #path('jsonver',jsonver,name='jsonver'),
 ]

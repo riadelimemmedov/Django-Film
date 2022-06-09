@@ -30,7 +30,7 @@
                 {% include "userinformation.html" %}
 
                 <div class="col-md-9 col-sm-12 col-xs-12">
-                    <div class="topbar-filter user"><!--burdada xeta var sayda js ile yaz => movies -->
+                    <div class="topbar-filter user">
                         <p>Found <span id="favFilmCount"> {{filmsFavs|length}} movies </span> in total</p>
                     </div>
 
@@ -48,12 +48,9 @@
                                         <button type="submit" style="border: 1px solid transparent;background-color: #DD003F !important;color: #fff !important;font-weight: 550;font-size: 14px">
                                             Remove
                                             <i class="ion-android-arrow-dropright"></i>
-                                            <!-- <input type="hidden" class="filmFavClass" name="filmFavName" value="{{filmsFav.id}}"> -->
                                             <span style="display: none;" class="filmsIds" data-favfilmId="{{filmsFav.id}}"></span>
                                         </button>
                                     </form>
-                                    <!-- ?xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
-                                    <!-- {% url 'movie:detailfilm' filmsFav.slug_movie %} -->
 
                                 </div>
                                 <div class="mv-item-infor">
@@ -67,7 +64,6 @@
                                     <h3 style="color:#e74c3c;margin-bottom: 20px;">You Don't Have A Favorite Movie</h3>
                                 </div>
                             {% endif %}
-                        <!-- ?burani js ile yaz innerHtml deyiseceksen ele bil veziyyete gore yeni burdaki h3 yazacagsan ele bil dicin innehtml icine -->
                         <div id="notFavFilm" style="display: none;">
                             <h3 style="color:#e74c3c;margin-bottom: 20px;">You Don't Have A Favorite Movie</h3>
                         </div>
@@ -86,8 +82,6 @@
 
                                 {% for i in filmsFavs.paginator.page_range %}
                                     {% if filmsFavs.number == i %}
-                                        <!-- <input type="hidden" id="currentIdPage" name="currentPage" value="{{i}}"> -->
-                                        <!--<span> Page: &nbsp;{{i}} of &nbsp;{{paginator.num_pages}}:</span> !Burani duzeltmek lazimdir -->
                                         <a class="active" href="">{{i}}</a>
                                     {% else %}
                                         <a href="?page={{i}}">{{i}}</a>

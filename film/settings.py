@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     'profiles',
     'contactadmin',
     'ratingmovie',
-    'post',
     'postblog'
 ]
 
@@ -164,7 +163,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')
 ]
 
-#ctrl+j => ile terminali acib baglaya bilirsen vs codda => ctrl+j ile yadda saxla
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
@@ -177,8 +175,6 @@ LOGIN_REDIRECT_URL = 'movie:home'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-#django-admin --version =>vasitesile djangonun versiyasini oyrenek olur
-#djangodaki list icindeki deyeri template gostermek ucun => i.0 yeni 0 inci indexdeki deyeri template yazfir formasinda istifade oluna biler, yadda saxla meselen => {{i.0}} django formatinda yazmagi unutma amma
 
 
 #filmenv\Scripts\activate
@@ -196,14 +192,3 @@ MESSAGE_TAGS = {
     messages.ERROR:'alert-danger'
 }
 
-#admin panel sifre ve ad => riad,riadsifre123321
-
-
-#en son user budur yuxardaki islemir => riadpy,123321 => bu hesab admin hesabidir
-#bu hesab ise adi bir hesabdir giris ucun yoxlayiram => tural,tural123321
-
-
-
-#elect multiple lines in vs code => CTRL+ALT+ARROW KEYS
-
-#{{ data.0 }} => seklinde indexleye bilersen templatede gelen datani viewden gelen datani yeni

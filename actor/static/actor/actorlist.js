@@ -88,14 +88,14 @@ const searchDataWithAjax = ()=>{
                         console.log('Reaksiya verdi SUCCESS');
                         loadingrelatedfilmloader.firstElementChild.style.display = 'block'
                         paginationpart.style.display = 'none'
-                        setTimeout(()=>{//setTimeOut 1500 yeni 1.5 saniye sonra isleyecek menasinda istifade olunur
+                        setTimeout(()=>{
                             const find_actor = response.find_actor
                             ////////////////////////////////////////////////////////////////
                             emptyvalueoferr.style.display='none'
                             loadingrelatedfilmloader.firstElementChild.style.display = 'none'
                             search_result_data_hide.innerHTML = ''
             
-                            if(find_actor == undefined || find_actor==null ){//!Burani duzelt html de deyisiklik elemelisen xeta var
+                            if(find_actor == undefined || find_actor==null ){
                                 notfounddata.style.display='block'
                                 notfounddata.innerHTML = `
                                     <div class="ui message" style="background-color:#f5f6fa;text-align:center !important;">
@@ -118,16 +118,14 @@ const searchDataWithAjax = ()=>{
                                 foundactorcount.firstElementChild.textContent = ''
                                 foundactorcount.firstElementChild.textContent = `${find_actor.length}` + 'celebrities'
                                 find_actor.forEach((actor)=>{
-                                    if(actor.duty_type_actor == 'Actorisa' && actor.gender_actor == 'F')//bu qadin bur aktyordur yeni => Actress dir
+                                    if(actor.duty_type_actor == 'Actorisa' && actor.gender_actor == 'F')
                                         actor.duty_type_actor = 'Actress'
                                     else if(actor.duty_type_actor == 'Actorisa' && actor.gender_actor == 'M'){
                                         actor.duty_type_actor = 'Actor'
                                     }
             
                                     let actorurl = window.location.href.substring(0,window.location.href.lastIndexOf('/')).concat(`/${actor.slug_actor}`)
-                                    console.log('gelen aktyorun url deyeri slug ile', actorurl)
             
-                                    //Bura if else if ve else qarismir sadece ordan gelen datani yazdirmag ucun istifade olunur
                                     search_result_data_hide.innerHTML += `
                                         <div class="col-md-12">
                                             <div class="ceb-item-style-2">
@@ -141,8 +139,6 @@ const searchDataWithAjax = ()=>{
                                                 </div>
                                             </div>
                                         </div>
-            
-            
                                     `
                                 })
                             }
